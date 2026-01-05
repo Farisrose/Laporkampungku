@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Laporkan masalah infrastruktur di lingkungan Anda - LaporKampungku">
+    <title>Laporkan Infrastruktur - LaporKampungku</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <script type="module" async src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Flaporkampu1233back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.12"></script>
+  <script type="module" defer src="https://static.rocket.new/rocket-shot.js?v=0.0.2"></script>
+  </head>
+<body class="bg-background">
+    <!-- Navigation Header -->
+    <header class="bg-white shadow-base sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="homepage.html" class="flex items-center gap-3">
+                    <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="8" fill="#2563EB"/>
+                        <path d="M20 10L28 16V28C28 28.5304 27.7893 29.0391 27.4142 29.4142C27.0391 29.7893 26.5304 30 26 30H14C13.4696 30 12.9609 29.7893 12.5858 29.4142C12.2107 29.0391 12 28.5304 12 28V16L20 10Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 30V20H24V30" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="text-xl font-headline font-bold text-primary">LaporKampungku</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="homepage.html" class="text-text-secondary hover:text-primary transition-base">Beranda</a>
+                    <a href="service_catalog.html" class="text-text-secondary hover:text-primary transition-base">Layanan</a>
+                    <a href="knowledge_center.html" class="text-text-secondary hover:text-primary transition-base">Pengetahuan</a>
+                    <a href="news_updates.html" class="text-text-secondary hover:text-primary transition-base">Berita</a>
+                    <a href="user_dashboard.html" class="btn btn-primary">Dashboard Saya</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 text-text-primary" aria-label="Toggle menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 border-t border-border-light pt-4">
+                <div class="flex flex-col gap-4">
+                    <a href="homepage.html" class="text-text-secondary hover:text-primary transition-base">Beranda</a>
+                    <a href="service_catalog.html" class="text-text-secondary hover:text-primary transition-base">Layanan</a>
+                    <a href="knowledge_center.html" class="text-text-secondary hover:text-primary transition-base">Pengetahuan</a>
+                    <a href="news_updates.html" class="text-text-secondary hover:text-primary transition-base">Berita</a>
+                    <a href="user_dashboard.html" class="btn btn-primary w-full">Dashboard Saya</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Progress Indicator -->
+    <section class="bg-white border-b border-border-light sticky top-[72px] z-40">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between max-w-4xl mx-auto">
+                <!-- Step 1 -->
+                <div class="flex items-center gap-3 flex-1">
+                    <div id="step1Indicator" class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-semibold transition-base">
+                        1
+                    </div>
+                    <div class="hidden sm:block">
+                        <div class="text-sm font-medium text-primary">Kategori</div>
+                        <div class="text-xs text-text-secondary">Pilih jenis masalah</div>
+                    </div>
+                </div>
+                <div class="w-12 h-0.5 bg-border-light mx-2"></div>
+
+                <!-- Step 2 -->
+                <div class="flex items-center gap-3 flex-1">
+                    <div id="step2Indicator" class="w-10 h-10 rounded-full bg-surface text-text-secondary flex items-center justify-center font-semibold transition-base">
+                        2
+                    </div>
+                    <div class="hidden sm:block">
+                        <div class="text-sm font-medium text-text-secondary">Lokasi</div>
+                        <div class="text-xs text-text-secondary">Tandai posisi</div>
+                    </div>
+                </div>
+                <div class="w-12 h-0.5 bg-border-light mx-2"></div>
+
+                <!-- Step 3 -->
+                <div class="flex items-center gap-3 flex-1">
+                    <div id="step3Indicator" class="w-10 h-10 rounded-full bg-surface text-text-secondary flex items-center justify-center font-semibold transition-base">
+                        3
+                    </div>
+                    <div class="hidden sm:block">
+                        <div class="text-sm font-medium text-text-secondary">Detail</div>
+                        <div class="text-xs text-text-secondary">Foto & deskripsi</div>
+                    </div>
+                </div>
+                <div class="w-12 h-0.5 bg-border-light mx-2"></div>
+
+                <!-- Step 4 -->
+                <div class="flex items-center gap-3 flex-1">
+                    <div id="step4Indicator" class="w-10 h-10 rounded-full bg-surface text-text-secondary flex items-center justify-center font-semibold transition-base">
+                        4
+                    </div>
+                    <div class="hidden sm:block">
+                        <div class="text-sm font-medium text-text-secondary">Konfirmasi</div>
+                        <div class="text-xs text-text-secondary">Tinjau laporan</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Form Container -->
+    <section class="py-8 md:py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <!-- Form Header -->
+                <div class="text-center mb-8 fade-in">
+                    <h1 class="text-3xl md:text-4xl font-headline font-bold text-text-primary mb-3">
+                        Laporkan Masalah Infrastruktur
+                    </h1>
+                    <p class="text-lg text-text-secondary">
+                        Bantu kami memperbaiki lingkungan dengan melaporkan masalah yang Anda temukan
+                    </p>
+                </div>
+
+                <!-- Multi-Step Form -->
+                <form id="reportForm" class="space-y-6">
+                    <!-- Step 1: Category Selection -->
+                    <div id="step1" class="card p-6 md:p-8 slide-up">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-headline font-semibold text-text-primary">Pilih Kategori Masalah</h2>
+                                <p class="text-sm text-text-secondary">Pilih jenis infrastruktur yang bermasalah</p>
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <!-- Road Category -->
+                            <label class="category-card cursor-pointer">
+                                <input type="radio" name="category" value="jalan" class="hidden category-input" required>
+                                <div class="card p-6 border-2 border-border hover:border-primary transition-base">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-text-primary mb-1">Jalan & Trotoar</h3>
+                                            <p class="text-sm text-text-secondary">Lubang, kerusakan aspal, trotoar rusak</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <!-- Drainage Category -->
+                            <label class="category-card cursor-pointer">
+                                <input type="radio" name="category" value="drainase" class="hidden category-input">
+                                <div class="card p-6 border-2 border-border hover:border-primary transition-base">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-12 h-12 bg-secondary-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                            <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-text-primary mb-1">Drainase & Saluran Air</h3>
+                                            <p class="text-sm text-text-secondary">Saluran tersumbat, banjir, got rusak</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <!-- Lighting Category -->
+                            <label class="category-card cursor-pointer">
+                                <input type="radio" name="category" value="penerangan" class="hidden category-input">
+                                <div class="card p-6 border-2 border-border hover:border-primary transition-base">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-12 h-12 bg-warning-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                            <svg class="w-6 h-6 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-text-primary mb-1">Penerangan Jalan</h3>
+                                            <p class="text-sm text-text-secondary">Lampu mati, rusak, redup</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <!-- Public Facilities Category -->
+                            <label class="category-card cursor-pointer">
+                                <input type="radio" name="category" value="fasilitas" class="hidden category-input">
+                                <div class="card p-6 border-2 border-border hover:border-primary transition-base">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-text-primary mb-1">Fasilitas Umum</h3>
+                                            <p class="text-sm text-text-secondary">Taman, bangku, tempat sampah rusak</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Priority Level -->
+                        <div class="mt-6">
+                            <label class="label">Tingkat Prioritas</label>
+                            <div class="grid grid-cols-3 gap-3">
+                                <label class="priority-card cursor-pointer">
+                                    <input type="radio" name="priority" value="rendah" class="hidden priority-input" required>
+                                    <div class="card p-4 border-2 border-border hover:border-success transition-base text-center">
+                                        <div class="w-3 h-3 rounded-full bg-success mx-auto mb-2"></div>
+                                        <div class="text-sm font-medium text-text-primary">Rendah</div>
+                                        <div class="text-xs text-text-secondary">Tidak mendesak</div>
+                                    </div>
+                                </label>
+                                <label class="priority-card cursor-pointer">
+                                    <input type="radio" name="priority" value="sedang" class="hidden priority-input">
+                                    <div class="card p-4 border-2 border-border hover:border-warning transition-base text-center">
+                                        <div class="w-3 h-3 rounded-full bg-warning mx-auto mb-2"></div>
+                                        <div class="text-sm font-medium text-text-primary">Sedang</div>
+                                        <div class="text-xs text-text-secondary">Perlu perhatian</div>
+                                    </div>
+                                </label>
+                                <label class="priority-card cursor-pointer">
+                                    <input type="radio" name="priority" value="tinggi" class="hidden priority-input">
+                                    <div class="card p-4 border-2 border-border hover:border-accent transition-base text-center">
+                                        <div class="w-3 h-3 rounded-full bg-accent mx-auto mb-2"></div>
+                                        <div class="text-sm font-medium text-text-primary">Tinggi</div>
+                                        <div class="text-xs text-text-secondary">Sangat mendesak</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end mt-6">
+                            <button type="button" id="nextStep1" class="btn btn-primary">
+                                Lanjutkan
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Location Selection -->
+                    <div id="step2" class="card p-6 md:p-8 hidden">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-headline font-semibold text-text-primary">Tandai Lokasi Masalah</h2>
+                                <p class="text-sm text-text-secondary">Klik pada peta atau gunakan lokasi saat ini</p>
+                            </div>
+                        </div>
+
+                        <!-- Location Detection -->
+                        <div class="mb-4">
+                            <button type="button" id="detectLocation" class="btn btn-secondary w-full sm:w-auto">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                </svg>
+                                Gunakan Lokasi Saat Ini
+                            </button>
+                        </div>
+
+                        <!-- Map Container -->
+                        <div class="mb-6">
+                            <div id="map" class="w-full h-96 rounded-lg border-2 border-border"></div>
+                            <p class="text-sm text-text-secondary mt-2">
+                                <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Klik pada peta untuk menandai lokasi masalah
+                            </p>
+                        </div>
+
+                        <!-- Address Input -->
+                        <div class="space-y-4">
+                            <div>
+                                <label class="label">Alamat Lengkap</label>
+                                <input type="text" id="address" name="address" class="input" placeholder="Contoh: Jl. Sudirman No. 123, Jakarta Pusat" required>
+                            </div>
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="label">Kelurahan</label>
+                                    <input type="text" id="kelurahan" name="kelurahan" class="input" placeholder="Nama kelurahan" required>
+                                </div>
+                                <div>
+                                    <label class="label">Kecamatan</label>
+                                    <input type="text" id="kecamatan" name="kecamatan" class="input" placeholder="Nama kecamatan" required>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="label">Koordinat (Otomatis terisi dari peta)</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input type="text" id="latitude" name="latitude" class="input" placeholder="Latitude" readonly>
+                                    <input type="text" id="longitude" name="longitude" class="input" placeholder="Longitude" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between mt-6">
+                            <button type="button" id="prevStep2" class="btn btn-outline">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"/>
+                                </svg>
+                                Kembali
+                            </button>
+                            <button type="button" id="nextStep2" class="btn btn-primary">
+                                Lanjutkan
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Details & Photos -->
+                    <div id="step3" class="card p-6 md:p-8 hidden">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-headline font-semibold text-text-primary">Detail Masalah</h2>
+                                <p class="text-sm text-text-secondary">Tambahkan foto dan deskripsi lengkap</p>
+                            </div>
+                        </div>
+
+                        <!-- Photo Upload -->
+                        <div class="mb-6">
+                            <label class="label">Foto Masalah (Maksimal 3 foto)</label>
+                            <div class="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary transition-base cursor-pointer" id="dropZone">
+                                <input type="file" id="photoInput" name="photos" accept="image/*" multiple class="hidden" max="3">
+                                <svg class="w-12 h-12 text-text-tertiary mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                                </svg>
+                                <p class="text-text-primary font-medium mb-1">Klik untuk upload atau drag & drop</p>
+                                <p class="text-sm text-text-secondary">PNG, JPG hingga 5MB per foto</p>
+                            </div>
+                            
+                            <!-- Photo Preview -->
+                            <div id="photoPreview" class="grid grid-cols-3 gap-4 mt-4 hidden"></div>
+                        </div>
+
+                        <!-- Voice Input Option -->
+                        <div class="mb-6">
+                            <label class="label">Deskripsi Masalah</label>
+                            <div class="relative">
+                                <textarea id="description" name="description" rows="5" class="input resize-none" placeholder="Jelaskan masalah yang Anda temukan secara detail..." required></textarea>
+                                <button type="button" id="voiceInput" class="absolute bottom-3 right-3 p-2 bg-primary-100 text-primary rounded-lg hover:bg-primary-200 transition-base" aria-label="Gunakan input suara">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p class="text-sm text-text-secondary mt-2">
+                                <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Semakin detail deskripsi Anda, semakin cepat masalah dapat ditangani
+                            </p>
+                        </div>
+
+                        <!-- Additional Information (Expandable) -->
+                        <div class="border border-border rounded-lg">
+                            <button type="button" id="toggleAdditional" class="w-full p-4 flex items-center justify-between text-left hover:bg-surface transition-base">
+                                <span class="font-medium text-text-primary">Informasi Tambahan (Opsional)</span>
+                                <svg id="toggleIcon" class="w-5 h-5 text-text-secondary transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div id="additionalInfo" class="hidden p-4 border-t border-border space-y-4">
+                                <div>
+                                    <label class="label">Perkiraan Ukuran Kerusakan</label>
+                                    <input type="text" name="size" class="input" placeholder="Contoh: 2 meter x 1 meter">
+                                </div>
+                                <div>
+                                    <label class="label">Sudah Berapa Lama?</label>
+                                    <select name="duration" class="input">
+                                        <option value="">Pilih durasi</option>
+                                        <option value="baru">Baru terjadi (< 1 minggu)</option>
+                                        <option value="1-4minggu">1-4 minggu</option>
+                                        <option value="1-3bulan">1-3 bulan</option>
+                                        <option value="lebih3bulan">Lebih dari 3 bulan</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="label">Dampak yang Dirasakan</label>
+                                    <textarea name="impact" rows="3" class="input resize-none" placeholder="Contoh: Menyebabkan kemacetan, berbahaya bagi pengendara motor"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between mt-6">
+                            <button type="button" id="prevStep3" class="btn btn-outline">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"/>
+                                </svg>
+                                Kembali
+                            </button>
+                            <div class="flex gap-3">
+                                <button type="button" id="saveDraft" class="btn btn-outline">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
+                                    </svg>
+                                    Simpan Draft
+                                </button>
+                                <button type="button" id="nextStep3" class="btn btn-primary">
+                                    Lanjutkan
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Review & Submit -->
+                    <div id="step4" class="card p-6 md:p-8 hidden">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-headline font-semibold text-text-primary">Tinjau Laporan Anda</h2>
+                                <p class="text-sm text-text-secondary">Pastikan semua informasi sudah benar</p>
+                            </div>
+                        </div>
+
+                        <!-- Review Summary -->
+                        <div class="space-y-6">
+                            <!-- Category & Priority -->
+                            <div class="border border-border rounded-lg p-4">
+                                <h3 class="font-semibold text-text-primary mb-3">Kategori & Prioritas</h3>
+                                <div class="grid sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <div class="text-sm text-text-secondary mb-1">Kategori</div>
+                                        <div id="reviewCategory" class="font-medium text-text-primary"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm text-text-secondary mb-1">Prioritas</div>
+                                        <div id="reviewPriority" class="font-medium text-text-primary"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Location -->
+                            <div class="border border-border rounded-lg p-4">
+                                <h3 class="font-semibold text-text-primary mb-3">Lokasi</h3>
+                                <div id="reviewLocation" class="text-text-primary"></div>
+                                <div id="reviewCoordinates" class="text-sm text-text-secondary mt-2"></div>
+                            </div>
+
+                            <!-- Photos -->
+                            <div class="border border-border rounded-lg p-4">
+                                <h3 class="font-semibold text-text-primary mb-3">Foto</h3>
+                                <div id="reviewPhotos" class="grid grid-cols-3 gap-3"></div>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="border border-border rounded-lg p-4">
+                                <h3 class="font-semibold text-text-primary mb-3">Deskripsi</h3>
+                                <div id="reviewDescription" class="text-text-primary whitespace-pre-wrap"></div>
+                            </div>
+
+                            <!-- Contact Information -->
+                            <div class="border border-border rounded-lg p-4">
+                                <h3 class="font-semibold text-text-primary mb-3">Informasi Kontak</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="label">Nama Lengkap</label>
+                                        <input type="text" name="reporter_name" class="input" placeholder="Nama Anda" required>
+                                    </div>
+                                    <div class="grid sm:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="label">Email</label>
+                                            <input type="email" name="reporter_email" class="input" placeholder="email@example.com" required>
+                                        </div>
+                                        <div>
+                                            <label class="label">Nomor Telepon</label>
+                                            <input type="tel" name="reporter_phone" class="input" placeholder="08xxxxxxxxxx" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Terms & Conditions -->
+                            <div class="border border-border rounded-lg p-4">
+                                <label class="flex items-start gap-3 cursor-pointer">
+                                    <input type="checkbox" name="terms" class="mt-1" required>
+                                    <span class="text-sm text-text-secondary">
+                                        Saya menyetujui bahwa informasi yang saya berikan adalah benar dan dapat digunakan oleh pemerintah untuk perbaikan infrastruktur. Saya juga memahami bahwa laporan palsu dapat dikenakan sanksi sesuai peraturan yang berlaku.
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between mt-6">
+                            <button type="button" id="prevStep4" class="btn btn-outline">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"/>
+                                </svg>
+                                Kembali
+                            </button>
+                            <button type="submit" id="submitReport" class="btn btn-primary">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                Kirim Laporan
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Success Modal (Hidden by default) -->
+                <div id="successModal" class="hidden fixed inset-0 bg-text-primary/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <div class="card max-w-md w-full p-8 text-center animate-fade-in">
+                        <div class="w-20 h-20 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-10 h-10 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-headline font-bold text-text-primary mb-3">Laporan Berhasil Dikirim!</h3>
+                        <p class="text-text-secondary mb-6">
+                            Terima kasih atas partisipasi Anda. Laporan Anda telah kami terima dan akan segera ditindaklanjuti.
+                        </p>
+                        <div class="bg-surface rounded-lg p-4 mb-6">
+                            <div class="text-sm text-text-secondary mb-1">Nomor Tracking</div>
+                            <div id="trackingNumber" class="text-2xl font-mono font-bold text-primary"></div>
+                        </div>
+                        <p class="text-sm text-text-secondary mb-6">
+                            Simpan nomor tracking ini untuk memantau progress penanganan masalah
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <a href="user_dashboard.html" class="btn btn-primary flex-1">
+                                Lihat Dashboard
+                            </a>
+                            <button type="button" id="closeModal" class="btn btn-outline flex-1">
+                                Tutup
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Help Section -->
+    <section class="py-12 bg-surface">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-headline font-bold text-text-primary mb-3">
+                        Butuh Bantuan?
+                    </h2>
+                    <p class="text-text-secondary">
+                        Lihat panduan pelaporan atau hubungi tim support kami
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- FAQ -->
+                    <a href="knowledge_center.html" class="card p-6 card-hover text-center">
+                        <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-text-primary mb-2">FAQ</h3>
+                        <p class="text-sm text-text-secondary">Pertanyaan yang sering diajukan</p>
+                    </a>
+
+                    <!-- Tutorial -->
+                    <a href="knowledge_center.html" class="card p-6 card-hover text-center">
+                        <div class="w-12 h-12 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-text-primary mb-2">Panduan</h3>
+                        <p class="text-sm text-text-secondary">Tutorial lengkap pelaporan</p>
+                    </a>
+
+                    <!-- Contact Support -->
+                    <a href="javascript:void(0)" class="card p-6 card-hover text-center">
+                        <div class="w-12 h-12 bg-accent-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-text-primary mb-2">Hubungi Kami</h3>
+                        <p class="text-sm text-text-secondary">Tim support siap membantu</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-text-primary text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <!-- Brand Column -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="8" fill="#2563EB"/>
+                            <path d="M20 10L28 16V28C28 28.5304 27.7893 29.0391 27.4142 29.4142C27.0391 29.7893 26.5304 30 26 30H14C13.4696 30 12.9609 29.7893 12.5858 29.4142C12.2107 29.0391 12 28.5304 12 28V16L20 10Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 30V20H24V30" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="text-xl font-headline font-bold">LaporKampungku</span>
+                    </div>
+                    <p class="text-sm opacity-80 mb-4">
+                        Platform pelaporan infrastruktur berbasis komunitas untuk pembangunan berkelanjutan.
+                    </p>
+                    <div class="flex gap-3">
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-base" aria-label="Facebook">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-base" aria-label="Twitter">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-base" aria-label="Instagram">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-headline font-semibold mb-4">Tautan Cepat</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="homepage.html" class="hover:opacity-100 transition-base">Beranda</a></li>
+                        <li><a href="service_catalog.html" class="hover:opacity-100 transition-base">Layanan</a></li>
+                        <li><a href="knowledge_center.html" class="hover:opacity-100 transition-base">Pengetahuan</a></li>
+                        <li><a href="news_updates.html" class="hover:opacity-100 transition-base">Berita</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="font-headline font-semibold mb-4">Dukungan</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="javascript:void(0)" class="hover:opacity-100 transition-base">Pusat Bantuan</a></li>
+                        <li><a href="javascript:void(0)" class="hover:opacity-100 transition-base">FAQ</a></li>
+                        <li><a href="javascript:void(0)" class="hover:opacity-100 transition-base">Hubungi Kami</a></li>
+                        <li><a href="javascript:void(0)" class="hover:opacity-100 transition-base">Kebijakan Privasi</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-headline font-semibold mb-4">Kontak</h4>
+                    <ul class="space-y-3 text-sm opacity-80">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <span>info@laporkampungku.id</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <span>+62 21 1234 5678</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span>Jakarta, Indonesia</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/10 pt-8 text-center text-sm opacity-80">
+                <p>© 2026 LaporKampungku. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Multi-Step Form Logic
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        // Step Navigation
+        function showStep(step) {
+            // Hide all steps
+            for (let i = 1; i <= totalSteps; i++) {
+                document.getElementById(`step${i}`).classList.add('hidden');
+                const indicator = document.getElementById(`step${i}Indicator`);
+                indicator.classList.remove('bg-primary', 'text-white');
+                indicator.classList.add('bg-surface', 'text-text-secondary');
+            }
+
+            // Show current step
+            document.getElementById(`step${step}`).classList.remove('hidden');
+            const currentIndicator = document.getElementById(`step${step}Indicator`);
+            currentIndicator.classList.remove('bg-surface', 'text-text-secondary');
+            currentIndicator.classList.add('bg-primary', 'text-white');
+
+            // Update progress line
+            for (let i = 1; i < step; i++) {
+                const indicator = document.getElementById(`step${i}Indicator`);
+                indicator.classList.remove('bg-surface', 'text-text-secondary');
+                indicator.classList.add('bg-secondary', 'text-white');
+            }
+
+            currentStep = step;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Category Selection
+        document.querySelectorAll('.category-input').forEach(input => {
+            input.addEventListener('change', function() {
+                document.querySelectorAll('.category-card .card').forEach(card => {
+                    card.classList.remove('border-primary', 'bg-primary-50');
+                    card.classList.add('border-border');
+                });
+                if (this.checked) {
+                    this.closest('.category-card').querySelector('.card').classList.remove('border-border');
+                    this.closest('.category-card').querySelector('.card').classList.add('border-primary', 'bg-primary-50');
+                }
+            });
+        });
+
+        // Priority Selection
+        document.querySelectorAll('.priority-input').forEach(input => {
+            input.addEventListener('change', function() {
+                document.querySelectorAll('.priority-card .card').forEach(card => {
+                    card.classList.remove('border-success', 'border-warning', 'border-accent', 'bg-success-50', 'bg-warning-50', 'bg-accent-50');
+                    card.classList.add('border-border');
+                });
+                if (this.checked) {
+                    const value = this.value;
+                    const card = this.closest('.priority-card').querySelector('.card');
+                    card.classList.remove('border-border');
+                    if (value === 'rendah') {
+                        card.classList.add('border-success', 'bg-success-50');
+                    } else if (value === 'sedang') {
+                        card.classList.add('border-warning', 'bg-warning-50');
+                    } else if (value === 'tinggi') {
+                        card.classList.add('border-accent', 'bg-accent-50');
+                    }
+                }
+            });
+        });
+
+        // Step 1 Navigation
+        document.getElementById('nextStep1').addEventListener('click', () => {
+            const category = document.querySelector('input[name="category"]:checked');
+            const priority = document.querySelector('input[name="priority"]:checked');
+            
+            if (!category || !priority) {
+                alert('Mohon pilih kategori dan prioritas masalah');
+                return;
+            }
+            showStep(2);
+        });
+
+        // Map Initialization
+        let map;
+        let marker;
+        let selectedLocation = null;
+
+        function initMap() {
+            // Default to Jakarta coordinates
+            map = L.map('map').setView([-6.2088, 106.8456], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            map.on('click', function(e) {
+                if (marker) {
+                    map.removeLayer(marker);
+                }
+                marker = L.marker(e.latlng).addTo(map);
+                selectedLocation = e.latlng;
+                document.getElementById('latitude').value = e.latlng.lat.toFixed(6);
+                document.getElementById('longitude').value = e.latlng.lng.toFixed(6);
+            });
+        }
+
+        // Detect Current Location
+        document.getElementById('detectLocation').addEventListener('click', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        
+                        if (marker) {
+                            map.removeLayer(marker);
+                        }
+                        
+                        map.setView([lat, lng], 16);
+                        marker = L.marker([lat, lng]).addTo(map);
+                        selectedLocation = { lat, lng };
+                        
+                        document.getElementById('latitude').value = lat.toFixed(6);
+                        document.getElementById('longitude').value = lng.toFixed(6);
+                    },
+                    (error) => {
+                        alert('Tidak dapat mendeteksi lokasi. Mohon aktifkan GPS atau pilih lokasi secara manual.');
+                    }
+                );
+            } else {
+                alert('Browser Anda tidak mendukung geolocation.');
+            }
+        });
+
+        // Step 2 Navigation
+        document.getElementById('prevStep2').addEventListener('click', () => showStep(1));
+        document.getElementById('nextStep2').addEventListener('click', () => {
+            const address = document.getElementById('address').value;
+            const kelurahan = document.getElementById('kelurahan').value;
+            const kecamatan = document.getElementById('kecamatan').value;
+            const latitude = document.getElementById('latitude').value;
+            const longitude = document.getElementById('longitude').value;
+
+            if (!address || !kelurahan || !kecamatan || !latitude || !longitude) {
+                alert('Mohon lengkapi semua informasi lokasi');
+                return;
+            }
+            showStep(3);
+        });
+
+        // Photo Upload
+        const dropZone = document.getElementById('dropZone');
+        const photoInput = document.getElementById('photoInput');
+        const photoPreview = document.getElementById('photoPreview');
+        let uploadedPhotos = [];
+
+        dropZone.addEventListener('click', () => photoInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-primary', 'bg-primary-50');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-primary', 'bg-primary-50');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-primary', 'bg-primary-50');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        photoInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            if (uploadedPhotos.length + files.length > 3) {
+                alert('Maksimal 3 foto');
+                return;
+            }
+
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        uploadedPhotos.push(e.target.result);
+                        displayPhotos();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        function displayPhotos() {
+            photoPreview.innerHTML = '';
+            photoPreview.classList.remove('hidden');
+            
+            uploadedPhotos.forEach((photo, index) => {
+                const div = document.createElement('div');
+                div.className = 'relative';
+                div.innerHTML = `
+                    <img src="${photo}" alt="Foto masalah infrastruktur ${index + 1}" class="w-full h-32 object-cover rounded-lg">
+                    <button type="button" onclick="removePhoto(${index})" class="absolute top-2 right-2 w-6 h-6 bg-accent text-white rounded-full flex items-center justify-center hover:bg-accent-700 transition-base">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                `;
+                photoPreview.appendChild(div);
+            });
+        }
+
+        function removePhoto(index) {
+            uploadedPhotos.splice(index, 1);
+            displayPhotos();
+            if (uploadedPhotos.length === 0) {
+                photoPreview.classList.add('hidden');
+            }
+        }
+
+        // Voice Input
+        document.getElementById('voiceInput').addEventListener('click', () => {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                const recognition = new SpeechRecognition();
+                recognition.lang = 'id-ID';
+                
+                recognition.onstart = () => {
+                    document.getElementById('voiceInput').classList.add('bg-accent', 'text-white');
+                };
+                
+                recognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    document.getElementById('description').value += transcript;
+                };
+                
+                recognition.onend = () => {
+                    document.getElementById('voiceInput').classList.remove('bg-accent', 'text-white');
+                };
+                
+                recognition.start();
+            } else {
+                alert('Browser Anda tidak mendukung voice input');
+            }
+        });
+
+        // Toggle Additional Info
+        document.getElementById('toggleAdditional').addEventListener('click', () => {
+            const additionalInfo = document.getElementById('additionalInfo');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            additionalInfo.classList.toggle('hidden');
+            toggleIcon.classList.toggle('rotate-180');
+        });
+
+        // Step 3 Navigation
+        document.getElementById('prevStep3').addEventListener('click', () => showStep(2));
+        
+        document.getElementById('saveDraft').addEventListener('click', () => {
+            const formData = new FormData(document.getElementById('reportForm'));
+            localStorage.setItem('reportDraft', JSON.stringify(Object.fromEntries(formData)));
+            alert('Draft berhasil disimpan!');
+        });
+
+        document.getElementById('nextStep3').addEventListener('click', () => {
+            const description = document.getElementById('description').value;
+            
+            if (!description) {
+                alert('Mohon isi deskripsi masalah');
+                return;
+            }
+            
+            if (uploadedPhotos.length === 0) {
+                if (!confirm('Anda belum mengunggah foto. Lanjutkan tanpa foto?')) {
+                    return;
+                }
+            }
+            
+            updateReview();
+            showStep(4);
+        });
+
+        // Update Review Summary
+        function updateReview() {
+            // Category
+            const category = document.querySelector('input[name="category"]:checked').value;
+            const categoryNames = {
+                'jalan': 'Jalan & Trotoar',
+                'drainase': 'Drainase & Saluran Air',
+                'penerangan': 'Penerangan Jalan',
+                'fasilitas': 'Fasilitas Umum'
+            };
+            document.getElementById('reviewCategory').textContent = categoryNames[category];
+
+            // Priority
+            const priority = document.querySelector('input[name="priority"]:checked').value;
+            const priorityNames = {
+                'rendah': 'Rendah',
+                'sedang': 'Sedang',
+                'tinggi': 'Tinggi'
+            };
+            const priorityColors = {
+                'rendah': 'text-success',
+                'sedang': 'text-warning',
+                'tinggi': 'text-accent'
+            };
+            const priorityEl = document.getElementById('reviewPriority');
+            priorityEl.textContent = priorityNames[priority];
+            priorityEl.className = `font-medium ${priorityColors[priority]}`;
+
+            // Location
+            const address = document.getElementById('address').value;
+            const kelurahan = document.getElementById('kelurahan').value;
+            const kecamatan = document.getElementById('kecamatan').value;
+            document.getElementById('reviewLocation').textContent = `${address}, Kelurahan ${kelurahan}, Kecamatan ${kecamatan}`;
+            
+            const latitude = document.getElementById('latitude').value;
+            const longitude = document.getElementById('longitude').value;
+            document.getElementById('reviewCoordinates').textContent = `Koordinat: ${latitude}, ${longitude}`;
+
+            // Photos
+            const photosContainer = document.getElementById('reviewPhotos');
+            photosContainer.innerHTML = '';
+            if (uploadedPhotos.length > 0) {
+                uploadedPhotos.forEach((photo, index) => {
+                    const img = document.createElement('img');
+                    img.src = photo;
+                    img.alt = `Foto masalah infrastruktur ${index + 1}`;
+                    img.className = 'w-full h-32 object-cover rounded-lg';
+                    photosContainer.appendChild(img);
+                });
+            } else {
+                photosContainer.innerHTML = '<p class="text-text-secondary text-sm">Tidak ada foto</p>';
+            }
+
+            // Description
+            document.getElementById('reviewDescription').textContent = document.getElementById('description').value;
+        }
+
+        // Step 4 Navigation
+        document.getElementById('prevStep4').addEventListener('click', () => showStep(3));
+
+        // Form Submission
+        document.getElementById('reportForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Generate tracking number
+            const trackingNumber = 'LK' + Date.now().toString().slice(-8);
+            document.getElementById('trackingNumber').textContent = trackingNumber;
+            
+            // Show success modal
+            document.getElementById('successModal').classList.remove('hidden');
+            
+            // Clear form
+            document.getElementById('reportForm').reset();
+            uploadedPhotos = [];
+            photoPreview.classList.add('hidden');
+            
+            // Clear draft
+            localStorage.removeItem('reportDraft');
+        });
+
+        // Close Modal
+        document.getElementById('closeModal').addEventListener('click', () => {
+            document.getElementById('successModal').classList.add('hidden');
+            showStep(1);
+        });
+
+        // Initialize map when step 2 is shown
+        setTimeout(() => {
+            initMap();
+        }, 500);
+
+        // Load draft if exists
+        window.addEventListener('load', () => {
+            const draft = localStorage.getItem('reportDraft');
+            if (draft && confirm('Anda memiliki draft laporan yang belum selesai. Lanjutkan?')) {
+                const data = JSON.parse(draft);
+                Object.keys(data).forEach(key => {
+                    const input = document.querySelector(`[name="${key}"]`);
+                    if (input) {
+                        if (input.type === 'radio') {
+                            document.querySelector(`[name="${key}"][value="${data[key]}"]`).checked = true;
+                        } else {
+                            input.value = data[key];
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

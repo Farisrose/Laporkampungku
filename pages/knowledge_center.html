@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pusat Pengetahuan LaporKampungku - Tutorial pemeliharaan infrastruktur, pendidikan sipil, dan sumber daya pemberdayaan masyarakat">
+    <title>Pusat Pengetahuan - LaporKampungku</title>
+    <link rel="stylesheet" href="../css/main.css">
+  
+  <script type="module" async src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Flaporkampu1233back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.12"></script>
+  <script type="module" defer src="https://static.rocket.new/rocket-shot.js?v=0.0.2"></script>
+  </head>
+<body class="bg-background">
+    <!-- Navigation Header -->
+    <header class="bg-white shadow-base sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="homepage.html" class="flex items-center gap-3">
+                    <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="8" fill="#2563EB"/>
+                        <path d="M20 10L28 16V28C28 28.5304 27.7893 29.0391 27.4142 29.4142C27.0391 29.7893 26.5304 30 26 30H14C13.4696 30 12.9609 29.7893 12.5858 29.4142C12.2107 29.0391 12 28.5304 12 28V16L20 10Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 30V20H24V30" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="text-xl font-headline font-bold text-primary">LaporKampungku</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="homepage.html" class="text-text-secondary hover:text-primary transition-base">Beranda</a>
+                    <a href="service_catalog.html" class="text-text-secondary hover:text-primary transition-base">Layanan</a>
+                    <a href="knowledge_center.html" class="text-primary font-medium">Pengetahuan</a>
+                    <a href="news_updates.html" class="text-text-secondary hover:text-primary transition-base">Berita</a>
+                    <a href="user_dashboard.html" class="btn btn-primary">Dashboard Saya</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 text-text-primary" aria-label="Toggle menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 border-t border-border-light pt-4">
+                <div class="flex flex-col gap-4">
+                    <a href="homepage.html" class="text-text-secondary hover:text-primary transition-base">Beranda</a>
+                    <a href="service_catalog.html" class="text-text-secondary hover:text-primary transition-base">Layanan</a>
+                    <a href="knowledge_center.html" class="text-primary font-medium">Pengetahuan</a>
+                    <a href="news_updates.html" class="text-text-secondary hover:text-primary transition-base">Berita</a>
+                    <a href="user_dashboard.html" class="btn btn-primary w-full">Dashboard Saya</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-primary-50 via-white to-secondary-50 overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+        </div>
+
+        <div class="container mx-auto px-4 py-16 md:py-20 relative">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="inline-flex items-center gap-2 bg-secondary-100 text-secondary-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                    </svg>
+                    <span>Pembelajaran Berkelanjutan</span>
+                </div>
+                
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-headline font-bold text-text-primary mb-6 leading-tight">
+                    Pusat Pengetahuan <span class="text-primary">Infrastruktur & Sipil</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-text-secondary mb-8 leading-relaxed">
+                    Pelajari cara merawat infrastruktur, memahami sistem kota, dan menjadi warga aktif yang memberdayakan komunitas
+                </p>
+
+                <!-- Search Bar -->
+                <div class="max-w-2xl mx-auto mb-8">
+                    <div class="relative">
+                        <input type="text" id="searchInput" placeholder="Cari tutorial, panduan, atau topik..." class="input pl-12 pr-4 text-lg">
+                        <svg class="w-6 h-6 text-text-tertiary absolute left-4 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-3 gap-6 max-w-2xl mx-auto">
+                    <div class="text-center stagger-item">
+                        <div class="text-3xl md:text-4xl font-bold text-primary mb-2">127</div>
+                        <div class="text-sm text-text-secondary">Tutorial Tersedia</div>
+                    </div>
+                    <div class="text-center stagger-item">
+                        <div class="text-3xl md:text-4xl font-bold text-secondary mb-2">8.4K</div>
+                        <div class="text-sm text-text-secondary">Pengguna Belajar</div>
+                    </div>
+                    <div class="text-center stagger-item">
+                        <div class="text-3xl md:text-4xl font-bold text-accent mb-2">4.8</div>
+                        <div class="text-sm text-text-secondary">Rating Rata-rata</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Navigation -->
+    <section class="py-8 bg-white border-b border-border-light sticky top-20 z-40">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                <button class="category-btn active whitespace-nowrap px-6 py-3 rounded-lg font-medium transition-base" data-category="all">
+                    Semua Kategori
+                </button>
+                <button class="category-btn whitespace-nowrap px-6 py-3 rounded-lg font-medium transition-base" data-category="maintenance">
+                    Pemeliharaan DIY
+                </button>
+                <button class="category-btn whitespace-nowrap px-6 py-3 rounded-lg font-medium transition-base" data-category="education">
+                    Pendidikan Infrastruktur
+                </button>
+                <button class="category-btn whitespace-nowrap px-6 py-3 rounded-lg font-medium transition-base" data-category="civic">
+                    Keterlibatan Sipil
+                </button>
+                <button class="category-btn whitespace-nowrap px-6 py-3 rounded-lg font-medium transition-base" data-category="sdg">
+                    SDG & Keberlanjutan
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Learning Path -->
+    <section class="py-16 bg-gradient-to-b from-white to-surface">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-headline font-bold text-text-primary mb-4">
+                    Jalur Pembelajaran Unggulan
+                </h2>
+                <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+                    Kurikulum terstruktur untuk membangun pengetahuan dari dasar hingga mahir
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Learning Path 1 -->
+                <div class="card overflow-hidden card-hover fade-in">
+                    <div class="relative h-48">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1b5804cd4-1767581332149.png" 
+                             alt="Warga belajar pemeliharaan infrastruktur dasar dengan peralatan sederhana" 
+                             class="w-full h-full object-cover"
+                             loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <div class="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
+                            Pemula
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="badge badge-primary">12 Tutorial</span>
+                            <span class="text-sm text-text-secondary">• 6 Jam</span>
+                        </div>
+                        <h3 class="text-xl font-headline font-semibold text-text-primary mb-3">
+                            Dasar Pemeliharaan Infrastruktur
+                        </h3>
+                        <p class="text-text-secondary mb-4">
+                            Pelajari teknik dasar merawat jalan, drainase, dan fasilitas umum di lingkungan Anda
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5 text-warning" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                                <span class="text-sm font-medium text-text-primary">4.9</span>
+                            </div>
+                            <a href="javascript:void(0)" class="text-primary font-medium hover:text-primary-700 transition-base">
+                                Mulai Belajar →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learning Path 2 -->
+                <div class="card overflow-hidden card-hover fade-in">
+                    <div class="relative h-48">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1411830ee-1766512888201.png" 
+                             alt="Kelompok warga mengikuti workshop organisasi komunitas dan advokasi" 
+                             class="w-full h-full object-cover"
+                             loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <div class="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-medium">
+                            Menengah
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="badge badge-success">18 Tutorial</span>
+                            <span class="text-sm text-text-secondary">• 10 Jam</span>
+                        </div>
+                        <h3 class="text-xl font-headline font-semibold text-text-primary mb-3">
+                            Organisasi Komunitas Efektif
+                        </h3>
+                        <p class="text-text-secondary mb-4">
+                            Kuasai teknik memobilisasi warga, fasilitasi pertemuan, dan advokasi kebijakan
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5 text-warning" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                                <span class="text-sm font-medium text-text-primary">4.7</span>
+                            </div>
+                            <a href="javascript:void(0)" class="text-primary font-medium hover:text-primary-700 transition-base">
+                                Mulai Belajar →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learning Path 3 -->
+                <div class="card overflow-hidden card-hover fade-in">
+                    <div class="relative h-48">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_13417e501-1765880852758.png" 
+                             alt="Presentasi tentang pembangunan berkelanjutan dan SDG Goal 11" 
+                             class="w-full h-full object-cover"
+                             loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <div class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">
+                            Lanjutan
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="badge badge-warning">15 Tutorial</span>
+                            <span class="text-sm text-text-secondary">• 8 Jam</span>
+                        </div>
+                        <h3 class="text-xl font-headline font-semibold text-text-primary mb-3">
+                            SDG & Pembangunan Berkelanjutan
+                        </h3>
+                        <p class="text-text-secondary mb-4">
+                            Pahami keterkaitan infrastruktur lokal dengan tujuan pembangunan global
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5 text-warning" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                                <span class="text-sm font-medium text-text-primary">4.8</span>
+                            </div>
+                            <a href="javascript:void(0)" class="text-primary font-medium hover:text-primary-700 transition-base">
+                                Mulai Belajar →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tutorial Library -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-headline font-bold text-text-primary mb-2">
+                        Perpustakaan Tutorial
+                    </h2>
+                    <p class="text-text-secondary">Jelajahi koleksi lengkap panduan praktis kami</p>
+                </div>
+                <div class="hidden md:flex items-center gap-3">
+                    <button class="btn btn-outline" id="filterBtn">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                        </svg>
+                        Filter
+                    </button>
+                    <button class="btn btn-ghost" id="resetBtn">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                        Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tutorial Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="tutorialGrid">
+                <!-- Tutorial Card 1 -->
+                <div class="card overflow-hidden card-hover tutorial-item" data-category="maintenance">
+                    <div class="relative h-48">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1c3fd9eaa-1767581328920.png" 
+                             alt="Tutorial perbaikan lubang kecil di jalan dengan bahan sederhana" 
+                             class="w-full h-full object-cover"
+                             loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-primary">
+                            Video Tutorial
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="badge badge-primary">Pemeliharaan DIY</span>
+                            <span class="text-sm text-text-secondary">• 15 menit</span>
+                        </div>
+                        <h3 class="text-lg font-headline font-semibold text-text-primary mb-2">
+                            Cara Menambal Lubang Jalan Kecil
+                        </h3>
+                        <p class="text-sm text-text-secondary mb-4">
+                            Panduan lengkap menambal lubang dengan bahan sederhana dan aman
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4 text-sm text-text-secondary">
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                        <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>2.4K</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-4 h-4 text-warning" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                    <span>4.9</span>
+                                </div>
+                            </div>
+                            <button class="text-primary hover:text-primary-700 transition-base" aria-label="Bookmark tutorial">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tutorial Card 2 -->
+                <div class="card overflow-hidden card-hover tutorial-item" data-category="maintenance">
+                    <div class="relative h-48">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1c8359159-1767581328090.png" 
+                             alt="Panduan membersihkan saluran drainase tersumbat dengan aman" 
+                             class="w-full h-full object-cover"
+                             loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-primary">
+                            Panduan PDF
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="badge badge-primary">Pemeliharaan DIY</span>
+                            <span class="text-sm text-text-secondary">• 20 menit</span>
+                        </div>
+                        <h3 class="text-lg font-headline font-semibold text-text-primary mb-2">
+                            Membersihkan Saluran Drainase
+                        </h3>
+                        <p class="text-sm text-text-secondary mb-4">
+                            Teknik aman membersihkan saluran tersumbat dan mencegah banjir
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4 text-sm text-text-secondary">
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                        <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>1.8K</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-4 h-4 text-warning" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                    <span>4.7</span>
+                                </div>
+                            </div>
+                            <button class="text-primary hover:text-primary-700 transition-base" aria-label="Bookmark tutorial">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tutorial Card 3 -->
+                <div class="card overflow-hidden card-hover tutorial-item" data-category="education">
+                    <div class="relative h-48">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_140f43397-1767581328654.png" 
+                             alt="Diagram sistem anggaran pemerintah untuk infrastruktur kota" 
+                             class="w-full h-full object-cover"
+                             loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-secondary">
+                            Artikel Interaktif
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="badge badge-success">Pendidikan Infrastruktur</span>
+                            <span class="text-sm text-text-secondary">• 25 menit</span>
+                        </div>
+                        <h3 class="text-lg font-headline font-semibold text-text-primary mb-2">
+                            Memahami Anggaran Infrastruktur
+                        </h3>
+                        <p class="text-sm text-text-secondary mb-4">
+                            Cara kerja sistem anggaran pemerintah untuk pembangunan kota
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4 text-sm text-text-secondary">
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                        <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>3.1K</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-4 h-4 text-warning" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                    <span>4.8</span>
+                                </div>
+                            </div>
+                            <button class="text-primary hover:text-primary-700 transition-base" aria-label="Bookmark tutorial">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tutorial Card 4 -->
+                <div class="card overflow-hidden card-hover tutorial-item" data-category="civic">
+                    <div class="relative h-48">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_10f02d064-1767581328986.png" 
+                             alt="Workshop fasilitasi pertemuan komunitas untuk pembahasan infrastruktur" 
+                             class="w-full h-full object-cover"
+                             loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-accent">
+                            Video Tutorial
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="badge badge-error">Keterlibatan Sipil</span>
+                            <span class="text-sm text-text-secondary">• 30 menit</span>
+                        </div>
+                        <h3 class="text-lg font-headline font-semibold text-text-primary mb-2">
+                            Teknik Fasilitasi Pertemuan Warga
+                        </h3>
+                        <p class="text-sm text-text-secondary mb-4">
+                            Panduan memimpin diskusi produktif dan inklusif di komunitas
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4 text-sm text-text-secondary">
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                        <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>1.5K</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-4 h-4 text-warning" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                    <span>4.6</span>
+                                </div>
+                            </div>
+                            <button class="text-primary hover:text-primary-700 transition-base" aria-label="Bookmark tutorial">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tutorial Card 5 -->
+                <div class="card overflow-hidden card-hover tutorial-item" data-category="sdg">
+                    <div class="relative h-48">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_14a45367d-1767581329125.png" 
+                             alt="Infografis SDG Goal 11 tentang kota dan komunitas berkelanjutan" 
+                             class="w-full h-full object-cover"
+                             loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-warning">
+                            Panduan PDF
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="badge badge-warning">SDG & Keberlanjutan</span>
+                            <span class="text-sm text-text-secondary">• 18 menit</span>
+                        </div>
+                        <h3 class="text-lg font-headline font-semibold text-text-primary mb-2">
+                            Pengantar SDG Goal 11
+                        </h3>
+                        <p class="text-sm text-text-secondary mb-4">
+                            Memahami keterkaitan infrastruktur lokal dengan tujuan global
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4 text-sm text-text-secondary">
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                        <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>2.7K</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-4 h-4 text-warning" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                    <span>4.9</span>
+                                </div>
+                            </div>
+                            <button class="text-primary hover:text-primary-700 transition-base" aria-label="Bookmark tutorial">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tutorial Card 6 -->
+                <div class="card overflow-hidden card-hover tutorial-item" data-category="civic">
+                    <div class="relative h-48">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1a5d1719e-1767581327414.png" 
+                             alt="Panduan advokasi kebijakan infrastruktur kepada pemerintah daerah" 
+                             class="w-full h-full object-cover"
+                             loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium text-accent">
+                            Artikel Interaktif
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="badge badge-error">Keterlibatan Sipil</span>
+                            <span class="text-sm text-text-secondary">• 22 menit</span>
+                        </div>
+                        <h3 class="text-lg font-headline font-semibold text-text-primary mb-2">
+                            Strategi Advokasi Kebijakan
+                        </h3>
+                        <p class="text-sm text-text-secondary mb-4">
+                            Cara efektif menyampaikan aspirasi kepada pemerintah daerah
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4 text-sm text-text-secondary">
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                        <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>1.9K</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-4 h-4 text-warning" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                    <span>4.7</span>
+                                </div>
+                            </div>
+                            <button class="text-primary hover:text-primary-700 transition-base" aria-label="Bookmark tutorial">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-12">
+                <button class="btn btn-outline text-lg px-8 py-4">
+                    Muat Lebih Banyak Tutorial
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Contributions -->
+    <section class="py-16 bg-gradient-to-b from-surface to-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-headline font-bold text-text-primary mb-4">
+                    Kontribusi Komunitas
+                </h2>
+                <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+                    Warga berbagi pengalaman dan tips sukses pemeliharaan infrastruktur
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Community Post 1 -->
+                <div class="card p-6 card-hover">
+                    <div class="flex items-start gap-4 mb-4">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_11b92e74f-1763292578074.png" 
+                             alt="Foto profil Ahmad Rizki, kontributor komunitas" 
+                             class="w-12 h-12 rounded-full object-cover"
+                             loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-2">
+                                <div>
+                                    <h4 class="font-headline font-semibold text-text-primary">Ahmad Rizki</h4>
+                                    <p class="text-sm text-text-secondary">Warga Menteng • 2 hari lalu</p>
+                                </div>
+                                <span class="badge badge-success">Terverifikasi</span>
+                            </div>
+                            <h3 class="text-lg font-headline font-semibold text-text-primary mb-2">
+                                Tips Merawat Taman Lingkungan
+                            </h3>
+                            <p class="text-text-secondary mb-4">
+                                Kami berhasil merevitalisasi taman RW dengan gotong royong. Kuncinya adalah jadwal rutin dan pembagian tugas yang jelas...
+                            </p>
+                            <div class="flex items-center gap-4 text-sm text-text-secondary">
+                                <button class="flex items-center gap-1 hover:text-primary transition-base">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
+                                    </svg>
+                                    <span>47</span>
+                                </button>
+                                <button class="flex items-center gap-1 hover:text-primary transition-base">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                    </svg>
+                                    <span>12</span>
+                                </button>
+                                <button class="flex items-center gap-1 hover:text-primary transition-base">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                                    </svg>
+                                    <span>Bagikan</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Post 2 -->
+                <div class="card p-6 card-hover">
+                    <div class="flex items-start gap-4 mb-4">
+                        <img src="https://img.rocket.new/generatedImages/rocket_gen_img_171277025-1763299246820.png" 
+                             alt="Foto profil Siti Nurhaliza, kontributor komunitas" 
+                             class="w-12 h-12 rounded-full object-cover"
+                             loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-2">
+                                <div>
+                                    <h4 class="font-headline font-semibold text-text-primary">Siti Nurhaliza</h4>
+                                    <p class="text-sm text-text-secondary">Warga Kebayoran • 5 hari lalu</p>
+                                </div>
+                                <span class="badge badge-success">Terverifikasi</span>
+                            </div>
+                            <h3 class="text-lg font-headline font-semibold text-text-primary mb-2">
+                                Solusi Kreatif Drainase Tersumbat
+                            </h3>
+                            <p class="text-text-secondary mb-4">
+                                Berbagi pengalaman mengatasi saluran tersumbat dengan metode sederhana dan ramah lingkungan. Hasilnya sangat efektif...
+                            </p>
+                            <div class="flex items-center gap-4 text-sm text-text-secondary">
+                                <button class="flex items-center gap-1 hover:text-primary transition-base">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
+                                    </svg>
+                                    <span>63</span>
+                                </button>
+                                <button class="flex items-center gap-1 hover:text-primary transition-base">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                    </svg>
+                                    <span>18</span>
+                                </button>
+                                <button class="flex items-center gap-1 hover:text-primary transition-base">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                                    </svg>
+                                    <span>Bagikan</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <a href="javascript:void(0)" class="btn btn-primary">
+                    Bagikan Pengalaman Anda
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievement System -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-headline font-bold text-text-primary mb-4">
+                        Sistem Pencapaian & Sertifikat
+                    </h2>
+                    <p class="text-lg text-text-secondary">
+                        Dapatkan pengakuan atas pembelajaran dan kontribusi Anda
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Achievement Badge 1 -->
+                    <div class="card p-6 text-center card-hover">
+                        <div class="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-10 h-10 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-headline font-semibold text-text-primary mb-2">
+                            Pemula Bersemangat
+                        </h3>
+                        <p class="text-sm text-text-secondary mb-4">
+                            Selesaikan 5 tutorial pertama
+                        </p>
+                        <div class="w-full bg-surface rounded-full h-2 mb-2">
+                            <div class="bg-primary h-2 rounded-full" style="width: 60%"></div>
+                        </div>
+                        <p class="text-xs text-text-secondary">3 dari 5 tutorial</p>
+                    </div>
+
+                    <!-- Achievement Badge 2 -->
+                    <div class="card p-6 text-center card-hover">
+                        <div class="w-20 h-20 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-10 h-10 text-secondary" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-headline font-semibold text-text-primary mb-2">
+                            Ahli Pemeliharaan
+                        </h3>
+                        <p class="text-sm text-text-secondary mb-4">
+                            Selesaikan jalur pembelajaran pemeliharaan
+                        </p>
+                        <div class="w-full bg-surface rounded-full h-2 mb-2">
+                            <div class="bg-secondary h-2 rounded-full" style="width: 100%"></div>
+                        </div>
+                        <p class="text-xs text-secondary font-medium">Selesai! 🎉</p>
+                    </div>
+
+                    <!-- Achievement Badge 3 -->
+                    <div class="card p-6 text-center card-hover">
+                        <div class="w-20 h-20 bg-accent-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-10 h-10 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-headline font-semibold text-text-primary mb-2">
+                            Pemimpin Komunitas
+                        </h3>
+                        <p class="text-sm text-text-secondary mb-4">
+                            Bagikan 10 kontribusi bermanfaat
+                        </p>
+                        <div class="w-full bg-surface rounded-full h-2 mb-2">
+                            <div class="bg-accent h-2 rounded-full" style="width: 40%"></div>
+                        </div>
+                        <p class="text-xs text-text-secondary">4 dari 10 kontribusi</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                    <a href="user_dashboard.html" class="btn btn-outline text-lg px-8 py-4">
+                        Lihat Semua Pencapaian Saya
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 md:py-24 bg-gradient-to-br from-primary to-primary-700 text-white relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="cta-pattern" width="60" height="60" patternUnits="userSpaceOnUse">
+                        <circle cx="30" cy="30" r="2" fill="currentColor"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#cta-pattern)" />
+            </svg>
+        </div>
+
+        <div class="container mx-auto px-4 relative">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-headline font-bold mb-6">
+                    Mulai Perjalanan Pembelajaran Anda
+                </h2>
+                <p class="text-xl mb-8 opacity-90">
+                    Bergabunglah dengan ribuan warga yang telah meningkatkan pengetahuan dan memberdayakan komunitas mereka
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="user_dashboard.html" class="btn bg-white text-primary hover:bg-surface text-lg px-8 py-4">
+                        Daftar Sekarang
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </a>
+                    <a href="service_catalog.html" class="btn btn-ghost border-2 border-white text-white hover:bg-white/10 text-lg px-8 py-4">
+                        Jelajahi Layanan
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-text-primary text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <!-- Brand Column -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="8" fill="#2563EB"/>
+                            <path d="M20 10L28 16V28C28 28.5304 27.7893 29.0391 27.4142 29.4142C27.0391 29.7893 26.5304 30 26 30H14C13.4696 30 12.9609 29.7893 12.5858 29.4142C12.2107 29.0391 12 28.5304 12 28V16L20 10Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 30V20H24V30" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="text-xl font-headline font-bold">LaporKampungku</span>
+                    </div>
+                    <p class="text-sm opacity-80 mb-4">
+                        Platform pelaporan infrastruktur berbasis komunitas untuk pembangunan berkelanjutan.
+                    </p>
+                    <div class="flex gap-3">
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-base" aria-label="Facebook">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-base" aria-label="Twitter">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-base" aria-label="Instagram">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-headline font-semibold mb-4">Tautan Cepat</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="homepage.html" class="hover:opacity-100 transition-base">Beranda</a></li>
+                        <li><a href="service_catalog.html" class="hover:opacity-100 transition-base">Layanan</a></li>
+                        <li><a href="knowledge_center.html" class="hover:opacity-100 transition-base">Pengetahuan</a></li>
+                        <li><a href="news_updates.html" class="hover:opacity-100 transition-base">Berita</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="font-headline font-semibold mb-4">Dukungan</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="javascript:void(0)" class="hover:opacity-100 transition-base">Pusat Bantuan</a></li>
+                        <li><a href="javascript:void(0)" class="hover:opacity-100 transition-base">FAQ</a></li>
+                        <li><a href="javascript:void(0)" class="hover:opacity-100 transition-base">Hubungi Kami</a></li>
+                        <li><a href="javascript:void(0)" class="hover:opacity-100 transition-base">Kebijakan Privasi</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-headline font-semibold mb-4">Kontak</h4>
+                    <ul class="space-y-3 text-sm opacity-80">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <span>info@laporkampungku.id</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <span>+62 21 1234 5678</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span>Jakarta, Indonesia</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/10 pt-8 text-center text-sm opacity-80">
+                <p>© 2026 LaporKampungku. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <a href="report_infrastructure.html" class="fixed bottom-6 right-6 w-16 h-16 bg-accent text-white rounded-full shadow-xl flex items-center justify-center hover:bg-accent-700 transition-base z-50 group" aria-label="Buat laporan baru">
+        <svg class="w-8 h-8 group-hover:scale-110 transition-base" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+    </a>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Category Filter
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const tutorialItems = document.querySelectorAll('.tutorial-item');
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                categoryBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-primary', 'text-white');
+                    b.classList.add('text-text-secondary', 'hover:bg-surface');
+                });
+                btn.classList.add('active', 'bg-primary', 'text-white');
+                btn.classList.remove('text-text-secondary', 'hover:bg-surface');
+
+                // Filter tutorials
+                const category = btn.dataset.category;
+                tutorialItems.forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            tutorialItems.forEach(item => {
+                const title = item.querySelector('h3').textContent.toLowerCase();
+                const description = item.querySelector('p').textContent.toLowerCase();
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Filter and Reset Buttons
+        const filterBtn = document.getElementById('filterBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        resetBtn.addEventListener('click', () => {
+            // Reset category filter
+            categoryBtns.forEach(b => {
+                b.classList.remove('active', 'bg-primary', 'text-white');
+                b.classList.add('text-text-secondary', 'hover:bg-surface');
+            });
+            categoryBtns[0].classList.add('active', 'bg-primary', 'text-white');
+            categoryBtns[0].classList.remove('text-text-secondary', 'hover:bg-surface');
+
+            // Show all tutorials
+            tutorialItems.forEach(item => {
+                item.style.display = 'block';
+            });
+
+            // Clear search
+            searchInput.value = '';
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .stagger-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Initialize active category button
+        categoryBtns[0].classList.add('bg-primary', 'text-white');
+        categoryBtns[0].classList.remove('text-text-secondary');
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

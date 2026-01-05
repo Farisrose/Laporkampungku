@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Berita terkini, pengumuman pemerintah, dan cerita sukses pembangunan infrastruktur dari LaporKampungku">
+    <title>Berita & Pembaruan - LaporKampungku</title>
+    <link rel="stylesheet" href="../css/main.css">
+  
+  <script type="module" async src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Flaporkampu1233back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.12"></script>
+  <script type="module" defer src="https://static.rocket.new/rocket-shot.js?v=0.0.2"></script>
+  </head>
+<body class="bg-background">
+    <!-- Navigation Header -->
+    <header class="bg-white shadow-base sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="homepage.html" class="flex items-center gap-3">
+                    <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="8" fill="#2563EB"/>
+                        <path d="M20 10L28 16V28C28 28.5304 27.7893 29.0391 27.4142 29.4142C27.0391 29.7893 26.5304 30 26 30H14C13.4696 30 12.9609 29.7893 12.5858 29.4142C12.2107 29.0391 12 28.5304 12 28V16L20 10Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 30V20H24V30" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="text-xl font-headline font-bold text-primary">LaporKampungku</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="homepage.html" class="text-text-secondary hover:text-primary transition-base">Beranda</a>
+                    <a href="service_catalog.html" class="text-text-secondary hover:text-primary transition-base">Layanan</a>
+                    <a href="knowledge_center.html" class="text-text-secondary hover:text-primary transition-base">Pengetahuan</a>
+                    <a href="news_updates.html" class="text-primary font-medium">Berita</a>
+                    <a href="user_dashboard.html" class="btn btn-primary">Dashboard Saya</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 text-text-primary" aria-label="Toggle menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 border-t border-border-light pt-4">
+                <div class="flex flex-col gap-4">
+                    <a href="homepage.html" class="text-text-secondary hover:text-primary transition-base">Beranda</a>
+                    <a href="service_catalog.html" class="text-text-secondary hover:text-primary transition-base">Layanan</a>
+                    <a href="knowledge_center.html" class="text-text-secondary hover:text-primary transition-base">Pengetahuan</a>
+                    <a href="news_updates.html" class="text-primary font-medium">Berita</a>
+                    <a href="user_dashboard.html" class="btn btn-primary w-full">Dashboard Saya</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-primary-50 via-white to-secondary-50 py-16 md:py-20 overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="news-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#news-grid)" />
+            </svg>
+        </div>
+
+        <div class="container mx-auto px-4 relative">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>Diperbarui Setiap Hari</span>
+                </div>
+                
+                <h1 class="text-4xl md:text-5xl font-headline font-bold text-text-primary mb-6 leading-tight">
+                    Berita & Pembaruan <span class="text-primary">Terkini</span>
+                </h1>
+                
+                <p class="text-lg text-text-secondary mb-8 leading-relaxed">
+                    Tetap terinformasi tentang pengumuman pemerintah, cerita sukses komunitas, dan perkembangan infrastruktur di lingkungan Anda
+                </p>
+
+                <!-- Search & Filter Bar -->
+                <div class="max-w-2xl mx-auto">
+                    <div class="card p-2 flex flex-col sm:flex-row gap-2">
+                        <div class="flex-1 relative">
+                            <svg class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                            <input type="text" id="searchInput" placeholder="Cari berita, pengumuman, atau topik..." class="w-full pl-10 pr-4 py-3 rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        <button id="filterBtn" class="btn btn-outline flex items-center gap-2 whitespace-nowrap">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                            </svg>
+                            Filter
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Panel (Hidden by default) -->
+    <div id="filterPanel" class="hidden bg-white border-b border-border-light">
+        <div class="container mx-auto px-4 py-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-headline font-semibold text-text-primary">Filter Berita</h3>
+                    <button id="resetFilter" class="text-sm text-primary hover:text-primary-700 transition-base">Reset Filter</button>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-4">
+                    <!-- Category Filter -->
+                    <div>
+                        <label class="label">Kategori</label>
+                        <select class="input">
+                            <option value="">Semua Kategori</option>
+                            <option value="announcement">Pengumuman</option>
+                            <option value="success">Cerita Sukses</option>
+                            <option value="policy">Kebijakan</option>
+                            <option value="community">Komunitas</option>
+                        </select>
+                    </div>
+
+                    <!-- Location Filter -->
+                    <div>
+                        <label class="label">Lokasi</label>
+                        <select class="input">
+                            <option value="">Semua Lokasi</option>
+                            <option value="jakarta">Jakarta</option>
+                            <option value="surabaya">Surabaya</option>
+                            <option value="bandung">Bandung</option>
+                            <option value="medan">Medan</option>
+                        </select>
+                    </div>
+
+                    <!-- Date Filter -->
+                    <div>
+                        <label class="label">Periode</label>
+                        <select class="input">
+                            <option value="all">Semua Waktu</option>
+                            <option value="today">Hari Ini</option>
+                            <option value="week">Minggu Ini</option>
+                            <option value="month">Bulan Ini</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured News Section -->
+    <section class="py-12 md:py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-2xl md:text-3xl font-headline font-bold text-text-primary">Berita Utama</h2>
+                    <button class="text-primary hover:text-primary-700 transition-base flex items-center gap-2">
+                        <span class="text-sm font-medium">Lihat Semua</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Featured Article -->
+                <div class="card overflow-hidden card-hover mb-8 fade-in">
+                    <div class="grid md:grid-cols-2 gap-0">
+                        <div class="relative h-64 md:h-auto">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1b89009d5-1764850339834.png" 
+                                 alt="Pekerja konstruksi sedang memperbaiki jalan dengan aspal baru di Jakarta Pusat" 
+                                 class="w-full h-full object-cover"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                            <div class="absolute top-4 left-4">
+                                <span class="badge badge-error">Pengumuman Penting</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="text-sm text-text-secondary">5 Januari 2026</span>
+                                <span class="text-text-tertiary">•</span>
+                                <span class="text-sm text-text-secondary">Jakarta Pusat</span>
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-headline font-bold text-text-primary mb-4">
+                                Program Perbaikan Jalan Massal Dimulai Minggu Depan
+                            </h3>
+                            <p class="text-text-secondary mb-6 leading-relaxed">
+                                Pemerintah DKI Jakarta mengumumkan dimulainya program perbaikan jalan massal yang akan mencakup 150 titik di seluruh Jakarta. Program ini merupakan respons langsung dari laporan warga melalui LaporKampungku dengan total anggaran Rp 45 miliar.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://img.rocket.new/generatedImages/rocket_gen_img_135a5328c-1763300182543.png" 
+                                         alt="Foto profil Gubernur DKI Jakarta" 
+                                         class="w-10 h-10 rounded-full object-cover"
+                                         loading="lazy"
+                                         onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                                    <div>
+                                        <div class="text-sm font-medium text-text-primary">Dinas PUPR DKI</div>
+                                        <div class="text-xs text-text-secondary">Pemerintah Resmi</div>
+                                    </div>
+                                </div>
+                                <a href="javascript:void(0)" class="btn btn-primary">
+                                    Baca Selengkapnya
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secondary Featured Articles -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="card overflow-hidden card-hover stagger-item">
+                        <div class="relative h-48">
+                            <img src="https://images.unsplash.com/photo-1478915765319-04e68e890018" 
+                                 alt="Taman kota yang baru direnovasi dengan area hijau dan fasilitas bermain anak" 
+                                 class="w-full h-full object-cover"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                            <div class="absolute top-4 left-4">
+                                <span class="badge badge-success">Cerita Sukses</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="text-sm text-text-secondary">4 Januari 2026</span>
+                                <span class="text-text-tertiary">•</span>
+                                <span class="text-sm text-text-secondary">Surabaya</span>
+                            </div>
+                            <h3 class="text-xl font-headline font-semibold text-text-primary mb-3">
+                                Taman RW 05 Kini Jadi Ruang Publik Favorit
+                            </h3>
+                            <p class="text-text-secondary mb-4 text-sm leading-relaxed">
+                                Berkat laporan warga dan gotong royong komunitas, taman yang dulunya terbengkalai kini menjadi ruang publik hijau yang nyaman untuk keluarga.
+                            </p>
+                            <a href="javascript:void(0)" class="text-primary hover:text-primary-700 transition-base text-sm font-medium flex items-center gap-2">
+                                Baca Cerita Lengkap
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card overflow-hidden card-hover stagger-item">
+                        <div class="relative h-48">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_16ff075e0-1765296930593.png" 
+                                 alt="Pertemuan warga dengan pejabat pemerintah membahas kebijakan infrastruktur" 
+                                 class="w-full h-full object-cover"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                            <div class="absolute top-4 left-4">
+                                <span class="badge badge-primary">Kebijakan Baru</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="text-sm text-text-secondary">3 Januari 2026</span>
+                                <span class="text-text-tertiary">•</span>
+                                <span class="text-sm text-text-secondary">Nasional</span>
+                            </div>
+                            <h3 class="text-xl font-headline font-semibold text-text-primary mb-3">
+                                Kebijakan Baru: Respons Maksimal 48 Jam
+                            </h3>
+                            <p class="text-text-secondary mb-4 text-sm leading-relaxed">
+                                Pemerintah menetapkan standar baru untuk respons laporan infrastruktur prioritas tinggi harus ditanggapi dalam 48 jam.
+                            </p>
+                            <a href="javascript:void(0)" class="text-primary hover:text-primary-700 transition-base text-sm font-medium flex items-center gap-2">
+                                Pelajari Kebijakan
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest News Grid -->
+    <section class="py-12 md:py-16 bg-surface">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-2xl md:text-3xl font-headline font-bold text-text-primary mb-8">Berita Terbaru</h2>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- News Card 1 -->
+                    <article class="card overflow-hidden card-hover fade-in">
+                        <div class="relative h-48">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1b314d2ce-1767581327595.png" 
+                                 alt="Lampu jalan LED baru yang dipasang di sepanjang jalan protokol" 
+                                 class="w-full h-full object-cover"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                            <div class="absolute top-3 left-3">
+                                <span class="badge bg-white text-text-primary text-xs">Infrastruktur</span>
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center gap-2 mb-3">
+                                <svg class="w-4 h-4 text-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-sm text-text-secondary">2 Januari 2026</span>
+                            </div>
+                            <h3 class="text-lg font-headline font-semibold text-text-primary mb-2 line-clamp-2">
+                                Pemasangan 500 Lampu Jalan LED Hemat Energi
+                            </h3>
+                            <p class="text-sm text-text-secondary mb-4 line-clamp-3">
+                                Program penggantian lampu jalan konvensional dengan LED hemat energi mencakup 15 kelurahan di Jakarta Selatan.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                    <span class="text-xs text-text-secondary">Jakarta Selatan</span>
+                                </div>
+                                <button class="text-primary hover:text-primary-700 transition-base" aria-label="Bookmark artikel">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- News Card 2 -->
+                    <article class="card overflow-hidden card-hover fade-in">
+                        <div class="relative h-48">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1d1477987-1767178647721.png" 
+                                 alt="Warga komunitas berkumpul dalam acara gotong royong membersihkan lingkungan" 
+                                 class="w-full h-full object-cover"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                            <div class="absolute top-3 left-3">
+                                <span class="badge bg-white text-text-primary text-xs">Komunitas</span>
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center gap-2 mb-3">
+                                <svg class="w-4 h-4 text-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-sm text-text-secondary">1 Januari 2026</span>
+                            </div>
+                            <h3 class="text-lg font-headline font-semibold text-text-primary mb-2 line-clamp-2">
+                                Penghargaan untuk 10 Warga Paling Aktif
+                            </h3>
+                            <p class="text-sm text-text-secondary mb-4 line-clamp-3">
+                                Pemkot Bandung memberikan apresiasi kepada warga yang konsisten melaporkan dan membantu perbaikan infrastruktur.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                    <span class="text-xs text-text-secondary">Bandung</span>
+                                </div>
+                                <button class="text-primary hover:text-primary-700 transition-base" aria-label="Bookmark artikel">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- News Card 3 -->
+                    <article class="card overflow-hidden card-hover fade-in">
+                        <div class="relative h-48">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_13bb2026e-1767581327249.png" 
+                                 alt="Sistem drainase baru yang sedang dibangun untuk mencegah banjir" 
+                                 class="w-full h-full object-cover"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                            <div class="absolute top-3 left-3">
+                                <span class="badge bg-white text-text-primary text-xs">Proyek</span>
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center gap-2 mb-3">
+                                <svg class="w-4 h-4 text-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-sm text-text-secondary">30 Desember 2025</span>
+                            </div>
+                            <h3 class="text-lg font-headline font-semibold text-text-primary mb-2 line-clamp-2">
+                                Proyek Drainase Rp 20M Dimulai Februari
+                            </h3>
+                            <p class="text-sm text-text-secondary mb-4 line-clamp-3">
+                                Pembangunan sistem drainase modern untuk mengatasi masalah banjir di 8 kelurahan akan dimulai bulan depan.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                    <span class="text-xs text-text-secondary">Surabaya</span>
+                                </div>
+                                <button class="text-primary hover:text-primary-700 transition-base" aria-label="Bookmark artikel">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- News Card 4 -->
+                    <article class="card overflow-hidden card-hover fade-in">
+                        <div class="relative h-48">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1f08215a7-1767581331195.png" 
+                                 alt="Workshop pelatihan untuk warga tentang pelaporan infrastruktur yang efektif" 
+                                 class="w-full h-full object-cover"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                            <div class="absolute top-3 left-3">
+                                <span class="badge bg-white text-text-primary text-xs">Edukasi</span>
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center gap-2 mb-3">
+                                <svg class="w-4 h-4 text-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-sm text-text-secondary">28 Desember 2025</span>
+                            </div>
+                            <h3 class="text-lg font-headline font-semibold text-text-primary mb-2 line-clamp-2">
+                                Workshop Gratis: Cara Lapor yang Efektif
+                            </h3>
+                            <p class="text-sm text-text-secondary mb-4 line-clamp-3">
+                                Dinas Komunikasi mengadakan pelatihan untuk warga agar laporan infrastruktur lebih akurat dan cepat ditindaklanjuti.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                    <span class="text-xs text-text-secondary">Jakarta</span>
+                                </div>
+                                <button class="text-primary hover:text-primary-700 transition-base" aria-label="Bookmark artikel">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- News Card 5 -->
+                    <article class="card overflow-hidden card-hover fade-in">
+                        <div class="relative h-48">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_1fe011823-1767161839802.png" 
+                                 alt="Aplikasi mobile LaporKampungku menampilkan fitur pelaporan dengan GPS" 
+                                 class="w-full h-full object-cover"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                            <div class="absolute top-3 left-3">
+                                <span class="badge bg-white text-text-primary text-xs">Teknologi</span>
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center gap-2 mb-3">
+                                <svg class="w-4 h-4 text-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-sm text-text-secondary">27 Desember 2025</span>
+                            </div>
+                            <h3 class="text-lg font-headline font-semibold text-text-primary mb-2 line-clamp-2">
+                                Fitur Baru: Notifikasi Real-Time via WhatsApp
+                            </h3>
+                            <p class="text-sm text-text-secondary mb-4 line-clamp-3">
+                                LaporKampungku meluncurkan integrasi WhatsApp untuk update status laporan langsung ke smartphone warga.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                    <span class="text-xs text-text-secondary">Nasional</span>
+                                </div>
+                                <button class="text-primary hover:text-primary-700 transition-base" aria-label="Bookmark artikel">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- News Card 6 -->
+                    <article class="card overflow-hidden card-hover fade-in">
+                        <div class="relative h-48">
+                            <img src="https://img.rocket.new/generatedImages/rocket_gen_img_15e7291bf-1767581327407.png" 
+                                 alt="Grafik statistik menunjukkan peningkatan partisipasi warga dalam pelaporan" 
+                                 class="w-full h-full object-cover"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                            <div class="absolute top-3 left-3">
+                                <span class="badge bg-white text-text-primary text-xs">Statistik</span>
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex items-center gap-2 mb-3">
+                                <svg class="w-4 h-4 text-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-sm text-text-secondary">26 Desember 2025</span>
+                            </div>
+                            <h3 class="text-lg font-headline font-semibold text-text-primary mb-2 line-clamp-2">
+                                Laporan Tahunan: 12.847 Masalah Terselesaikan
+                            </h3>
+                            <p class="text-sm text-text-secondary mb-4 line-clamp-3">
+                                Rekapitulasi 2025 menunjukkan peningkatan 35% dalam penyelesaian laporan infrastruktur dibanding tahun sebelumnya.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                    <span class="text-xs text-text-secondary">Nasional</span>
+                                </div>
+                                <button class="text-primary hover:text-primary-700 transition-base" aria-label="Bookmark artikel">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="text-center mt-12">
+                    <button class="btn btn-outline px-8">
+                        Muat Lebih Banyak Berita
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Subscription -->
+    <section class="py-16 md:py-20 bg-gradient-to-br from-primary to-primary-700 text-white relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="newsletter-pattern" width="60" height="60" patternUnits="userSpaceOnUse">
+                        <circle cx="30" cy="30" r="2" fill="currentColor"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#newsletter-pattern)" />
+            </svg>
+        </div>
+
+        <div class="container mx-auto px-4 relative">
+            <div class="max-w-3xl mx-auto text-center">
+                <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                
+                <h2 class="text-3xl md:text-4xl font-headline font-bold mb-4">
+                    Dapatkan Berita Terbaru di Email Anda
+                </h2>
+                
+                <p class="text-lg mb-8 opacity-90">
+                    Berlangganan newsletter kami dan terima update mingguan tentang perkembangan infrastruktur di lingkungan Anda
+                </p>
+
+                <form class="max-w-xl mx-auto">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" placeholder="Masukkan email Anda" class="flex-1 px-6 py-4 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-white" required>
+                        <button type="submit" class="btn bg-white text-primary hover:bg-surface px-8 py-4 whitespace-nowrap">
+                            Berlangganan
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="text-sm mt-4 opacity-75">
+                        Kami menghormati privasi Anda. Berhenti berlangganan kapan saja.
+                    </p>
+                </form>
+
+                <!-- Subscription Benefits -->
+                <div class="grid md:grid-cols-3 gap-6 mt-12">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-headline font-semibold mb-2">Update Cepat</h3>
+                        <p class="text-sm opacity-80">Berita penting langsung ke inbox Anda</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-headline font-semibold mb-2">Konten Lokal</h3>
+                        <p class="text-sm opacity-80">Berita relevan untuk area Anda</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-headline font-semibold mb-2">Privasi Terjaga</h3>
+                        <p class="text-sm opacity-80">Data Anda aman bersama kami</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-text-primary text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <!-- Brand Column -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="8" fill="#2563EB"/>
+                            <path d="M20 10L28 16V28C28 28.5304 27.7893 29.0391 27.4142 29.4142C27.0391 29.7893 26.5304 30 26 30H14C13.4696 30 12.9609 29.7893 12.5858 29.4142C12.2107 29.0391 12 28.5304 12 28V16L20 10Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 30V20H24V30" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="text-xl font-headline font-bold">LaporKampungku</span>
+                    </div>
+                    <p class="text-sm opacity-80 mb-4">
+                        Platform pelaporan infrastruktur berbasis komunitas untuk pembangunan berkelanjutan.
+                    </p>
+                    <div class="flex gap-3">
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-base" aria-label="Facebook">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-base" aria-label="Twitter">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-base" aria-label="Instagram">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-headline font-semibold mb-4">Tautan Cepat</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="homepage.html" class="hover:opacity-100 transition-base">Beranda</a></li>
+                        <li><a href="service_catalog.html" class="hover:opacity-100 transition-base">Layanan</a></li>
+                        <li><a href="knowledge_center.html" class="hover:opacity-100 transition-base">Pengetahuan</a></li>
+                        <li><a href="news_updates.html" class="hover:opacity-100 transition-base">Berita</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="font-headline font-semibold mb-4">Dukungan</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="javascript:void(0)" class="hover:opacity-100 transition-base">Pusat Bantuan</a></li>
+                        <li><a href="javascript:void(0)" class="hover:opacity-100 transition-base">FAQ</a></li>
+                        <li><a href="javascript:void(0)" class="hover:opacity-100 transition-base">Hubungi Kami</a></li>
+                        <li><a href="javascript:void(0)" class="hover:opacity-100 transition-base">Kebijakan Privasi</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-headline font-semibold mb-4">Kontak</h4>
+                    <ul class="space-y-3 text-sm opacity-80">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <span>info@laporkampungku.id</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <span>+62 21 1234 5678</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span>Jakarta, Indonesia</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/10 pt-8 text-center text-sm opacity-80">
+                <p>© 2026 LaporKampungku. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <a href="report_infrastructure.html" class="fixed bottom-6 right-6 w-16 h-16 bg-accent text-white rounded-full shadow-xl flex items-center justify-center hover:bg-accent-700 transition-base z-50 group" aria-label="Buat laporan baru">
+        <svg class="w-8 h-8 group-hover:scale-110 transition-base" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+    </a>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Filter Panel Toggle
+        const filterBtn = document.getElementById('filterBtn');
+        const filterPanel = document.getElementById('filterPanel');
+        const resetFilter = document.getElementById('resetFilter');
+
+        filterBtn.addEventListener('click', () => {
+            filterPanel.classList.toggle('hidden');
+        });
+
+        resetFilter.addEventListener('click', () => {
+            const selects = filterPanel.querySelectorAll('select');
+            selects.forEach(select => select.selectedIndex = 0);
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            // In a real application, this would filter the news articles
+            console.log('Searching for:', searchTerm);
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .stagger-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Newsletter Form Submission
+        const newsletterForm = document.querySelector('form');
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            alert(`Terima kasih! Kami akan mengirimkan berita terbaru ke ${email}`);
+            e.target.reset();
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
