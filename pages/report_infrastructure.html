@@ -763,6 +763,14 @@
 
             currentStep = step;
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Fix Leaflet map rendering when transitioning to step 2
+            // invalidateSize() recalculates map container dimensions after display change from hidden to visible
+            if (step === 2 && map) {
+                setTimeout(() => {
+                    map.invalidateSize();
+                }, 100);
+            }
         }
 
         // Category Selection
@@ -810,21 +818,39 @@
                 alert('Mohon pilih kategori dan prioritas masalah');
                 return;
             }
-            showStep(2);
+            
+            // Initialize map before showing step 2 to ensure container is visible during initialization
+            if (!mapInitialized) {
+                showStep(2);
+                // Give DOM time to render step 2 container before initializing map
+                setTimeout(() => {
+                    initMap();
+                }, 50);
+            } else {
+                showStep(2);
+            }
         });
 
         // Map Initialization
         let map;
         let marker;
         let selectedLocation = null;
+        let mapInitialized = false;
 
         function initMap() {
+            // Prevent multiple initializations
+            if (mapInitialized) return;
+            mapInitialized = true;
+
             // Default to Jakarta coordinates
             map = L.map('map').setView([-6.2088, 106.8456], 13);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors'
             }).addTo(map);
+
+            // Invalidate size immediately after initialization to ensure all tiles render properly
+            map.invalidateSize();
 
             map.on('click', function(e) {
                 if (marker) {
@@ -1101,10 +1127,9 @@
             showStep(1);
         });
 
-        // Initialize map when step 2 is shown
-        setTimeout(() => {
-            initMap();
-        }, 500);
+        // Map will be initialized on-demand when user clicks Next on Step 1 and transitions to Step 2
+        // This ensures the map container is visible during initialization, preventing render issues
+        // Do NOT initialize map on page load or with setTimeout - it causes grey tile artifacts
 
         // Load draft if exists
         window.addEventListener('load', () => {
