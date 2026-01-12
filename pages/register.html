@@ -73,7 +73,7 @@
                     </div>
 
                     <!-- Register Form -->
-                    <form class="space-y-6" action="#" method="POST">
+                    <form id="registerForm" class="space-y-6" action="#" method="POST">
                         <!-- Full Name Field -->
                         <div>
                             <label for="fullName" class="block text-sm font-medium text-text-primary mb-2">Nama Lengkap</label>
@@ -200,6 +200,55 @@
     </section>
 
     <script>
+        // Form submission - register via backend
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Validate password match
+            if (password !== confirmPassword) {
+                alert('Kata sandi tidak cocok');
+                return;
+            }
+
+            // Validate password length
+            if (password.length < 6) {
+                alert('Kata sandi minimal 6 karakter');
+                return;
+            }
+
+            try {
+                const fd = new FormData();
+                fd.append('action', 'register');
+                fd.append('username', fullName.toLowerCase().replace(/\s+/g, '_'));
+                fd.append('email', email);
+                fd.append('phone', phone);
+                fd.append('password', password);
+                fd.append('confirm_password', confirmPassword);
+
+                const resp = await fetch('../backend/auth.php', {
+                    method: 'POST',
+                    body: fd
+                });
+
+                const result = await resp.json();
+                if (result.success) {
+                    alert('Pendaftaran berhasil! Silakan masuk dengan akun Anda.');
+                    window.location.href = 'login.html';
+                } else {
+                    alert(result.message || 'Pendaftaran gagal');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Terjadi kesalahan saat pendaftaran');
+            }
+        });
+
         // Toggle password visibility
         function togglePassword(fieldId) {
             const passwordInput = document.getElementById(fieldId);

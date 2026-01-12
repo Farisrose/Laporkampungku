@@ -46,7 +46,8 @@
                     <a href="service_catalog.html" class="text-text-secondary hover:text-primary transition-base">Layanan</a>
                     <a href="knowledge_center.html" class="text-text-secondary hover:text-primary transition-base">Pengetahuan</a>
                     <a href="news_updates.html" class="text-text-secondary hover:text-primary transition-base">Berita</a>
-                    <a href="user_dashboard.html" class="btn btn-primary">Dashboard Saya</a>
+                    <a href="login.html" class="btn btn-outline">Masuk</a>
+                    <a href="register.html" class="btn btn-primary">Daftar</a>
                 </div>
 
                 <!-- Mobile Menu Button -->
@@ -64,7 +65,8 @@
                     <a href="service_catalog.html" class="text-text-secondary hover:text-primary transition-base">Layanan</a>
                     <a href="knowledge_center.html" class="text-text-secondary hover:text-primary transition-base">Pengetahuan</a>
                     <a href="news_updates.html" class="text-text-secondary hover:text-primary transition-base">Berita</a>
-                    <a href="user_dashboard.html" class="btn btn-primary w-full">Dashboard Saya</a>
+                    <a href="login.html" class="btn btn-outline w-full">Masuk</a>
+                    <a href="register.html" class="btn btn-primary w-full">Daftar</a>
                 </div>
             </div>
         </nav>
@@ -911,7 +913,9 @@
         const dropZone = document.getElementById('dropZone');
         const photoInput = document.getElementById('photoInput');
         const photoPreview = document.getElementById('photoPreview');
+        // uploadedPhotos holds data URLs for preview; uploadedPhotoFiles holds File objects for upload
         let uploadedPhotos = [];
+        let uploadedPhotoFiles = [];
 
         dropZone.addEventListener('click', () => photoInput.click());
 
@@ -942,6 +946,10 @@
 
             Array.from(files).forEach(file => {
                 if (file.type.startsWith('image/')) {
+                    // store File for upload
+                    uploadedPhotoFiles.push(file);
+
+                    // create data URL for preview
                     const reader = new FileReader();
                     reader.onload = (e) => {
                         uploadedPhotos.push(e.target.result);
@@ -973,6 +981,8 @@
 
         function removePhoto(index) {
             uploadedPhotos.splice(index, 1);
+            // remove corresponding File object if exists
+            if (uploadedPhotoFiles[index]) uploadedPhotoFiles.splice(index, 1);
             displayPhotos();
             if (uploadedPhotos.length === 0) {
                 photoPreview.classList.add('hidden');
@@ -1101,24 +1111,44 @@
         // Step 4 Navigation
         document.getElementById('prevStep4').addEventListener('click', () => showStep(3));
 
-        // Form Submission
-        document.getElementById('reportForm').addEventListener('submit', (e) => {
+        // Form Submission - send multipart/form-data to backend/save_report.php
+        document.getElementById('reportForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            // Generate tracking number
-            const trackingNumber = 'LK' + Date.now().toString().slice(-8);
-            document.getElementById('trackingNumber').textContent = trackingNumber;
-            
-            // Show success modal
-            document.getElementById('successModal').classList.remove('hidden');
-            
-            // Clear form
-            document.getElementById('reportForm').reset();
-            uploadedPhotos = [];
-            photoPreview.classList.add('hidden');
-            
-            // Clear draft
-            localStorage.removeItem('reportDraft');
+
+            const form = document.getElementById('reportForm');
+            const fd = new FormData(form);
+
+            // Append photo files collected via drag/drop or input
+            if (uploadedPhotoFiles.length > 0) {
+                uploadedPhotoFiles.forEach(file => fd.append('photos[]', file));
+            }
+
+            try {
+                const resp = await fetch('../backend/save_report.php', {
+                    method: 'POST',
+                    body: fd
+                });
+
+                const result = await resp.json();
+                if (result.success) {
+                    // Optionally use server laporan_id in tracking
+                    const trackingNumber = result.laporan_id ? ('LK' + String(result.laporan_id).padStart(8, '0')) : ('LK' + Date.now().toString().slice(-8));
+                    document.getElementById('trackingNumber').textContent = trackingNumber;
+                    document.getElementById('successModal').classList.remove('hidden');
+
+                    // Clear form and previews
+                    form.reset();
+                    uploadedPhotos = [];
+                    uploadedPhotoFiles = [];
+                    photoPreview.classList.add('hidden');
+                    localStorage.removeItem('reportDraft');
+                } else {
+                    alert('Gagal menyimpan laporan: ' + (result.message || 'Unknown error'));
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Terjadi kesalahan saat mengirim laporan. Periksa konsol untuk detail.');
+            }
         });
 
         // Close Modal
@@ -1150,5 +1180,6 @@
         });
     </script>
 <script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+<script src="../js/navbar.js"></script>
 </body>
 </html>

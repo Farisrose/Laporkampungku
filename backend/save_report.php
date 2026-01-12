@@ -1,0 +1,89 @@
+<?php
+// backend/save_report.php
+// Receives multipart/form-data to save a report and uploaded photos
+
+header('Content-Type: application/json; charset=utf-8');
+
+// Basic config - adjust as needed for your environment
+$dbHost = '127.0.0.1';
+$dbName = 'dbkampungku';
+$dbUser = 'root';
+$dbPass = '';
+$uploadDir = __DIR__ . '/../public/uploads';
+
+try {
+    $pdo = new PDO("mysql:host=$dbHost;dbname=$dbName;charset=utf8mb4", $dbUser, $dbPass, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ]);
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Database connection failed', 'error' => $e->getMessage()]);
+    exit;
+}
+
+// Validate required fields
+$kategori = $_POST['kategori'] ?? null;
+$deskripsi = $_POST['deskripsi'] ?? null;
+$latitude = $_POST['latitude'] ?? null;
+$longitude = $_POST['longitude'] ?? null;
+$alamat = $_POST['alamat'] ?? null;
+
+if (!$kategori || !$latitude || !$longitude) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Missing required fields']);
+    exit;
+}
+
+try {
+    $pdo->beginTransaction();
+
+    $stmt = $pdo->prepare("INSERT INTO laporan (kategori, deskripsi, latitude, longitude, alamat) VALUES (:kategori, :deskripsi, :latitude, :longitude, :alamat)");
+    $stmt->execute([
+        ':kategori' => $kategori,
+        ':deskripsi' => $deskripsi,
+        ':latitude' => $latitude,
+        ':longitude' => $longitude,
+        ':alamat' => $alamat
+    ]);
+
+    $laporanId = $pdo->lastInsertId();
+
+    // Handle uploaded files (photos)
+    $savedFiles = [];
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
+
+    if (!empty($_FILES['photos'])) {
+        // If multiple files, structure is arrays
+        $files = $_FILES['photos'];
+        for ($i = 0; $i < count($files['name']); $i++) {
+            if ($files['error'][$i] !== UPLOAD_ERR_OK) continue;
+
+            $originalName = basename($files['name'][$i]);
+            $ext = pathinfo($originalName, PATHINFO_EXTENSION);
+            $safeName = bin2hex(random_bytes(8)) . '.' . $ext;
+            $targetPath = $uploadDir . DIRECTORY_SEPARATOR . $safeName;
+
+            if (move_uploaded_file($files['tmp_name'][$i], $targetPath)) {
+                $relativePath = 'public/uploads/' . $safeName;
+                $stmtFile = $pdo->prepare("INSERT INTO foto_laporan (laporan_id, file_path) VALUES (:laporan_id, :file_path)");
+                $stmtFile->execute([':laporan_id' => $laporanId, ':file_path' => $relativePath]);
+                $savedFiles[] = $relativePath;
+            }
+        }
+    }
+
+    $pdo->commit();
+
+    echo json_encode(['success' => true, 'laporan_id' => $laporanId, 'files' => $savedFiles]);
+    exit;
+} catch (Exception $e) {
+    if ($pdo->inTransaction()) $pdo->rollBack();
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Failed to save report', 'error' => $e->getMessage()]);
+    exit;
+}
+
+?>
