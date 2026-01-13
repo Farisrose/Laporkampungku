@@ -45,8 +45,8 @@
                     <div class="relative">
                         <button id="userMenuBtn" class="flex items-center gap-2 p-2 hover:bg-surface rounded-lg transition-base" aria-label="Menu pengguna">
                             <img src="https://img.rocket.new/generatedImages/rocket_gen_img_14889e74f-1763294788752.png" 
-                                 alt="Foto profil Budi Santoso" 
-                                 class="w-8 h-8 rounded-full object-cover"
+                                 alt="Foto profil user" 
+                                 class="w-8 h-8 rounded-full object-cover user-avatar"
                                  loading="lazy"
                                  onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
                             <svg class="w-4 h-4 text-text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -56,8 +56,8 @@
                         <!-- User Dropdown Menu -->
                         <div id="userDropdown" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-border-light py-2">
                             <div class="px-4 py-3 border-b border-border-light">
-                                <p class="text-sm font-medium text-text-primary">Budi Santoso</p>
-                                <p class="text-xs text-text-secondary">budi.santoso@email.com</p>
+                                <p class="text-sm font-medium text-text-primary user-name">Nama Pengguna</p>
+                                <p class="text-xs text-text-secondary user-email">email@example.com</p>
                             </div>
                             <a href="user_dashboard.html" class="flex items-center gap-3 px-4 py-2 text-sm text-text-primary hover:bg-surface transition-base">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -65,14 +65,14 @@
                                 </svg>
                                 Profil Saya
                             </a>
-                            <a href="javascript:void(0)" class="flex items-center gap-3 px-4 py-2 text-sm text-text-primary hover:bg-surface transition-base">
+                            <a href="user_settings.html" class="flex items-center gap-3 px-4 py-2 text-sm text-text-primary hover:bg-surface transition-base">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                 </svg>
                                 Pengaturan
                             </a>
-                            <a href="homepage.html" class="flex items-center gap-3 px-4 py-2 text-sm text-accent hover:bg-error-50 transition-base">
+                            <a href="login.html" class="flex items-center gap-3 px-4 py-2 text-sm text-accent hover:bg-error-50 transition-base">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                                 </svg>
@@ -105,7 +105,7 @@
                                  class="w-10 h-10 rounded-full object-cover user-avatar"
                                  loading="lazy"
                                  onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
-                            <div>
+                            <div class="flex-1 min-w-0">
                                 <p class="text-sm font-medium text-text-primary user-name">Budi Santoso</p>
                                 <p class="text-xs text-text-secondary user-email">budi.santoso@email.com</p>
                             </div>
@@ -765,6 +765,13 @@
         // Close dropdown when clicking outside
         document.addEventListener('click', () => {
             userDropdown.classList.add('hidden');
+        });
+
+        // Close dropdown when a link is clicked
+        userDropdown.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                userDropdown.classList.add('hidden');
+            });
         });
 
         // Filter Buttons

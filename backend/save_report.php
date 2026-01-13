@@ -23,13 +23,14 @@ try {
 }
 
 // Validate required fields
-$kategori = $_POST['kategori'] ?? null;
-$deskripsi = $_POST['deskripsi'] ?? null;
+$kategori = $_POST['category'] ?? null;
+$deskripsi = $_POST['description'] ?? null;
 $latitude = $_POST['latitude'] ?? null;
 $longitude = $_POST['longitude'] ?? null;
-$alamat = $_POST['alamat'] ?? null;
+$alamat = $_POST['address'] ?? null;
+$prioritas = $_POST['priority'] ?? 'Sedang';
 
-if (!$kategori || !$latitude || !$longitude) {
+if (!$kategori || !$latitude || !$longitude || !$alamat) {
     http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'Missing required fields']);
     exit;
@@ -38,13 +39,14 @@ if (!$kategori || !$latitude || !$longitude) {
 try {
     $pdo->beginTransaction();
 
-    $stmt = $pdo->prepare("INSERT INTO laporan (kategori, deskripsi, latitude, longitude, alamat) VALUES (:kategori, :deskripsi, :latitude, :longitude, :alamat)");
+    $stmt = $pdo->prepare("INSERT INTO tbl_laporan (kategori, deskripsi, latitude, longitude, alamat, prioritas) VALUES (:kategori, :deskripsi, :latitude, :longitude, :alamat, :prioritas)");
     $stmt->execute([
         ':kategori' => $kategori,
         ':deskripsi' => $deskripsi,
         ':latitude' => $latitude,
         ':longitude' => $longitude,
-        ':alamat' => $alamat
+        ':alamat' => $alamat,
+        ':prioritas' => $prioritas
     ]);
 
     $laporanId = $pdo->lastInsertId();
@@ -68,7 +70,7 @@ try {
 
             if (move_uploaded_file($files['tmp_name'][$i], $targetPath)) {
                 $relativePath = 'public/uploads/' . $safeName;
-                $stmtFile = $pdo->prepare("INSERT INTO foto_laporan (laporan_id, file_path) VALUES (:laporan_id, :file_path)");
+                $stmtFile = $pdo->prepare("INSERT INTO tbl_foto_laporan (laporan_id, file_path) VALUES (:laporan_id, :file_path)");
                 $stmtFile->execute([':laporan_id' => $laporanId, ':file_path' => $relativePath]);
                 $savedFiles[] = $relativePath;
             }
