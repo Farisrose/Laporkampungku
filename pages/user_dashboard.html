@@ -140,60 +140,60 @@
         <!-- Quick Stats -->
         <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <!-- Total Reports -->
-            <div class="card p-6 card-hover stagger-item">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
-                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                        </svg>
-                    </div>
-                    <span class="text-xs text-text-secondary">Total</span>
+            <article class="card p-6 card-hover stagger-item">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center" aria-hidden="true">
+                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
                 </div>
-                <div class="text-3xl font-bold text-text-primary mb-1 stat-total-reports">12</div>
-                <div class="text-sm text-text-secondary">Laporan Dibuat</div>
+                <span class="text-xs text-text-secondary">Total</span>
             </div>
+            <div class="text-3xl font-bold text-text-primary mb-1 stat-total-reports">0</div>
+            <div class="text-sm text-text-secondary">Laporan Dibuat</div>
+            </article>
 
             <!-- Resolved Reports -->
-            <div class="card p-6 card-hover stagger-item">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-secondary-100 rounded-full flex items-center justify-center">
-                        <svg class="w-6 h-6 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                    </div>
-                    <span class="text-xs text-text-secondary">Selesai</span>
+            <article class="card p-6 card-hover stagger-item">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-secondary-100 rounded-full flex items-center justify-center" aria-hidden="true">
+                <svg class="w-6 h-6 text-secondary" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
                 </div>
-                <div class="text-3xl font-bold text-text-primary mb-1 stat-resolved-reports">9</div>
-                <div class="text-sm text-text-secondary">Masalah Terselesaikan</div>
+                <span class="text-xs text-text-secondary">Selesai</span>
             </div>
+            <div class="text-3xl font-bold text-text-primary mb-1 stat-resolved-reports">0</div>
+            <div class="text-sm text-text-secondary">Masalah Terselesaikan</div>
+            </article>
 
             <!-- Pending Reports -->
-            <div class="card p-6 card-hover stagger-item">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-warning-100 rounded-full flex items-center justify-center">
-                        <svg class="w-6 h-6 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <span class="text-xs text-text-secondary">Proses</span>
+            <article class="card p-6 card-hover stagger-item">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-warning-100 rounded-full flex items-center justify-center" aria-hidden="true">
+                <svg class="w-6 h-6 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
                 </div>
-                <div class="text-3xl font-bold text-text-primary mb-1 stat-pending-reports">3</div>
-                <div class="text-sm text-text-secondary">Sedang Ditangani</div>
+                <span class="text-xs text-text-secondary">Proses</span>
             </div>
+            <div class="text-3xl font-bold text-text-primary mb-1 stat-pending-reports">0</div>
+            <div class="text-sm text-text-secondary">Sedang Ditangani</div>
+            </article>
 
             <!-- Community Impact -->
-            <div class="card p-6 card-hover stagger-item">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 bg-accent-100 rounded-full flex items-center justify-center">
-                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
-                    </div>
-                    <span class="text-xs text-text-secondary">Skor</span>
+            <article class="card p-6 card-hover stagger-item">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-accent-100 rounded-full flex items-center justify-center" aria-hidden="true">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
                 </div>
-                <div class="text-3xl font-bold text-text-primary mb-1 stat-points">847</div>
-                <div class="text-sm text-text-secondary">Poin Kontribusi</div>
+                <span class="text-xs text-text-secondary">Skor</span>
             </div>
+            <div class="text-3xl font-bold text-text-primary mb-1 stat-points">0</div>
+            <div class="text-sm text-text-secondary">Poin Kontribusi</div>
+            </article>
         </section>
 
         <div class="grid lg:grid-cols-3 gap-8">
@@ -816,6 +816,330 @@
             el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
             observer.observe(el);
         });
+
+        // Load user profile
+        async function loadUserProfile() {
+            try {
+                const response = await fetch('../backend/get_profile.php');
+                const profile = await response.json();
+                
+                if (profile.nama_lengkap) {
+                    document.querySelectorAll('.user-name').forEach(el => {
+                        el.textContent = profile.nama_lengkap;
+                    });
+                }
+                
+                if (profile.foto_profil) {
+                    document.querySelectorAll('.user-avatar').forEach(el => {
+                        el.src = profile.foto_profil;
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading user profile:', error);
+            }
+        }
+
+        // Load user statistics
+        async function loadUserStats() {
+            try {
+                const response = await fetch('../backend/get_user_stats.php');
+                const data = await response.json();
+                
+                if (data.total_reports !== undefined) {
+                    document.querySelector('.stat-total-reports').textContent = data.total_reports;
+                }
+                if (data.resolved_reports !== undefined) {
+                    document.querySelector('.stat-resolved-reports').textContent = data.resolved_reports;
+                }
+                if (data.pending_reports !== undefined) {
+                    document.querySelector('.stat-pending-reports').textContent = data.pending_reports;
+                }
+                if (data.points !== undefined) {
+                    document.querySelector('.stat-points').textContent = data.points;
+                }
+            } catch (error) {
+                console.error('Error loading user stats:', error);
+            }
+        }
+
+        // Load user reports
+        async function loadUserReports() {
+            try {
+                const response = await fetch('../backend/get_user_reports.php');
+                const reports = await response.json();
+                
+                const reportsList = document.querySelector('.reports-list');
+                if (!reportsList) return;
+                
+                // Clear existing reports
+                reportsList.innerHTML = '';
+                
+                if (reports.length === 0) {
+                    reportsList.innerHTML = '<p class="text-center text-text-secondary py-8">Belum ada laporan</p>';
+                    return;
+                }
+                
+                reports.forEach(report => {
+                    const reportDate = new Date(report.created_at).toLocaleDateString('id-ID', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                    });
+                    
+                    const statusClass = report.status === 'Selesai' ? 'badge-success' : 'badge-warning';
+                    const statusText = report.status;
+                    
+                    let progressHtml = '';
+                    if (report.status === 'Diproses' && report.progress) {
+                        progressHtml = `
+                            <div class="mt-3">
+                                <div class="flex items-center justify-between text-xs mb-2">
+                                    <span class="text-text-secondary">Progress Penanganan</span>
+                                    <span class="text-warning font-medium">${report.progress}%</span>
+                                </div>
+                                <div class="w-full bg-surface rounded-full h-2">
+                                    <div class="bg-warning h-2 rounded-full" style="width: ${report.progress}%"></div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    
+                    const reportHtml = `
+                        <div class="border border-border-light rounded-xl p-4 hover:shadow-md transition-base">
+                            <div class="flex gap-4">
+                                <img src="${report.foto || 'https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}" 
+                                     alt="Foto laporan" 
+                                     class="w-24 h-24 rounded-lg object-cover flex-shrink-0"
+                                     loading="lazy"
+                                     onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-start justify-between gap-2 mb-2">
+                                        <h3 class="font-headline font-semibold text-text-primary">${report.judul}</h3>
+                                        <span class="badge ${statusClass} flex-shrink-0">${statusText}</span>
+                                    </div>
+                                    <p class="text-sm text-text-secondary mb-3">${report.alamat}</p>
+                                    <div class="flex items-center gap-4 text-xs text-text-secondary">
+                                        <div class="flex items-center gap-1">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                            </svg>
+                                            <span>${reportDate}</span>
+                                        </div>
+                                        <div class="flex items-center gap-1">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                                            </svg>
+                                            <span>LPR-${report.id.toString().padStart(3, '0')}</span>
+                                        </div>
+                                    </div>
+                                    ${progressHtml}
+                                    <div class="mt-3 flex items-center gap-2">
+                                        <button class="text-sm text-primary hover:text-primary-700 font-medium transition-base">
+                                            Lihat Detail
+                                        </button>
+                                        <span class="text-text-tertiary">•</span>
+                                        <button class="text-sm text-text-secondary hover:text-text-primary transition-base">
+                                            ${report.status === 'Selesai' ? 'Unduh Bukti' : 'Hubungi Petugas'}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    reportsList.insertAdjacentHTML('beforeend', reportHtml);
+                });
+            } catch (error) {
+                console.error('Error loading user reports:', error);
+            }
+        }
+
+        // Load user activities
+        async function loadUserActivities() {
+            try {
+                const response = await fetch('../backend/get_user_activities.php');
+                const activities = await response.json();
+                
+                const activitiesList = document.querySelector('.activities-timeline');
+                if (!activitiesList) return;
+                
+                // Clear existing activities
+                activitiesList.innerHTML = '';
+                
+                if (activities.length === 0) {
+                    activitiesList.innerHTML = '<p class="text-center text-text-secondary py-8">Belum ada aktivitas</p>';
+                    return;
+                }
+                
+                activities.forEach(activity => {
+                    const timeAgo = getTimeAgo(new Date(activity.created_at));
+                    
+                    let iconHtml = '';
+                    let iconColor = '';
+                    
+                    switch (activity.type) {
+                        case 'report_created':
+                            iconHtml = '<svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>';
+                            iconColor = 'bg-primary-100';
+                            break;
+                        case 'status_update':
+                            iconHtml = '<svg class="w-5 h-5 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+                            iconColor = 'bg-warning-100';
+                            break;
+                        case 'badge_earned':
+                            iconHtml = '<svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>';
+                            iconColor = 'bg-accent-100';
+                            break;
+                        default:
+                            iconHtml = '<svg class="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>';
+                            iconColor = 'bg-secondary-100';
+                    }
+                    
+                    const activityHtml = `
+                        <div class="flex gap-4">
+                            <div class="flex flex-col items-center">
+                                <div class="w-10 h-10 ${iconColor} rounded-full flex items-center justify-center flex-shrink-0">
+                                    ${iconHtml}
+                                </div>
+                                <div class="w-0.5 h-full bg-border-light mt-2"></div>
+                            </div>
+                            <div class="flex-1 pb-6">
+                                <div class="flex items-start justify-between mb-1">
+                                    <h3 class="font-medium text-text-primary">${activity.title}</h3>
+                                    <span class="text-xs text-text-secondary">${timeAgo}</span>
+                                </div>
+                                <p class="text-sm text-text-secondary mb-2">${activity.description}</p>
+                                ${activity.reference ? `<span class="text-xs text-primary font-medium">${activity.reference}</span>` : ''}
+                            </div>
+                        </div>
+                    `;
+                    
+                    activitiesList.insertAdjacentHTML('beforeend', activityHtml);
+                });
+            } catch (error) {
+                console.error('Error loading user activities:', error);
+            }
+        }
+
+        // Load notifications
+        async function loadNotifications() {
+            try {
+                const response = await fetch('../backend/get_notifications.php');
+                const notifications = await response.json();
+                
+                const notificationsList = document.querySelector('.notifications-list');
+                if (!notificationsList) return;
+                
+                // Clear existing notifications
+                notificationsList.innerHTML = '';
+                
+                if (notifications.length === 0) {
+                    notificationsList.innerHTML = '<p class="text-center text-text-secondary py-8">Belum ada notifikasi</p>';
+                    return;
+                }
+                
+                const unreadCount = notifications.filter(n => !n.is_read).length;
+                const badge = document.querySelector('.notification-badge');
+                if (badge) {
+                    badge.textContent = unreadCount > 0 ? `${unreadCount} Baru` : '';
+                    badge.style.display = unreadCount > 0 ? 'inline-flex' : 'none';
+                }
+                
+                notifications.forEach(notification => {
+                    const timeAgo = getTimeAgo(new Date(notification.created_at));
+                    
+                    let bgColor = '';
+                    let iconHtml = '';
+                    
+                    switch (notification.type) {
+                        case 'success':
+                            bgColor = 'bg-secondary-50 border-secondary-200';
+                            iconHtml = '<svg class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>';
+                            break;
+                        case 'warning':
+                            bgColor = 'bg-warning-50 border-warning-200';
+                            iconHtml = '<svg class="w-5 h-5 text-warning flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+                            break;
+                        default:
+                            bgColor = 'bg-primary-50 border-primary-200';
+                            iconHtml = '<svg class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>';
+                    }
+                    
+                    const notificationHtml = `
+                        <div class="p-3 ${bgColor} rounded-lg">
+                            <div class="flex items-start gap-2 mb-1">
+                                ${iconHtml}
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-text-primary">${notification.title}</p>
+                                    <p class="text-xs text-text-secondary mt-1">${notification.message}</p>
+                                    <p class="text-xs text-${notification.type === 'success' ? 'secondary' : notification.type === 'warning' ? 'warning' : 'primary'} mt-1">${timeAgo}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    notificationsList.insertAdjacentHTML('beforeend', notificationHtml);
+                });
+            } catch (error) {
+                console.error('Error loading notifications:', error);
+            }
+        }
+
+        // Load user achievements
+        async function loadUserAchievements() {
+            try {
+                const response = await fetch('../backend/get_user_achievements.php');
+                const achievements = await response.json();
+                
+                const achievementsGrid = document.querySelector('.achievements-grid');
+                if (!achievementsGrid) return;
+                
+                // Clear existing achievements
+                achievementsGrid.innerHTML = '';
+                
+                achievements.forEach(achievement => {
+                    const isUnlocked = achievement.unlocked;
+                    const opacityClass = isUnlocked ? '' : 'opacity-50';
+                    const iconColor = isUnlocked ? `text-${achievement.color}` : 'text-text-tertiary';
+                    const bgColor = isUnlocked ? `bg-${achievement.color}-100` : 'bg-border-light';
+                    
+                    const achievementHtml = `
+                        <div class="text-center p-4 bg-surface rounded-lg ${opacityClass}">
+                            <div class="w-16 h-16 ${bgColor} rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-8 h-8 ${iconColor}" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="${achievement.icon}"/>
+                                </svg>
+                            </div>
+                            <p class="text-xs font-medium text-text-primary">${achievement.name}</p>
+                        </div>
+                    `;
+                    
+                    achievementsGrid.insertAdjacentHTML('beforeend', achievementHtml);
+                });
+            } catch (error) {
+                console.error('Error loading user achievements:', error);
+            }
+        }
+
+        // Helper function to get time ago
+        function getTimeAgo(date) {
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) return 'Baru saja';
+            if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} menit lalu`;
+            if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} jam lalu`;
+            if (diffInSeconds < 604800) return `${Math.floor(diffInSeconds / 86400)} hari lalu`;
+            return date.toLocaleDateString('id-ID');
+        }
+
+        // Load all data on page load
+        loadUserProfile();
+        loadUserStats();
+        loadUserReports();
+        loadUserActivities();
+        loadNotifications();
+        loadUserAchievements();
     </script>
 <script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
 <script src="../js/navbar.js"></script>

@@ -2,7 +2,18 @@
 // backend/save_report.php
 // Receives multipart/form-data to save a report and uploaded photos
 
+session_start();
+
 header('Content-Type: application/json; charset=utf-8');
+
+// Check if user is logged in
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    http_response_code(401);
+    echo json_encode(['success' => false, 'message' => 'Authentication required']);
+    exit;
+}
+
+$userId = $_SESSION['user_id'];
 
 // Basic config - adjust as needed for your environment
 $dbHost = '127.0.0.1';
@@ -39,8 +50,9 @@ if (!$kategori || !$latitude || !$longitude || !$alamat) {
 try {
     $pdo->beginTransaction();
 
-    $stmt = $pdo->prepare("INSERT INTO tbl_laporan (kategori, deskripsi, latitude, longitude, alamat, prioritas) VALUES (:kategori, :deskripsi, :latitude, :longitude, :alamat, :prioritas)");
+    $stmt = $pdo->prepare("INSERT INTO tbl_laporan (user_id, kategori, deskripsi, latitude, longitude, alamat, prioritas) VALUES (:user_id, :kategori, :deskripsi, :latitude, :longitude, :alamat, :prioritas)");
     $stmt->execute([
+        ':user_id' => $userId,
         ':kategori' => $kategori,
         ':deskripsi' => $deskripsi,
         ':latitude' => $latitude,

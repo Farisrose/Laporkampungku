@@ -98,11 +98,38 @@ INSERT IGNORE INTO `tbl_status` (`nama_status`, `deskripsi`, `warna`) VALUES
 ('Selesai', 'Laporan telah diselesaikan', '#34A853'),
 ('Ditolak', 'Laporan ditolak atau tidak valid', '#EA4335');
 
+-- Insert test users (for development)
+INSERT IGNORE INTO `tbl_users` (`username`, `password`, `email`, `level`, `is_active`) VALUES
+('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@laporkampungku.com', 'admin', 1),
+('testuser', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'testuser@laporkampungku.com', 'superadmin', 1),
+('anggota', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'anggota@laporkampungku.com', 'anggota', 1),
+('warga', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'warga@laporkampungku.com', 'warga', 1);
+
+-- Insert test profiles
+INSERT IGNORE INTO `tbl_superadmin` (`user_id`, `nama_lengkap`, `jabatan`) VALUES
+(2, 'Budi Santoso', 'Super Admin');
+
+INSERT IGNORE INTO `tbl_anggota` (`user_id`, `nama_lengkap`, `peran`) VALUES
+(3, 'Ahmad Rizki', 'Developer');
+
+-- Insert test reports
+INSERT IGNORE INTO `tbl_laporan` (`user_id`, `kategori`, `judul`, `deskripsi`, `latitude`, `longitude`, `alamat`, `prioritas`, `status_id`) VALUES
+(2, 'Jalan Rusak', 'Jalan Berlubang Besar', 'Jalan berlubang besar di depan rumah saya membahayakan pengendara', -6.2088, 106.8456, 'Jl. Menteng Raya No. 45, Jakarta Pusat', 'Tinggi', 3),
+(2, 'Lampu Jalan Mati', 'Lampu Jalan Mati', 'Lampu jalan di depan rumah saya mati sudah seminggu, area gelap di malam hari', -6.2088, 106.8456, 'Jl. Sudirman No. 123, Jakarta Selatan', 'Sedang', 2),
+(2, 'Drainase Tersumbat', 'Saluran Air Tersumbat', 'Saluran air tersumbat sampah menyebabkan genangan air di jalan', -6.2088, 106.8456, 'Jl. Gatot Subroto No. 78, Jakarta Selatan', 'Sedang', 2),
+(2, 'Pipa Bocor', 'Pipa PDAM Bocor', 'Pipa PDAM bocor di depan rumah menyebabkan jalan becek', -6.2088, 106.8456, 'Jl. Thamrin No. 25, Jakarta Pusat', 'Tinggi', 1);
+
+-- Insert test report photos
+INSERT IGNORE INTO `tbl_foto_laporan` (`laporan_id`, `file_path`) VALUES
+(1, 'https://img.rocket.new/generatedImages/rocket_gen_img_13a78aac2-1767581330656.png'),
+(2, 'https://img.rocket.new/generatedImages/rocket_gen_img_1344ee665-1767581330099.png'),
+(3, 'https://img.rocket.new/generatedImages/rocket_gen_img_162cd3f70-1767581329610.png');
+
 -- Table: tbl_laporan
 -- Main report data from citizens
 CREATE TABLE IF NOT EXISTS `tbl_laporan` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` BIGINT UNSIGNED,
+  `user_id` BIGINT UNSIGNED NOT NULL,
   `kategori` ENUM('Pipa Bocor','Jalan Rusak','Lampu Jalan Mati','Drainase Tersumbat','Lainnya') NOT NULL,
   `judul` VARCHAR(255),
   `deskripsi` TEXT,
@@ -114,10 +141,11 @@ CREATE TABLE IF NOT EXISTS `tbl_laporan` (
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
+  INDEX `idx_user_id` (`user_id`),
   INDEX `idx_kategori` (`kategori`),
   INDEX `idx_status_id` (`status_id`),
   INDEX `idx_lat_lon` (`latitude`, `longitude`),
-  CONSTRAINT `fk_laporan_user` FOREIGN KEY (`user_id`) REFERENCES `tbl_users`(`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_laporan_user` FOREIGN KEY (`user_id`) REFERENCES `tbl_users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_laporan_status` FOREIGN KEY (`status_id`) REFERENCES `tbl_status`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
