@@ -7,6 +7,7 @@ A comprehensive web application for citizens and administrators to report, track
 **Auth Module**: ✅ Complete  
 **Dashboard**: ✅ Complete  
 **Report System**: ✅ Complete  
+**Chatbot Module**: ✅ Complete (NEW!)
 **Documentation**: ✅ Comprehensive
 
 ---
@@ -18,6 +19,12 @@ A comprehensive web application for citizens and administrators to report, track
 
 ### For Developers
 → **[AUTH_SYSTEM.md](AUTH_SYSTEM.md)** - Complete authentication guide  
+→ **[CHATBOT_QUICKSTART.md](CHATBOT_QUICKSTART.md)** - Chatbot setup & usage  
+→ **[CHATBOT_DOCUMENTATION.md](CHATBOT_DOCUMENTATION.md)** - Chatbot technical docs  
+
+### For Testers
+→ **[FILES_MANIFEST.md](FILES_MANIFEST.md)** - All files created/modified  
+→ **[CHATBOT_IMPLEMENTATION_SUMMARY.md](CHATBOT_IMPLEMENTATION_SUMMARY.md)** - What's new
 → **[ARCHITECTURE.md](ARCHITECTURE.md)** - System diagrams and flows  
 → **[SYSTEM_SUMMARY.md](SYSTEM_SUMMARY.md)** - Project overview
 

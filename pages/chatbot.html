@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LaporKampungku - Chat Bot untuk bantuan pelaporan infrastruktur">
+    <title>Chat Bot - LaporKampungku</title>
+    <link rel="icon" href="../public/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 200px);
+            background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        .message {
+            display: flex;
+            gap: 12px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-content {
+            max-width: 60%;
+            word-wrap: break-word;
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 18px 18px 4px 18px;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: #1f2937;
+            padding: 12px 16px;
+            border-radius: 18px 18px 18px 4px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .message.user .message-avatar {
+            background: #2563eb;
+            color: white;
+        }
+
+        .message.bot .message-avatar {
+            background: #f3f4f6;
+            color: #2563eb;
+        }
+
+        .chat-input-area {
+            padding: 24px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .chat-input-form {
+            display: flex;
+            gap: 12px;
+            max-width: 100%;
+        }
+
+        .chat-input-form input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 24px;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .chat-input-form input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .chat-input-form button {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 24px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chat-input-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .chat-input-form button:active {
+            transform: translateY(0);
+        }
+
+        .chat-input-form button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-dots {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .loading-dots span {
+            width: 6px;
+            height: 6px;
+            background: #2563eb;
+            border-radius: 50%;
+            animation: loading 1.4s infinite;
+        }
+
+        .loading-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loading-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes loading {
+            0%, 60%, 100% {
+                opacity: 0.3;
+                transform: translateY(0);
+            }
+            30% {
+                opacity: 1;
+                transform: translateY(-8px);
+            }
+        }
+
+        .empty-chat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #9ca3af;
+            text-align: center;
+        }
+
+        .empty-chat svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .quick-action-btn {
+            background: white;
+            border: 1px solid #e5e7eb;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            color: #2563eb;
+            font-weight: 500;
+        }
+
+        .quick-action-btn:hover {
+            background: #f0f9ff;
+            border-color: #2563eb;
+        }
+
+        .chat-header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .chat-history-btn {
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            color: #2563eb;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chat-history-btn:hover {
+            background: #e0e7ff;
+        }
+
+        .history-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .history-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .history-content {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .history-header {
+            padding: 24px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .history-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.2s ease;
+        }
+
+        .history-close:hover {
+            color: #1f2937;
+        }
+
+        .history-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+        }
+
+        .history-item {
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .history-item:hover {
+            background: #f0f9ff;
+            border-color: #2563eb;
+        }
+
+        .history-item-date {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-bottom: 8px;
+        }
+
+        .history-item-preview {
+            font-size: 14px;
+            color: #6b7280;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .error-message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+            border-left: 4px solid #dc2626;
+        }
+
+        .success-message {
+            background: #dcfce7;
+            color: #166534;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+            border-left: 4px solid #22c55e;
+        }
+
+        @media (max-width: 768px) {
+            .message-content {
+                max-width: 85%;
+            }
+
+            .history-content {
+                width: 95%;
+                max-height: 80vh;
+            }
+
+            .chat-container {
+                height: calc(100vh - 150px);
+            }
+        }
+    </style>
+</head>
+<body class="bg-background">
+    <!-- Navigation Header -->
+    <header class="bg-white shadow-base sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="homepage.html" class="flex items-center gap-3">
+                    <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="8" fill="#2563EB"/>
+                        <path d="M20 10L28 16V28C28 28.5304 27.7893 29.0391 27.4142 29.4142C27.0391 29.7893 26.5304 30 26 30H14C13.4696 30 12.9609 29.7893 12.5858 29.4142C12.2107 29.0391 12 28.5304 12 28V16L20 10Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 30V20H24V30" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="text-xl font-headline font-bold text-primary">LaporKampungku</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="homepage.html" class="text-text-secondary hover:text-primary transition-base">Beranda</a>
+                    <a href="service_catalog.html" class="text-text-secondary hover:text-primary transition-base">Layanan</a>
+                    <a href="chatbot.html" class="text-primary font-medium">Chat Bot</a>
+                    <a href="knowledge_center.html" class="text-text-secondary hover:text-primary transition-base">Pengetahuan</a>
+                    <a href="login.html" class="btn btn-outline">Masuk</a>
+                    <a href="register.html" class="btn btn-primary">Daftar</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 text-text-primary" aria-label="Toggle menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 border-t border-border-light pt-4">
+                <div class="flex flex-col gap-4">
+                    <a href="homepage.html" class="text-text-secondary hover:text-primary transition-base">Beranda</a>
+                    <a href="service_catalog.html" class="text-text-secondary hover:text-primary transition-base">Layanan</a>
+                    <a href="chatbot.html" class="text-primary font-medium">Chat Bot</a>
+                    <a href="knowledge_center.html" class="text-text-secondary hover:text-primary transition-base">Pengetahuan</a>
+                    <a href="login.html" class="btn btn-outline w-full">Masuk</a>
+                    <a href="register.html" class="btn btn-primary w-full">Daftar</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Chat Section -->
+    <section class="min-h-screen bg-white">
+        <div class="container mx-auto px-4 py-8 max-w-4xl">
+            <div class="card shadow-lg overflow-hidden">
+                <!-- Chat Header -->
+                <div class="chat-header">
+                    <div>
+                        <h2>💬 Chat Bot LaporKampungku</h2>
+                        <p style="font-size: 13px; color: #6b7280; margin: 4px 0 0 0;">Siap membantu Anda 24/7</p>
+                    </div>
+                    <button class="chat-history-btn" id="historyBtn">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Riwayat Chat
+                    </button>
+                </div>
+
+                <!-- Chat Messages -->
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="empty-chat">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            </svg>
+                            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Mulai Percakapan</h3>
+                            <p>Tanyakan apa saja tentang pelaporan infrastruktur kepada asisten kami</p>
+                            <div class="quick-actions">
+                                <button class="quick-action-btn" onclick="sendQuickMessage('Bagaimana cara membuat laporan?')">
+                                    📋 Cara Lapor
+                                </button>
+                                <button class="quick-action-btn" onclick="sendQuickMessage('Apa saja kategori laporan yang tersedia?')">
+                                    📑 Kategori
+                                </button>
+                                <button class="quick-action-btn" onclick="sendQuickMessage('Berapa lama proses penyelesaian?')">
+                                    ⏱️ Timeline
+                                </button>
+                                <button class="quick-action-btn" onclick="sendQuickMessage('Bagaimana cara melacak laporan saya?')">
+                                    🔍 Pelacakan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="chat-input-area">
+                        <form class="chat-input-form" id="chatForm" onsubmit="sendMessage(event)">
+                            <input 
+                                type="text" 
+                                id="messageInput" 
+                                placeholder="Ketik pertanyaan Anda..." 
+                                autocomplete="off"
+                                required
+                            >
+                            <button type="submit" id="sendBtn">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                </svg>
+                                Kirim
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Modal -->
+    <div class="history-modal" id="historyModal">
+        <div class="history-content">
+            <div class="history-header">
+                <h3>📜 Riwayat Chat</h3>
+                <button class="history-close" onclick="closeHistory()">×</button>
+            </div>
+            <div class="history-list" id="historyList">
+                <div style="padding: 40px; text-align: center; color: #9ca3af;">
+                    <p>Memuat riwayat chat...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/navbar.js"></script>
+    <script>
+        let userId = null;
+        let currentConversationId = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkUserLogin();
+            loadChatHistory();
+        });
+
+        // Check if user is logged in
+        function checkUserLogin() {
+            const user = localStorage.getItem('user');
+            if (user) {
+                userId = JSON.parse(user).id;
+            }
+        }
+
+        // Send message
+        function sendMessage(e) {
+            e.preventDefault();
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            // Clear empty chat state
+            const emptyChat = document.querySelector('.empty-chat');
+            if (emptyChat) {
+                emptyChat.remove();
+            }
+
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+
+            // Send to backend
+            sendToBackend(message);
+        }
+
+        // Send quick message
+        function sendQuickMessage(message) {
+            document.getElementById('messageInput').value = message;
+            const form = document.getElementById('chatForm');
+            form.dispatchEvent(new Event('submit'));
+        }
+
+        // Add message to chat
+        function addMessage(content, sender) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+
+            const avatar = sender === 'user' ? '👤' : '🤖';
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.textContent = content;
+
+            const avatarDiv = document.createElement('div');
+            avatarDiv.className = 'message-avatar';
+            avatarDiv.textContent = avatar;
+
+            messageDiv.appendChild(avatarDiv);
+            messageDiv.appendChild(messageContent);
+
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
+
+            return messageDiv;
+        }
+
+        // Add loading indicator
+        function addLoadingMessage() {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot';
+            messageDiv.id = 'loadingMessage';
+
+            const avatarDiv = document.createElement('div');
+            avatarDiv.className = 'message-avatar';
+            avatarDiv.textContent = '🤖';
+
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.innerHTML = '<div class="loading-dots"><span></span><span></span><span></span></div>';
+
+            messageDiv.appendChild(avatarDiv);
+            messageDiv.appendChild(messageContent);
+            chatMessages.appendChild(messageDiv);
+
+            scrollToBottom();
+        }
+
+        // Remove loading message
+        function removeLoadingMessage() {
+            const loadingMessage = document.getElementById('loadingMessage');
+            if (loadingMessage) {
+                loadingMessage.remove();
+            }
+        }
+
+        // Send message to backend
+        async function sendToBackend(message) {
+            const sendBtn = document.getElementById('sendBtn');
+            sendBtn.disabled = true;
+
+            addLoadingMessage();
+
+            try {
+                const response = await fetch('../backend/chatbot_handler.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'send_message',
+                        message: message,
+                        user_id: userId || 'guest',
+                        conversation_id: currentConversationId
+                    })
+                });
+
+                const data = await response.json();
+
+                removeLoadingMessage();
+
+                if (data.success) {
+                    currentConversationId = data.conversation_id;
+                    addMessage(data.response, 'bot');
+                } else {
+                    addMessage('❌ ' + (data.error || 'Terjadi kesalahan. Silakan coba lagi.'), 'bot');
+                }
+            } catch (error) {
+                removeLoadingMessage();
+                console.error('Error:', error);
+                addMessage('❌ Gagal terhubung ke server. Silakan periksa koneksi internet Anda.', 'bot');
+            } finally {
+                sendBtn.disabled = false;
+                document.getElementById('messageInput').focus();
+            }
+        }
+
+        // Load chat history
+        function loadChatHistory() {
+            const historyBtn = document.getElementById('historyBtn');
+            if (userId) {
+                historyBtn.style.display = 'flex';
+            } else {
+                historyBtn.style.display = 'none';
+            }
+        }
+
+        // Show history modal
+        async function showHistory() {
+            if (!userId) {
+                alert('Silakan login terlebih dahulu untuk melihat riwayat chat');
+                return;
+            }
+
+            const historyModal = document.getElementById('historyModal');
+            const historyList = document.getElementById('historyList');
+            
+            historyList.innerHTML = '<div style="padding: 40px; text-align: center; color: #9ca3af;"><p>Memuat riwayat chat...</p></div>';
+            historyModal.classList.add('active');
+
+            try {
+                const response = await fetch('../backend/chatbot_handler.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'get_history',
+                        user_id: userId
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.conversations.length > 0) {
+                    historyList.innerHTML = data.conversations.map(conv => `
+                        <div class="history-item" onclick="loadConversation(${conv.id})">
+                            <div class="history-item-date">${new Date(conv.created_at).toLocaleString('id-ID')}</div>
+                            <div class="history-item-preview">${conv.last_message || 'Percakapan tanpa pesan'}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    historyList.innerHTML = '<div style="padding: 40px; text-align: center; color: #9ca3af;"><p>Belum ada riwayat chat</p></div>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                historyList.innerHTML = '<div style="padding: 40px; text-align: center; color: #991b1b;"><p>❌ Gagal memuat riwayat</p></div>';
+            }
+        }
+
+        // Load conversation
+        async function loadConversation(conversationId) {
+            const historyModal = document.getElementById('historyModal');
+            historyModal.classList.remove('active');
+
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '<div style="padding: 40px; text-align: center; color: #9ca3af;"><p>Memuat percakapan...</p></div>';
+
+            try {
+                const response = await fetch('../backend/chatbot_handler.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'get_conversation',
+                        user_id: userId,
+                        conversation_id: conversationId
+                    })
+                });
+
+                const data = await response.json();
+
+                chatMessages.innerHTML = '';
+                currentConversationId = conversationId;
+
+                if (data.success && data.messages.length > 0) {
+                    data.messages.forEach(msg => {
+                        addMessage(msg.message, 'user');
+                        addMessage(msg.response, 'bot');
+                    });
+                } else {
+                    chatMessages.innerHTML = '<div style="padding: 40px; text-align: center; color: #9ca3af;"><p>Tidak ada pesan dalam percakapan ini</p></div>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                chatMessages.innerHTML = '<div style="padding: 40px; text-align: center; color: #991b1b;"><p>❌ Gagal memuat percakapan</p></div>';
+            }
+        }
+
+        // Close history modal
+        function closeHistory() {
+            const historyModal = document.getElementById('historyModal');
+            historyModal.classList.remove('active');
+        }
+
+        // Add history button listener
+        document.getElementById('historyBtn').addEventListener('click', showHistory);
+
+        // Close modal when clicking outside
+        document.getElementById('historyModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeHistory();
+            }
+        });
+
+        // Scroll to bottom
+        function scrollToBottom() {
+            const chatMessages = document.getElementById('chatMessages');
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 0);
+        }
+
+        // Auto focus input
+        document.getElementById('messageInput').focus();
+    </script>
+</body>
+</html>
