@@ -7,10 +7,8 @@
     <title>Dashboard Pengguna - LaporKampungku</title>
     <link rel="icon" href="../public/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/main.css">
-  
-  <script type="module" async src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Flaporkampu1233back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.12"></script>
-  <script type="module" defer src="https://static.rocket.new/rocket-shot.js?v=0.0.2"></script>
-  </head>
+    <link rel="stylesheet" href="../css/chatbot.css">
+</head>
 <body class="bg-surface">
     <!-- Navigation Header -->
     <header class="bg-white shadow-base sticky top-0 z-50">
@@ -141,58 +139,58 @@
         <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <!-- Total Reports -->
             <article class="card p-6 card-hover stagger-item">
-            <div class="flex items-center justify-between mb-4">
-                <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center" aria-hidden="true">
-                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                </svg>
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center" aria-hidden="true">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xs text-text-secondary">Total</span>
                 </div>
-                <span class="text-xs text-text-secondary">Total</span>
-            </div>
-            <div class="text-3xl font-bold text-text-primary mb-1 stat-total-reports">0</div>
-            <div class="text-sm text-text-secondary">Laporan Dibuat</div>
+                <div class="text-3xl font-bold text-text-primary mb-1 stat-total-reports">0</div>
+                <div class="text-sm text-text-secondary">Laporan Dibuat</div>
             </article>
 
             <!-- Resolved Reports -->
             <article class="card p-6 card-hover stagger-item">
-            <div class="flex items-center justify-between mb-4">
-                <div class="w-12 h-12 bg-secondary-100 rounded-full flex items-center justify-center" aria-hidden="true">
-                <svg class="w-6 h-6 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                </svg>
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-secondary-100 rounded-full flex items-center justify-center" aria-hidden="true">
+                        <svg class="w-6 h-6 text-secondary" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <span class="text-xs text-text-secondary">Selesai</span>
                 </div>
-                <span class="text-xs text-text-secondary">Selesai</span>
-            </div>
-            <div class="text-3xl font-bold text-text-primary mb-1 stat-resolved-reports">0</div>
-            <div class="text-sm text-text-secondary">Masalah Terselesaikan</div>
+                <div class="text-3xl font-bold text-text-primary mb-1 stat-resolved-reports">0</div>
+                <div class="text-sm text-text-secondary">Masalah Terselesaikan</div>
             </article>
 
             <!-- Pending Reports -->
             <article class="card p-6 card-hover stagger-item">
-            <div class="flex items-center justify-between mb-4">
-                <div class="w-12 h-12 bg-warning-100 rounded-full flex items-center justify-center" aria-hidden="true">
-                <svg class="w-6 h-6 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-warning-100 rounded-full flex items-center justify-center" aria-hidden="true">
+                        <svg class="w-6 h-6 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xs text-text-secondary">Proses</span>
                 </div>
-                <span class="text-xs text-text-secondary">Proses</span>
-            </div>
-            <div class="text-3xl font-bold text-text-primary mb-1 stat-pending-reports">0</div>
-            <div class="text-sm text-text-secondary">Sedang Ditangani</div>
+                <div class="text-3xl font-bold text-text-primary mb-1 stat-pending-reports">0</div>
+                <div class="text-sm text-text-secondary">Sedang Ditangani</div>
             </article>
 
             <!-- Community Impact -->
             <article class="card p-6 card-hover stagger-item">
-            <div class="flex items-center justify-between mb-4">
-                <div class="w-12 h-12 bg-accent-100 rounded-full flex items-center justify-center" aria-hidden="true">
-                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                </svg>
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-accent-100 rounded-full flex items-center justify-center" aria-hidden="true">
+                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xs text-text-secondary">Skor</span>
                 </div>
-                <span class="text-xs text-text-secondary">Skor</span>
-            </div>
-            <div class="text-3xl font-bold text-text-primary mb-1 stat-points">0</div>
-            <div class="text-sm text-text-secondary">Poin Kontribusi</div>
+                <div class="text-3xl font-bold text-text-primary mb-1 stat-points">0</div>
+                <div class="text-sm text-text-secondary">Poin Kontribusi</div>
             </article>
         </section>
 
@@ -1143,5 +1141,22 @@
     </script>
 <script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
 <script src="../js/navbar.js"></script>
+
+    <!-- Chatbot Widget -->
+    <div id="chatbot-widget-container"></div>
+
+    <script>
+        // Load chatbot widget
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('../public/chatbot-widget.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('chatbot-widget-container').innerHTML = html;
+                })
+                .catch(error => console.error('Error loading chatbot:', error));
+        });
+    </script>
+    <script src="../js/chatbot.js"></script>
+
 </body>
 </html>

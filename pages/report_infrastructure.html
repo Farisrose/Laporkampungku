@@ -8,6 +8,7 @@
     <link rel="icon" href="../public/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="../css/chatbot.css">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         /* Override Leaflet z-index to prevent controls from covering header */
@@ -1181,5 +1182,22 @@
     </script>
 <script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
 <script src="../js/navbar.js"></script>
+
+    <!-- Chatbot Widget -->
+    <div id="chatbot-widget-container"></div>
+
+    <script>
+        // Load chatbot widget
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('../public/chatbot-widget.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('chatbot-widget-container').innerHTML = html;
+                })
+                .catch(error => console.error('Error loading chatbot:', error));
+        });
+    </script>
+    <script src="../js/chatbot.js"></script>
+
 </body>
 </html>

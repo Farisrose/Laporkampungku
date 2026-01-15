@@ -7,6 +7,7 @@
     <title>Katalog Layanan - LaporKampungku</title>
     <link rel="icon" href="../public/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/chatbot.css">
   
   <script type="module" async src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Flaporkampu1233back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.12"></script>
   <script type="module" defer src="https://static.rocket.new/rocket-shot.js?v=0.0.2"></script>
@@ -1087,5 +1088,22 @@
     </script>
 <script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
 <script src="../js/navbar.js"></script>
+
+    <!-- Chatbot Widget -->
+    <div id="chatbot-widget-container"></div>
+
+    <script>
+        // Load chatbot widget
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('../public/chatbot-widget.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('chatbot-widget-container').innerHTML = html;
+                })
+                .catch(error => console.error('Error loading chatbot:', error));
+        });
+    </script>
+    <script src="../js/chatbot.js"></script>
+
 </body>
 </html>
