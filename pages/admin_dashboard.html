@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Dashboard - LaporKampungku">
+    <title>Admin Dashboard - LaporKampungku</title>
+    <link rel="icon" href="../public/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        /* Reset & Base */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.5;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* Statistics Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .stat-card.blue { border-left-color: #2563eb; }
+        .stat-card.green { border-left-color: #16a34a; }
+        .stat-card.orange { border-left-color: #ea580c; }
+        .stat-card.red { border-left-color: #dc2626; }
+
+        .stat-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card-title {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-top: 0.25rem;
+        }
+
+        .stat-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-card.blue .stat-card-icon { background-color: #dbeafe; }
+        .stat-card.green .stat-card-icon { background-color: #dcfce7; }
+        .stat-card.orange .stat-card-icon { background-color: #fed7aa; }
+        .stat-card.red .stat-card-icon { background-color: #fee2e2; }
+
+        /* Tabs */
+        .tabs-container {
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            margin-bottom: -2px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tab-btn:hover {
+            color: #2563eb;
+        }
+
+        .tab-btn.active {
+            color: #2563eb;
+            border-bottom-color: #2563eb;
+        }
+
+        .tab-btn svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Content Card */
+        .content-card {
+            background: white;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+        }
+
+        .content-card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .content-card-desc {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filters select,
+        .filters input {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            background-color: white;
+        }
+
+        .filters input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filters select:focus,
+        .filters input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: #f8fafc;
+        }
+
+        th {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #64748b;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tbody tr {
+            transition: background-color 0.2s;
+        }
+
+        tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Table Scrolling */
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Badges & Status */
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-pending { background-color: #fef3c7; color: #92400e; }
+        .badge-processing { background-color: #dbeafe; color: #1e3a8a; }
+        .badge-verified { background-color: #dcfce7; color: #166534; }
+        .badge-rejected { background-color: #fee2e2; color: #991b1b; }
+
+        /* Buttons */
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #334155;
+        }
+
+        .btn-secondary:hover {
+            background-color: #cbd5e1;
+        }
+
+        .btn-danger {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .btn-danger:hover {
+            background-color: #fecaca;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 0.75rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.25rem;
+        }
+
+        .modal-close-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.5rem;
+            padding: 0;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 0.75rem;
+            justify-content: flex-end;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            color: #94a3b8;
+        }
+
+        .empty-state-icon {
+            width: 3rem;
+            height: 3rem;
+            margin: 0 auto 1rem;
+            opacity: 0.4;
+        }
+
+        .empty-state-text {
+            font-size: 0.95rem;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .user-level {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs-nav {
+                overflow-x: auto;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .filters input {
+                min-width: auto;
+            }
+
+            .tab-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .modal-content {
+                max-width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <header-content class="container">
+            <a href="admin_dashboard.html" class="logo">
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+                    <rect width="40" height="40" rx="8" fill="#2563eb"/>
+                    <path d="M20 10L28 16V28C28 28.5304 27.7893 29.0391 27.4142 29.4142C27.0391 29.7893 26.5304 30 26 30H14C13.4696 30 12.9609 29.7893 12.5858 29.4142C12.2107 29.0391 12 28.5304 12 28V16L20 10Z" stroke="white" stroke-width="2"/>
+                </svg>
+                Admin Dashboard
+            </a>
+
+            <div class="user-info">
+                <div>
+                    <div class="user-name" id="adminName">Admin</div>
+                    <div class="user-level" id="adminLevel">Superadmin</div>
+                </div>
+                <button id="logoutBtn" class="btn btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                    </svg>
+                    Keluar
+                </button>
+            </div>
+        </header-content>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container" style="padding: 2rem 1.5rem;">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Dashboard Admin</h1>
+            <p class="page-subtitle">Kelola platform, verifikasi laporan, dan monitor aktivitas pengguna</p>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card blue">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-card-title">Total Pengguna</div>
+                        <div class="stat-card-value" id="totalUsers">0</div>
+                    </div>
+                    <div class="stat-card-icon">👥</div>
+                </div>
+            </div>
+
+            <div class="stat-card orange">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-card-title">Laporan Menunggu</div>
+                        <div class="stat-card-value" id="pendingReports">0</div>
+                    </div>
+                    <div class="stat-card-icon">⏳</div>
+                </div>
+            </div>
+
+            <div class="stat-card green">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-card-title">Terverifikasi</div>
+                        <div class="stat-card-value" id="verifiedReports">0</div>
+                    </div>
+                    <div class="stat-card-icon">✅</div>
+                </div>
+            </div>
+
+            <div class="stat-card red">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-card-title">Ditolak</div>
+                        <div class="stat-card-value" id="rejectedReports">0</div>
+                    </div>
+                    <div class="stat-card-icon">❌</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn active" data-tab="reports">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Verifikasi Laporan
+                </button>
+                <button class="tab-btn" data-tab="settings">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                    </svg>
+                    Pengaturan
+                </button>
+            </div>
+        </div>
+
+        <!-- Reports Tab -->
+        <div id="reports" class="tab-content active">
+            <div class="content-card">
+                <h2 class="content-card-title">Verifikasi Laporan</h2>
+                <p class="content-card-desc">Kelola dan verifikasi laporan dari warga</p>
+
+                <div class="filters">
+                    <select id="reportStatusFilter">
+                        <option value="">Semua Status</option>
+                        <option value="Menunggu">Menunggu</option>
+                        <option value="Diproses">Diproses</option>
+                        <option value="Selesai">Selesai</option>
+                        <option value="Ditolak">Ditolak</option>
+                    </select>
+                    <input type="search" id="reportSearch" placeholder="Cari judul atau pelapor...">
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 8%">ID</th>
+                                <th style="width: 20%">Pelapor</th>
+                                <th style="width: 25%">Judul</th>
+                                <th style="width: 15%">Kategori</th>
+                                <th style="width: 15%">Status</th>
+                                <th style="width: 12%">Tanggal</th>
+                                <th style="width: 5%">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reportsTableBody">
+                            <tr>
+                                <td colspan="7">
+                                    <div class="empty-state">
+                                        <svg class="empty-state-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+                                        </svg>
+                                        <p class="empty-state-text">Tidak ada laporan</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settings" class="tab-content">
+            <div class="content-card">
+                <h2 class="content-card-title">Pengaturan Sistem</h2>
+                <p class="content-card-desc">Konfigurasi platform dan sistem</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                    <div style="border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem;">
+                        <h3 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 600; color: #1e293b;">Mode Pemeliharaan</h3>
+                        <p style="margin: 0 0 1rem 0; color: #64748b; font-size: 0.875rem;">Aktifkan untuk melakukan maintenance sistem</p>
+                        <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" id="maintenanceMode">
+                            <span>Aktifkan mode pemeliharaan</span>
+                        </label>
+                    </div>
+
+                    <div style="border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem;">
+                        <h3 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 600; color: #1e293b;">Notifikasi Email</h3>
+                        <p style="margin: 0 0 1rem 0; color: #64748b; font-size: 0.875rem;">Terima notifikasi laporan baru</p>
+                        <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" id="emailNotifications" checked>
+                            <span>Aktifkan notifikasi email</span>
+                        </label>
+                    </div>
+
+                    <div style="border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem;">
+                        <h3 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 600; color: #1e293b;">Status Sistem</h3>
+                        <p style="color: #64748b; margin: 0.5rem 0; font-size: 0.875rem;"><span style="font-weight: 600;">Uptime:</span> 99.8%</p>
+                        <p style="color: #64748b; margin: 0.5rem 0; font-size: 0.875rem;"><span style="font-weight: 600;">CPU:</span> 24%</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem;">
+                    <button id="saveSysSettings" class="btn btn-primary">Simpan Pengaturan</button>
+                    <button id="resetSysSettings" class="btn btn-secondary">Reset</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Report Detail Modal -->
+    <div id="reportDetailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Detail Laporan</h2>
+                <button class="modal-close-btn" onclick="closeReportModal()">×</button>
+            </div>
+            <div id="reportDetailContent" class="modal-body">
+                <!-- Content loaded dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeReportModal()">Tutup</button>
+                <button id="verifyReportBtn" class="btn btn-primary" style="display: none;">Verifikasi</button>
+                <button id="completeReportBtn" class="btn btn-primary" style="display: none;">Selesaikan</button>
+                <button id="rejectReportBtn" class="btn btn-danger" style="display: none;">Tolak</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Modal -->
+    <div id="actionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="actionModalTitle">Verifikasi Laporan</h2>
+                <button class="modal-close-btn" onclick="closeActionModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #1e293b;">Catatan / Komentar</label>
+                <textarea id="reportNotes" rows="5" placeholder="Masukkan catatan verifikasi..." style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; font-family: inherit; font-size: 0.875rem; resize: none;"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeActionModal()">Batal</button>
+                <button id="confirmActionBtn" class="btn btn-primary">Konfirmasi</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/navbar.js"></script>
+    <script>
+        let currentUser = null;
+        let currentActionReportId = null;
+        let currentActionType = null;
+
+        // Check authentication
+        window.addEventListener('load', async () => {
+            try {
+                const response = await fetch('../backend/auth.php?action=check');
+                const result = await response.json();
+                
+                if (result.success) {
+                    currentUser = result.user;
+                    if (currentUser.level !== 'admin' && currentUser.level !== 'superadmin') {
+                        window.location.href = 'user_dashboard.html';
+                        return;
+                    }
+                    
+                    document.getElementById('adminName').textContent = currentUser.username;
+                    document.getElementById('adminLevel').textContent = currentUser.level.toUpperCase();
+                    await loadDashboardStats();
+                } else {
+                    window.location.href = 'login.html';
+                }
+            } catch (err) {
+                console.error('Auth failed:', err);
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Load dashboard stats
+        async function loadDashboardStats() {
+            try {
+                const response = await fetch('../backend/get_all_reports.php?limit=1000');
+                const result = await response.json();
+                
+                if (result.success) {
+                    let totalUsers = new Set();
+                    let pending = 0, verified = 0, rejected = 0;
+                    
+                    result.data.forEach(r => {
+                        totalUsers.add(r.user_id);
+                        if (r.nama_status === 'Menunggu') pending++;
+                        else if (r.nama_status === 'Selesai') verified++;
+                        else if (r.nama_status === 'Ditolak') rejected++;
+                    });
+                    
+                    document.getElementById('totalUsers').textContent = totalUsers.size;
+                    document.getElementById('pendingReports').textContent = pending;
+                    document.getElementById('verifiedReports').textContent = verified;
+                    document.getElementById('rejectedReports').textContent = rejected;
+                    
+                    await loadReports();
+                } else {
+                    console.error('Failed to load stats:', result.message);
+                }
+            } catch (err) {
+                console.error('Error loading stats:', err);
+            }
+        }
+
+        // Load reports
+        async function loadReports(status = null, search = null) {
+            try {
+                let url = '../backend/get_all_reports.php?limit=50';
+                if (status) url += '&status=' + encodeURIComponent(status);
+                if (search) url += '&search=' + encodeURIComponent(search);
+                
+                const response = await fetch(url);
+                const result = await response.json();
+                
+                if (result.success && result.data.length > 0) {
+                    const tbody = document.getElementById('reportsTableBody');
+                    tbody.innerHTML = result.data.map(r => {
+                        const statusBadgeClass = {
+                            'Menunggu': 'badge-pending',
+                            'Diproses': 'badge-processing',
+                            'Selesai': 'badge-verified',
+                            'Ditolak': 'badge-rejected'
+                        }[r.nama_status] || 'badge-pending';
+                        
+                        return `
+                            <tr>
+                                <td>#${r.id}</td>
+                                <td>${r.username}</td>
+                                <td>${r.judul}</td>
+                                <td>${r.kategori}</td>
+                                <td><span class="badge ${statusBadgeClass}">${r.nama_status}</span></td>
+                                <td>${new Date(r.created_at).toLocaleDateString('id-ID')}</td>
+                                <td><button class="btn btn-primary" onclick="showReportDetail(${r.id})" style="font-size: 0.75rem;">Detail</button></td>
+                            </tr>
+                        `;
+                    }).join('');
+                } else if (!result.success) {
+                    console.error('Error loading reports:', result.message);
+                }
+            } catch (err) {
+                console.error('Error:', err);
+            }
+        }
+
+        // Show report detail
+        async function showReportDetail(reportId) {
+            try {
+                const response = await fetch(`../backend/get_all_reports.php?limit=1000`);
+                const result = await response.json();
+                const report = result.data.find(r => r.id === reportId);
+                
+                if (report) {
+                    let html = `
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+                            <div><strong style="color: #64748b; font-size: 0.75rem; text-transform: uppercase;">ID</strong><p style="margin: 0.25rem 0 0 0; font-weight: 600;">#${report.id}</p></div>
+                            <div><strong style="color: #64748b; font-size: 0.75rem; text-transform: uppercase;">Status</strong><p style="margin: 0.25rem 0 0 0; font-weight: 600;">${report.nama_status}</p></div>
+                            <div><strong style="color: #64748b; font-size: 0.75rem; text-transform: uppercase;">Kategori</strong><p style="margin: 0.25rem 0 0 0; font-weight: 600;">${report.kategori}</p></div>
+                            <div><strong style="color: #64748b; font-size: 0.75rem; text-transform: uppercase;">Prioritas</strong><p style="margin: 0.25rem 0 0 0; font-weight: 600;">${report.prioritas}</p></div>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong style="display: block; color: #64748b; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem;">Pelapor</strong>
+                            <p style="margin: 0; font-weight: 600;">${report.username}</p>
+                            <p style="margin: 0.25rem 0 0 0; color: #64748b; font-size: 0.875rem;">${report.email}</p>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong style="display: block; color: #64748b; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem;">Judul Laporan</strong>
+                            <p style="margin: 0; font-weight: 600; line-height: 1.5;">${report.judul}</p>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong style="display: block; color: #64748b; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem;">Deskripsi</strong>
+                            <p style="margin: 0; color: #64748b; line-height: 1.5;">${report.deskripsi || '-'}</p>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong style="display: block; color: #64748b; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem;">Lokasi</strong>
+                            <p style="margin: 0; font-weight: 600;">${report.alamat}</p>
+                            <p style="margin: 0.25rem 0 0 0; color: #64748b; font-size: 0.875rem;">${report.latitude}, ${report.longitude}</p>
+                        </div>
+                    `;
+                    
+                    document.getElementById('reportDetailContent').innerHTML = html;
+                    currentActionReportId = reportId;
+                    
+                    // Set button visibility based on status
+                    const verifyBtn = document.getElementById('verifyReportBtn');
+                    const completeBtn = document.getElementById('completeReportBtn');
+                    const rejectBtn = document.getElementById('rejectReportBtn');
+                    
+                    verifyBtn.style.display = 'none';
+                    completeBtn.style.display = 'none';
+                    rejectBtn.style.display = 'none';
+                    
+                    if (report.nama_status === 'Menunggu') {
+                        verifyBtn.style.display = 'inline-block';
+                        rejectBtn.style.display = 'inline-block';
+                    } else if (report.nama_status === 'Diproses') {
+                        completeBtn.style.display = 'inline-block';
+                        rejectBtn.style.display = 'inline-block';
+                    }
+                    
+                    document.getElementById('reportDetailModal').classList.add('active');
+                }
+            } catch (err) {
+                console.error('Error:', err);
+            }
+        }
+
+        // Modal functions
+        function closeReportModal() {
+            document.getElementById('reportDetailModal').classList.remove('active');
+        }
+
+        function closeActionModal() {
+            document.getElementById('actionModal').classList.remove('active');
+            document.getElementById('reportNotes').value = '';
+        }
+
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabName = btn.dataset.tab;
+                
+                document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                
+                document.getElementById(tabName).classList.add('active');
+                btn.classList.add('active');
+                
+                if (tabName === 'reports') loadReports();
+            });
+        });
+
+        // Verify/Reject/Complete buttons
+        document.getElementById('verifyReportBtn').addEventListener('click', () => {
+            currentActionType = 'verify';
+            document.getElementById('actionModalTitle').textContent = 'Verifikasi Laporan';
+            document.getElementById('actionModal').classList.add('active');
+        });
+
+        document.getElementById('completeReportBtn').addEventListener('click', () => {
+            currentActionType = 'complete';
+            document.getElementById('actionModalTitle').textContent = 'Selesaikan Laporan';
+            document.getElementById('actionModal').classList.add('active');
+        });
+
+        document.getElementById('rejectReportBtn').addEventListener('click', () => {
+            currentActionType = 'reject';
+            document.getElementById('actionModalTitle').textContent = 'Tolak Laporan';
+            document.getElementById('actionModal').classList.add('active');
+        });
+
+        // Confirm action
+        document.getElementById('confirmActionBtn').addEventListener('click', async () => {
+            const notes = document.getElementById('reportNotes').value;
+            let status = '';
+            
+            if (currentActionType === 'verify') {
+                status = 'Diproses';
+            } else if (currentActionType === 'complete') {
+                status = 'Selesai';
+            } else if (currentActionType === 'reject') {
+                status = 'Ditolak';
+            }
+            
+            try {
+                const fd = new FormData();
+                fd.append('action', currentActionType);
+                fd.append('report_id', currentActionReportId);
+                fd.append('status', status);
+                fd.append('catatan', notes);
+                
+                const response = await fetch('../backend/process_report.php', {
+                    method: 'POST',
+                    body: fd
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    alert('Laporan berhasil diperbarui');
+                    closeReportModal();
+                    closeActionModal();
+                    await loadDashboardStats();
+                } else {
+                    alert('Error: ' + (result.message || 'Gagal memperbarui laporan'));
+                }
+            } catch (err) {
+                console.error('Error:', err);
+                alert('Gagal memproses laporan');
+            }
+        });
+
+        // Search and filter
+        document.getElementById('reportSearch').addEventListener('input', (e) => {
+            loadReports(document.getElementById('reportStatusFilter').value, e.target.value);
+        });
+
+        document.getElementById('reportStatusFilter').addEventListener('change', (e) => {
+            loadReports(e.target.value, document.getElementById('reportSearch').value);
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            if (confirm('Yakin ingin keluar?')) {
+                try {
+                    await fetch('../backend/auth.php?action=logout', { method: 'POST' });
+                    window.location.href = 'login.html';
+                } catch (err) {
+                    alert('Gagal logout');
+                }
+            }
+        });
+
+        // Settings buttons
+        document.getElementById('saveSysSettings').addEventListener('click', () => {
+            alert('Pengaturan telah disimpan');
+        });
+
+        document.getElementById('resetSysSettings').addEventListener('click', () => {
+            if (confirm('Reset ke pengaturan default?')) {
+                document.getElementById('maintenanceMode').checked = false;
+                document.getElementById('emailNotifications').checked = true;
+                alert('Pengaturan direset');
+            }
+        });
+    </script>
+</body>
+</html>

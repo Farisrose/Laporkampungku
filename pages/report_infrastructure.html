@@ -382,6 +382,9 @@
                             <div id="photoPreview" class="grid grid-cols-3 gap-4 mt-4 hidden"></div>
                         </div>
 
+                        <!-- Hidden Title Field (Auto-generated) -->
+                        <input type="hidden" id="judul" name="judul" value="">
+
                         <!-- Voice Input Option -->
                         <div class="mb-6">
                             <label class="label">Deskripsi Masalah</label>
@@ -690,7 +693,7 @@
                     <h4 class="font-headline font-semibold mb-4">Dukungan</h4>
                     <ul class="space-y-2 text-sm opacity-80">
                         <li><a href="chatbot.html" class="hover:opacity-100 transition-base">Pusat Bantuan</a></li>
-                        <li><a href="chatbot.html" class="hover:opacity-100 transition-base">FAQ</a></li>
+                        <li><a href="faq.html" class="hover:opacity-100 transition-base">FAQ</a></li>
                         <li><a href="https://wa.link/d212ev" class="hover:opacity-100 transition-base">Hubungi Kami</a></li>
                         <li><a href="privacy-policy.html" class="hover:opacity-100 transition-base">Kebijakan Privasi</a></li>
                     </ul>
@@ -1030,6 +1033,31 @@
         // Step 3 Navigation
         document.getElementById('prevStep3').addEventListener('click', () => showStep(2));
         
+        // Auto-generate judul when description changes or when moving to next step
+        function generateJudul() {
+            const category = document.querySelector('input[name="category"]:checked')?.value || '';
+            const description = document.getElementById('description').value || '';
+            const address = document.getElementById('address').value || '';
+            
+            let judul = '';
+            if (description.length > 0) {
+                // Take first 50 chars of description
+                judul = category + ' - ' + description.substring(0, 50);
+                if (description.length > 50) judul += '...';
+            } else if (address.length > 0) {
+                // Use category with address
+                judul = category + ' di ' + address.substring(0, 40);
+                if (address.length > 40) judul += '...';
+            } else {
+                judul = category + ' - Laporan Infrastruktur';
+            }
+            
+            document.getElementById('judul').value = judul;
+        }
+        
+        // Update judul whenever description changes
+        document.getElementById('description').addEventListener('input', generateJudul);
+        
         document.getElementById('saveDraft').addEventListener('click', () => {
             const formData = new FormData(document.getElementById('reportForm'));
             localStorage.setItem('reportDraft', JSON.stringify(Object.fromEntries(formData)));
@@ -1043,6 +1071,9 @@
                 alert('Mohon isi deskripsi masalah');
                 return;
             }
+            
+            // Generate judul sebelum lanjut
+            generateJudul();
             
             if (uploadedPhotos.length === 0) {
                 if (!confirm('Anda belum mengunggah foto. Lanjutkan tanpa foto?')) {

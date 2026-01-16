@@ -40,6 +40,7 @@ $latitude = $_POST['latitude'] ?? null;
 $longitude = $_POST['longitude'] ?? null;
 $alamat = $_POST['address'] ?? null;
 $prioritas = $_POST['priority'] ?? 'Sedang';
+$judul = $_POST['judul'] ?? null;
 
 if (!$kategori || !$latitude || !$longitude || !$alamat) {
     http_response_code(400);
@@ -47,13 +48,32 @@ if (!$kategori || !$latitude || !$longitude || !$alamat) {
     exit;
 }
 
+// Auto-generate judul if not provided or empty
+if (empty($judul)) {
+    // Create title from category and first part of description or address
+    if (!empty($deskripsi)) {
+        // Take first 50 characters of description
+        $judul = $kategori . ' - ' . substr($deskripsi, 0, 50);
+        if (strlen($deskripsi) > 50) {
+            $judul .= '...';
+        }
+    } else {
+        // Use category with address
+        $judul = $kategori . ' di ' . substr($alamat, 0, 40);
+        if (strlen($alamat) > 40) {
+            $judul .= '...';
+        }
+    }
+}
+
 try {
     $pdo->beginTransaction();
 
-    $stmt = $pdo->prepare("INSERT INTO tbl_laporan (user_id, kategori, deskripsi, latitude, longitude, alamat, prioritas) VALUES (:user_id, :kategori, :deskripsi, :latitude, :longitude, :alamat, :prioritas)");
+    $stmt = $pdo->prepare("INSERT INTO tbl_laporan (user_id, kategori, judul, deskripsi, latitude, longitude, alamat, prioritas) VALUES (:user_id, :kategori, :judul, :deskripsi, :latitude, :longitude, :alamat, :prioritas)");
     $stmt->execute([
         ':user_id' => $userId,
         ':kategori' => $kategori,
+        ':judul' => $judul,
         ':deskripsi' => $deskripsi,
         ':latitude' => $latitude,
         ':longitude' => $longitude,

@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FAQ - LaporKampungku">
+    <title>FAQ - LaporKampungku</title>
+    <link rel="icon" href="../public/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .faq-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #f8fafc;
+        }
+
+        .faq-question h3 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e293b;
+            flex: 1;
+            text-align: left;
+        }
+
+        .faq-toggle {
+            width: 2rem;
+            height: 2rem;
+            background: #dbeafe;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2563eb;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-toggle {
+            background: #2563eb;
+            color: white;
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .faq-answer-content {
+            padding: 1.5rem;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .faq-category {
+            margin-bottom: 3rem;
+        }
+
+        .faq-category-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid #2563eb;
+            display: inline-block;
+        }
+
+        .search-box {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            background: transparent;
+        }
+
+        .search-box input::placeholder {
+            color: #cbd5e1;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            color: #94a3b8;
+        }
+
+        .no-results svg {
+            width: 3rem;
+            height: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .faq-question {
+                padding: 1rem;
+            }
+
+            .faq-answer-content {
+                padding: 1rem;
+            }
+
+            .faq-category-title {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background">
+    <!-- Navigation -->
+    <nav id="navbar"></nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-16">
+        <!-- Page Header -->
+        <div class="mb-12 text-center">
+            <h1 class="text-4xl md:text-5xl font-headline font-bold text-text-primary mb-4">
+                Pertanyaan yang Sering Diajukan
+            </h1>
+            <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+                Temukan jawaban atas pertanyaan umum tentang LaporKampungku dan cara menggunakan platform kami
+            </p>
+        </div>
+
+        <!-- Search -->
+        <div class="max-w-2xl mx-auto mb-12">
+            <div class="search-box">
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-text-secondary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input type="search" id="faqSearch" name="search" placeholder="Cari pertanyaan" />
+            </div>
+            </div>
+        </div>
+
+        <!-- FAQ Content -->
+        <div class="max-w-3xl mx-auto">
+            <!-- Kategori: Umum -->
+            <div class="faq-category">
+                <h2 class="faq-category-title">Pertanyaan Umum</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Apa itu LaporKampungku?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            LaporKampungku adalah platform pelaporan infrastruktur berbasis komunitas yang memungkinkan warga untuk melaporkan masalah infrastruktur di kampung mereka. Platform ini menghubungkan warga, pemerintah, dan pemimpin komunitas untuk pembangunan berkelanjutan.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Siapa yang bisa menggunakan LaporKampungku?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Siapa pun bisa menggunakan LaporKampungku! Baik Anda adalah warga lokal, pejabat pemerintah, atau anggota komunitas, platform ini dirancang untuk semua yang peduli dengan pembangunan kampung mereka. Anda hanya perlu mendaftar akun gratis untuk mulai.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Apakah LaporKampungku gratis?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Ya, LaporKampungku sepenuhnya gratis! Pendaftaran, membuat laporan, dan menggunakan semua fitur platform tidak dikenakan biaya. Kami berkomitmen untuk membuat platform ini dapat diakses oleh semua orang.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kategori: Akun -->
+            <div class="faq-category">
+                <h2 class="faq-category-title">Pengelolaan Akun</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Bagaimana cara mendaftar akun?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <ol style="margin: 0; padding-left: 1.5rem;">
+                                <li>Klik tombol "Daftar" di halaman login</li>
+                                <li>Isi formulir pendaftaran dengan data pribadi Anda</li>
+                                <li>Buat password yang kuat</li>
+                                <li>Klik "Daftar" untuk menyelesaikan</li>
+                                <li>Verifikasi email Anda jika diminta</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Lupa password saya, bagaimana cara menggantinya?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Anda dapat mereset password dengan:
+                            <ol style="margin: 0.5rem 0 0 0; padding-left: 1.5rem;">
+                                <li>Klik "Lupa Password" di halaman login</li>
+                                <li>Masukkan email akun Anda</li>
+                                <li>Ikuti petunjuk yang dikirim ke email Anda</li>
+                                <li>Buat password baru yang kuat</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Bagaimana cara mengganti informasi profil saya?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Untuk mengubah profil Anda:
+                            <ol style="margin: 0.5rem 0 0 0; padding-left: 1.5rem;">
+                                <li>Masuk ke akun Anda</li>
+                                <li>Pergi ke "Pengaturan" atau "Profil Saya"</li>
+                                <li>Klik tombol "Edit"</li>
+                                <li>Ubah informasi yang ingin diperbarui</li>
+                                <li>Klik "Simpan" untuk menyimpan perubahan</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kategori: Laporan -->
+            <div class="faq-category">
+                <h2 class="faq-category-title">Membuat Laporan</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Bagaimana cara membuat laporan infrastruktur?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Langkah-langkah membuat laporan:
+                            <ol style="margin: 0.5rem 0 0 0; padding-left: 1.5rem;">
+                                <li>Masuk ke akun Anda</li>
+                                <li>Klik tombol "Buat Laporan" atau "Laporkan Masalah"</li>
+                                <li>Pilih kategori masalah infrastruktur</li>
+                                <li>Isi detail laporan (judul, deskripsi, lokasi)</li>
+                                <li>Tambahkan foto/bukti jika ada</li>
+                                <li>Klik "Kirim Laporan"</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Kategori infrastruktur apa yang bisa dilaporkan?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Anda dapat melaporkan berbagai masalah infrastruktur termasuk:
+                            <ul style="margin: 0.5rem 0 0 0; padding-left: 1.5rem;">
+                                <li>Jalan rusak atau berlubang</li>
+                                <li>Sistem drainase/saluran yang tersumbat</li>
+                                <li>Lampu jalan yang tidak berfungsi</li>
+                                <li>Masalah air bersih/air kotor</li>
+                                <li>Infrastruktur kesehatan</li>
+                                <li>Infrastruktur pendidikan</li>
+                                <li>Infrastruktur sosial dan lainnya</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Bisakah saya menambahkan foto ke laporan saya?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Ya! Kami sangat mendorong Anda untuk menambahkan foto atau bukti visual ke laporan Anda. Foto membantu memverifikasi masalah dan mempercepat proses penanganan. Anda dapat menambahkan hingga beberapa foto per laporan.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Dapatkah saya mengedit laporan setelah dikirim?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Ya, Anda dapat mengedit laporan Anda sebelum diverifikasi oleh admin. Setelah laporan diverifikasi dan diproses, Anda tidak dapat mengedit lagi tetapi dapat menambahkan komentar atau informasi tambahan.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kategori: Status Laporan -->
+            <div class="faq-category">
+                <h2 class="faq-category-title">Status Laporan</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Apa arti status "Menunggu" pada laporan saya?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Status "Menunggu" berarti laporan Anda telah diterima oleh sistem dan sedang menunggu untuk diverifikasi oleh admin. Biasanya proses verifikasi memakan waktu 1-3 hari kerja.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Apa arti status "Diproses" pada laporan saya?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Status "Diproses" berarti laporan Anda telah diverifikasi oleh admin dan sedang dalam tahap penanganan oleh pihak yang berwenang. Masalah yang dilaporkan sedang ditangani dan diupayakan untuk diselesaikan.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Apa arti status "Selesai" pada laporan saya?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Status "Selesai" berarti masalah yang Anda laporkan telah ditangani dan diselesaikan. Pihak berwenang telah menyelesaikan pekerjaan perbaikan atau penanganan yang diperlukan.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Bagaimana cara melacak status laporan saya?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Anda dapat melacak status laporan Anda dengan:
+                            <ol style="margin: 0.5rem 0 0 0; padding-left: 1.5rem;">
+                                <li>Masuk ke akun Anda</li>
+                                <li>Pergi ke "Dashboard" atau "Laporan Saya"</li>
+                                <li>Klik laporan untuk melihat detail dan status terbaru</li>
+                                <li>Anda akan melihat timeline perubahan status</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kategori: Dukungan -->
+            <div class="faq-category">
+                <h2 class="faq-category-title">Dukungan & Kontak</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Bagaimana cara menghubungi dukungan pelanggan?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Anda dapat menghubungi kami melalui:
+                            <ul style="margin: 0.5rem 0 0 0; padding-left: 1.5rem;">
+                                <li><strong>Email:</strong> info@laporkampungku.id</li>
+                                <li><strong>WhatsApp:</strong> +62 887-4373-52670</li>
+                                <li><strong>Pusat Bantuan:</strong> Gunakan chat bot di platform</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Berapa lama waktu respons dukungan?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Kami berusaha merespons semua pertanyaan dalam 24 jam kerja. Untuk pertanyaan urgent, hubungi kami melalui WhatsApp untuk respons yang lebih cepat.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Apakah ada pusat komunitas atau forum?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Ya! Kami memiliki Pusat Pengetahuan dan section Berita & Update di platform. Anda juga dapat melihat laporan dari pengguna lain, berkomentar, dan berbagi pengalaman untuk membangun komunitas yang lebih kuat.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kategori: Keamanan & Privasi -->
+            <div class="faq-category">
+                <h2 class="faq-category-title">Keamanan & Privasi</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Apakah data saya aman?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Ya, keamanan data Anda adalah prioritas utama kami. Kami menggunakan enkripsi tingkat industri dan praktik keamanan terbaik untuk melindungi informasi pribadi Anda. Silakan baca Kebijakan Privasi kami untuk detail lebih lanjut.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Apakah laporan saya akan dipublikasikan?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Laporan Anda akan terlihat kepada admin dan pihak yang berwenang untuk diproses. Informasi pribadi Anda tidak akan dipublikasikan tanpa izin Anda, namun detail masalah dan foto dapat dibagikan untuk keperluan penanganan.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Bisakah laporan saya anonimus?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Anda harus terdaftar untuk membuat laporan, tetapi kami memahami kekhawatiran privasi. Hubungi kami untuk opsi khusus jika Anda memiliki kekhawatiran keamanan tertentu.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Bagaimana cara menghapus akun saya?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Untuk menghapus akun Anda, hubungi tim dukungan kami dengan meminta penghapusan akun. Kami akan membantu Anda menjalani proses ini. Perlu diketahui bahwa penghapusan akun bersifat permanen.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kategori: Troubleshooting -->
+            <div class="faq-category">
+                <h2 class="faq-category-title">Troubleshooting</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Saya tidak bisa login, apa yang harus saya lakukan?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Jika Anda tidak bisa login:
+                            <ol style="margin: 0.5rem 0 0 0; padding-left: 1.5rem;">
+                                <li>Pastikan username dan password Anda benar</li>
+                                <li>Coba reset password melalui tombol "Lupa Password"</li>
+                                <li>Hapus cache browser dan coba lagi</li>
+                                <li>Hubungi dukungan jika masalah berlanjut</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Website lambat atau tidak merespons</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Jika website lambat:
+                            <ul style="margin: 0.5rem 0 0 0; padding-left: 1.5rem;">
+                                <li>Coba refresh halaman (F5)</li>
+                                <li>Hapus cache dan cookies browser</li>
+                                <li>Gunakan browser modern seperti Chrome, Firefox, atau Safari</li>
+                                <li>Periksa koneksi internet Anda</li>
+                                <li>Hubungi dukungan jika masalah tetap ada</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Bagaimana jika foto saya tidak bisa diupload?</h3>
+                        <div class="faq-toggle">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Jika foto tidak bisa diupload:
+                            <ul style="margin: 0.5rem 0 0 0; padding-left: 1.5rem;">
+                                <li>Periksa ukuran file (maksimal 5MB per foto)</li>
+                                <li>Gunakan format yang didukung: JPG, PNG, atau GIF</li>
+                                <li>Pastikan koneksi internet stabil</li>
+                                <li>Coba upload di waktu berbeda</li>
+                                <li>Hubungi dukungan jika terus bermasalah</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tidak Ada Hasil -->
+            <div id="noResults" class="no-results" style="display: none;">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <p>Tidak ada pertanyaan yang cocok dengan pencarian Anda. Coba kata kunci lain atau hubungi dukungan kami.</p>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="max-w-3xl mx-auto mt-16 pt-16 border-t border-border">
+            <div class="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg p-8 text-center">
+                <h3 class="text-2xl font-bold text-text-primary mb-4">Masih memiliki pertanyaan?</h3>
+                <p class="text-text-secondary mb-6">Jangan ragu untuk menghubungi tim dukungan kami. Kami siap membantu!</p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="https://wa.link/d212ev" class="btn btn-primary px-6 py-3">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-9.746 9.798c0 5.434 4.405 9.859 9.747 9.859h.007c2.605 0 5.051-.994 6.885-2.787l.405.434A1 1 0 0023 20.5V3a1 1 0 00-1.707-.707l-.468.502A9.865 9.865 0 0011.052 6.98z"/>
+                        </svg>
+                        Chat WhatsApp
+                    </a>
+                    <a href="mailto:info@laporkampungku.id" class="btn btn-outline px-6 py-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        Email Kami
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-text-primary text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <!-- Brand Column -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="8" fill="#2563EB"/>
+                            <path d="M20 10L28 16V28C28 28.5304 27.7893 29.0391 27.4142 29.4142C27.0391 29.7893 26.5304 30 26 30H14C13.4696 30 12.9609 29.7893 12.5858 29.4142C12.2107 29.0391 12 28.5304 12 28V16L20 10Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 30V20H24V30" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="text-xl font-headline font-bold">LaporKampungku</span>
+                    </div>
+                    <p class="text-sm opacity-80 mb-4">
+                        Platform pelaporan infrastruktur berbasis komunitas untuk pembangunan berkelanjutan.
+                    </p>
+                    <div class="flex gap-3">
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-base" aria-label="Facebook">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-base" aria-label="Twitter">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-base" aria-label="Instagram">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-headline font-semibold mb-4">Tautan Cepat</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="homepage.html" class="hover:opacity-100 transition-base">Beranda</a></li>
+                        <li><a href="service_catalog.html" class="hover:opacity-100 transition-base">Layanan</a></li>
+                        <li><a href="knowledge_center.html" class="hover:opacity-100 transition-base">Pengetahuan</a></li>
+                        <li><a href="news_updates.html" class="hover:opacity-100 transition-base">Berita</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="font-headline font-semibold mb-4">Dukungan</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="chatbot.html" class="hover:opacity-100 transition-base">Pusat Bantuan</a></li>
+                        <li><a href="faq.html" class="hover:opacity-100 transition-base">FAQ</a></li>
+                        <li><a href="https://wa.link/d212ev" class="hover:opacity-100 transition-base">Hubungi Kami</a></li>
+                        <li><a href="privacy-policy.html" class="hover:opacity-100 transition-base">Kebijakan Privasi</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-headline font-semibold mb-4">Kontak</h4>
+                    <ul class="space-y-3 text-sm opacity-80">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <span>info@laporkampungku.id</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <span>+62 887-4373-52670</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span>Palembang, Indonesia</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/10 pt-8 text-center text-sm opacity-80">
+                <p>© 2026 LaporKampungku. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/navbar.js"></script>
+    <script>
+        // Toggle FAQ items
+        function toggleFaq(element) {
+            const faqItem = element.closest('.faq-item');
+            const isActive = faqItem.classList.contains('active');
+
+            // Close all other items
+            document.querySelectorAll('.faq-item.active').forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                }
+            });
+
+            // Toggle current item
+            if (isActive) {
+                faqItem.classList.remove('active');
+            } else {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Search functionality
+        document.getElementById('faqSearch').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+            const categories = document.querySelectorAll('.faq-category');
+            let visibleItems = 0;
+
+            categories.forEach(category => {
+                let categoryHasVisible = false;
+                
+                category.querySelectorAll('.faq-item').forEach(item => {
+                    const question = item.querySelector('.faq-question h3').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer-content').textContent.toLowerCase();
+
+                    if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        categoryHasVisible = true;
+                        visibleItems++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                category.style.display = categoryHasVisible ? 'block' : 'none';
+            });
+
+            // Show/hide no results message
+            const noResults = document.getElementById('noResults');
+            if (visibleItems === 0 && searchTerm.length > 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
