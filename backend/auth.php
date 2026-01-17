@@ -104,14 +104,16 @@ elseif ($action === 'register') {
     $email = $_POST['email'] ?? null;
     $password = $_POST['password'] ?? null;
     $confirm_password = $_POST['confirm_password'] ?? null;
+    $level = $_POST['level'] ?? 'warga';
 
-    if (!$username || !$email || !$password || !$confirm_password) {
+    if (!$username || !$email || !$password) {
         http_response_code(400);
-        echo json_encode(['success' => false, 'message' => 'Semua field diperlukan']);
+        echo json_encode(['success' => false, 'message' => 'Username, email, dan password diperlukan']);
         exit;
     }
 
-    if ($password !== $confirm_password) {
+    // If confirm_password provided (from public register), check it matches
+    if ($confirm_password && $password !== $confirm_password) {
         http_response_code(400);
         echo json_encode(['success' => false, 'message' => 'Password tidak cocok']);
         exit;
@@ -135,23 +137,93 @@ elseif ($action === 'register') {
     try {
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
         
-        $stmt = $pdo->prepare("INSERT INTO tbl_users (username, email, password, level, is_active) VALUES (:username, :email, :password, 'warga', TRUE)");
+        $stmt = $pdo->prepare("INSERT INTO tbl_users (username, email, password, level, is_active) VALUES (:username, :email, :password, :level, TRUE)");
         $stmt->execute([
             ':username' => $username,
             ':email' => $email,
-            ':password' => $hashedPassword
+            ':password' => $hashedPassword,
+            ':level' => $level
         ]);
 
         $userId = $pdo->lastInsertId();
 
         echo json_encode([
             'success' => true,
-            'message' => 'Registrasi berhasil, silakan login',
+            'message' => 'User berhasil ditambahkan',
             'user_id' => $userId
         ]);
     } catch (Exception $e) {
         http_response_code(500);
-        echo json_encode(['success' => false, 'message' => 'Gagal membuat akun']);
+        echo json_encode(['success' => false, 'message' => 'Gagal membuat akun: ' . $e->getMessage()]);
+    }
+    exit;
+}
+
+// UPDATE USER (SuperAdmin only)
+elseif ($action === 'update') {
+    if ($_SESSION['level'] !== 'superadmin') {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+        exit;
+    }
+
+    $id = $_POST['id'] ?? null;
+    $email = $_POST['email'] ?? null;
+    $level = $_POST['level'] ?? null;
+    $status = $_POST['status'] ?? null;
+
+    if (!$id) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'User ID diperlukan']);
+        exit;
+    }
+
+    try {
+        $stmt = $pdo->prepare("UPDATE tbl_users SET email = :email, level = :level, is_active = :status WHERE id = :id");
+        $stmt->execute([
+            ':email' => $email,
+            ':level' => $level,
+            ':status' => $status,
+            ':id' => $id
+        ]);
+
+        echo json_encode(['success' => true, 'message' => 'User berhasil diupdate']);
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['success' => false, 'message' => 'Gagal update user: ' . $e->getMessage()]);
+    }
+    exit;
+}
+
+// BAN/UNBAN USER (SuperAdmin only)
+elseif ($action === 'ban') {
+    if ($_SESSION['level'] !== 'superadmin') {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+        exit;
+    }
+
+    $id = $_POST['id'] ?? null;
+    $status = $_POST['status'] ?? null;
+
+    if (!$id || $status === null) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'User ID dan status diperlukan']);
+        exit;
+    }
+
+    try {
+        $stmt = $pdo->prepare("UPDATE tbl_users SET is_active = :status WHERE id = :id");
+        $stmt->execute([
+            ':status' => $status,
+            ':id' => $id
+        ]);
+
+        $statusText = $status == 1 ? 'unbanned' : 'banned';
+        echo json_encode(['success' => true, 'message' => 'User berhasil ' . $statusText]);
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['success' => false, 'message' => 'Gagal ban/unban user: ' . $e->getMessage()]);
     }
     exit;
 }

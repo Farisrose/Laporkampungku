@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tentang Kami - LaporKampungku">
+    <title>Tentang Kami - LaporKampungku</title>
+    <link rel="icon" href="../public/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .team-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-image-container {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .team-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-image-container.no-image {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .team-image-container.no-image::before {
+            content: "👨‍💼";
+            font-size: 4rem;
+        }
+
+        .team-info {
+            padding: 1.5rem;
+        }
+
+        .team-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .team-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1rem;
+        }
+
+        .team-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .team-contact-item svg {
+            width: 1rem;
+            height: 1rem;
+            flex-shrink: 0;
+            color: #667eea;
+        }
+
+        .team-contact-item a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            word-break: break-all;
+        }
+
+        .team-contact-item a:hover {
+            color: #764ba2;
+        }
+
+        .team-loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+        }
+
+        .team-error {
+            grid-column: 1 / -1;
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+
+        .about-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .about-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+
+        .about-section p {
+            color: #64748b;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .about-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .about-section li {
+            padding-left: 1.5rem;
+            position: relative;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .about-section li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .team-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .about-section {
+                padding: 1.5rem;
+            }
+
+            .about-section h2 {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background">
+    <!-- Navigation -->
+    <nav id="navbar"></nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-16">
+        <!-- Back Button -->
+        <div class="mb-8">
+            <button onclick="history.back()" class="flex items-center gap-2 px-4 py-2 rounded-lg border border-text-secondary hover:bg-text-secondary/5 text-text-secondary transition-colors duration-300">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                <span>Kembali</span>
+            </button>
+        </div>
+
+        <!-- Page Header -->
+        <div class="mb-12 text-center">
+            <h1 class="text-4xl md:text-5xl font-headline font-bold text-text-primary mb-4">
+                Tentang Kami
+            </h1>
+            <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+                Pelajari lebih lanjut tentang misi kami dan tim yang mengembangkan LaporKampungku
+            </p>
+        </div>
+
+        <!-- About Section -->
+        <div class="max-w-4xl mx-auto mb-16">
+            <div class="about-section">
+                <h2>Visi & Misi Kami</h2>
+                <p>
+                    <strong>LaporKampungku</strong> adalah platform pelaporan infrastruktur berbasis komunitas yang dirancang untuk memberdayakan warga dalam membangun kampung yang lebih baik. Kami percaya bahwa setiap suara penting dan setiap laporan tentang masalah infrastruktur harus didengar.
+                </p>
+                <h3 style="font-weight: 600; color: #1e293b; margin-top: 1.5rem; margin-bottom: 0.75rem;">Misi Kami:</h3>
+                <ul>
+                    <li>Memberikan platform transparan untuk pelaporan masalah infrastruktur</li>
+                    <li>Menghubungkan warga dengan pemimpin komunitas dan pemerintah</li>
+                    <li>Memfasilitasi tindakan cepat dalam penanganan masalah infrastruktur</li>
+                    <li>Mendorong partisipasi aktif komunitas dalam pembangunan berkelanjutan</li>
+                </ul>
+            </div>
+
+            <div class="about-section">
+                <h2>Fitur Utama</h2>
+                <ul>
+                    <li>Pelaporan mudah dengan foto dan lokasi GPS</li>
+                    <li>Tracking real-time status laporan dari awal hingga selesai</li>
+                    <li>Dashboard untuk pengelolaan dan analisis laporan</li>
+                    <li>Sistem notifikasi untuk update status laporan</li>
+                    <li>Peta interaktif untuk visualisasi masalah infrastruktur</li>
+                    <li>Sistem rating untuk feedback terhadap penanganan laporan</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Team Section -->
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-headline font-bold text-text-primary mb-2 text-center">
+                Tim Pengembang
+            </h2>
+            <p class="text-center text-text-secondary mb-8 max-w-2xl mx-auto">
+                Bertemu dengan tim profesional yang mengembangkan LaporKampungku dengan dedikasi dan passion
+            </p>
+
+            <!-- Team Grid -->
+            <div class="team-grid" id="teamContainer">
+                <div class="team-loading">
+                    <p>Memuat data tim...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-text-primary text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <!-- Brand Column -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="8" fill="#2563EB"/>
+                            <path d="M20 10L28 16V28C28 28.5304 27.7893 29.0391 27.4142 29.4142C27.0391 29.7893 26.5304 30 26 30H14C13.4696 30 12.9609 29.7893 12.5858 29.4142C12.2107 29.0391 12 28.5304 12 28V16L20 10Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 30V20H24V30" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="text-xl font-headline font-bold">LaporKampungku</span>
+                    </div>
+                    <p class="text-sm opacity-80 mb-4">
+                        Platform pelaporan infrastruktur berbasis komunitas untuk pembangunan berkelanjutan.
+                    </p>
+                    <div class="flex gap-3">
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-base" aria-label="Facebook">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-base" aria-label="Twitter">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                        <a href="javascript:void(0)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-base" aria-label="Instagram">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-headline font-semibold mb-4">Tautan Cepat</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="homepage.html" class="hover:opacity-100 transition-base">Beranda</a></li>
+                        <li><a href="service_catalog.html" class="hover:opacity-100 transition-base">Layanan</a></li>
+                        <li><a href="knowledge_center.html" class="hover:opacity-100 transition-base">Pengetahuan</a></li>
+                        <li><a href="news_updates.html" class="hover:opacity-100 transition-base">Berita</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="font-headline font-semibold mb-4">Dukungan</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="about-us.html" class="hover:opacity-100 transition-base">Tentang Kami</a></li>                        
+                        <li><a href="chatbot.html" class="hover:opacity-100 transition-base">Pusat Bantuan</a></li>
+                        <li><a href="faq.html" class="hover:opacity-100 transition-base">FAQ</a></li>
+                        <li><a href="https://wa.link/d212ev" class="hover:opacity-100 transition-base">Hubungi Kami</a></li>
+                        <li><a href="privacy-policy.html" class="hover:opacity-100 transition-base">Kebijakan Privasi</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-headline font-semibold mb-4">Kontak</h4>
+                    <ul class="space-y-3 text-sm opacity-80">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <span>info@laporkampungku.id</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <span>+62 887-4373-52670</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span>Palembang, Indonesia</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/10 pt-8 text-center text-sm opacity-80">
+                <p>© 2026 LaporKampungku. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/navbar.js"></script>
+    <script>
+        // Load team members from database
+        async function loadTeamMembers() {
+            const container = document.getElementById('teamContainer');
+            
+            try {
+                const response = await fetch('../backend/get_team_members.php');
+                const result = await response.json();
+
+                if (!result.success || result.data.length === 0) {
+                    container.innerHTML = '<div class="team-error">Belum ada data tim yang tersedia.</div>';
+                    return;
+                }
+
+                container.innerHTML = result.data.map(member => `
+                    <div class="team-card">
+                        <div class="team-image-container ${member.foto_profil ? '' : 'no-image'}">
+                            ${member.foto_profil ? `<img src="${member.foto_profil}" alt="${member.nama_lengkap}">` : ''}
+                        </div>
+                        <div class="team-info">
+                            <div class="team-name">${member.nama_lengkap}</div>
+                            <div class="team-role">${member.peran || 'Developer'}</div>
+                            <div class="team-contact">
+                                ${member.email_pribadi ? `
+                                    <div class="team-contact-item">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                        </svg>
+                                        <a href="mailto:${member.email_pribadi}">${member.email_pribadi}</a>
+                                    </div>
+                                ` : ''}
+                                ${member.no_telp ? `
+                                    <div class="team-contact-item">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                        </svg>
+                                        <a href="tel:${member.no_telp}">${member.no_telp}</a>
+                                    </div>
+                                ` : ''}
+                                ${member.nim_or_id ? `
+                                    <div class="team-contact-item">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v10a2 2 0 002 2h5m0-4h5a2 2 0 002-2V8a2 2 0 00-2-2h-5m0 4V8m0 4v4m0-11h2.613a1 1 0 01.894.553l1.258 2.613a1 1 0 01-.894 1.447h-3.871"></path>
+                                        </svg>
+                                        <span>${member.nim_or_id}</span>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error('Error loading team members:', error);
+                container.innerHTML = '<div class="team-error">Gagal memuat data tim. Silakan coba lagi nanti.</div>';
+            }
+        }
+
+        // Load team members when page loads
+        document.addEventListener('DOMContentLoaded', loadTeamMembers);
+    </script>
+</body>
+</html>

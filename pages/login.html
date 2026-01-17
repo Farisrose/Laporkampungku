@@ -165,8 +165,11 @@
                     
                     // Redirect based on user level
                     const level = result.user.level;
-                    if (level === 'superadmin' || level === 'admin') {
-                        // Admin dan Superadmin diarahkan ke admin dashboard
+                    if (level === 'superadmin') {
+                        // Superadmin diarahkan ke halaman khusus superadmin
+                        window.location.href = 'super_admin.html';
+                    } else if (level === 'admin') {
+                        // Admin diarahkan ke admin dashboard
                         window.location.href = 'admin_dashboard.html';
                     } else if (level === 'anggota') {
                         window.location.href = 'user_dashboard.html';

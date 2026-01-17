@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Super Admin Dashboard - LaporKampungku">
+    <title>Super Admin Dashboard - LaporKampungku</title>
+    <link rel="icon" href="../public/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        /* Reset & Base */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.5;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* Statistics Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .stat-card.blue { border-left-color: #2563eb; }
+        .stat-card.green { border-left-color: #16a34a; }
+        .stat-card.orange { border-left-color: #ea580c; }
+        .stat-card.red { border-left-color: #dc2626; }
+        .stat-card.purple { border-left-color: #9333ea; }
+
+        .stat-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card-title {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-top: 0.25rem;
+        }
+
+        .stat-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-card.blue .stat-card-icon { background-color: #dbeafe; }
+        .stat-card.green .stat-card-icon { background-color: #dcfce7; }
+        .stat-card.orange .stat-card-icon { background-color: #fed7aa; }
+        .stat-card.red .stat-card-icon { background-color: #fee2e2; }
+        .stat-card.purple .stat-card-icon { background-color: #e9d5ff; }
+
+        /* Tabs */
+        .tabs-container {
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            margin-bottom: -2px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tab-btn:hover {
+            color: #2563eb;
+        }
+
+        .tab-btn.active {
+            color: #2563eb;
+            border-bottom-color: #2563eb;
+        }
+
+        .tab-btn svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Content Card */
+        .content-card {
+            background: white;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+        }
+
+        .content-card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .content-card-desc {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filters select,
+        .filters input {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            background-color: white;
+        }
+
+        .filters input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filters select:focus,
+        .filters input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: #f8fafc;
+        }
+
+        th {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #64748b;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tbody tr {
+            transition: background-color 0.2s;
+        }
+
+        tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Table Scrolling */
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Badges & Status */
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-pending { background-color: #fef3c7; color: #92400e; }
+        .badge-processing { background-color: #dbeafe; color: #1e3a8a; }
+        .badge-verified { background-color: #dcfce7; color: #166534; }
+        .badge-rejected { background-color: #fee2e2; color: #991b1b; }
+        .badge-success { background-color: #dcfce7; color: #065f46; }
+        .badge-warning { background-color: #fef3c7; color: #92400e; }
+        .badge-info { background-color: #dbeafe; color: #1e40af; }
+
+        /* Buttons */
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #334155;
+        }
+
+        .btn-secondary:hover {
+            background-color: #cbd5e1;
+        }
+
+        .btn-danger {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .btn-danger:hover {
+            background-color: #fecaca;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 0.75rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.25rem;
+        }
+
+        .modal-close-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.5rem;
+            padding: 0;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 0.75rem;
+            justify-content: flex-end;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            color: #94a3b8;
+        }
+
+        .empty-state-icon {
+            width: 3rem;
+            height: 3rem;
+            margin: 0 auto 1rem;
+            opacity: 0.4;
+        }
+
+        .empty-state-text {
+            font-size: 0.95rem;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .user-level {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs-nav {
+                overflow-x: auto;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .filters input {
+                min-width: auto;
+            }
+
+            .tab-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .modal-content {
+                max-width: 95%;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .content-card {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <header-content class="container">
+                <!-- Logo -->
+                <a href="homepage.html" class="flex items-center gap-3">
+                    <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="8" fill="#2563EB"/>
+                        <path d="M20 10L28 16V28C28 28.5304 27.7893 29.0391 27.4142 29.4142C27.0391 29.7893 26.5304 30 26 30H14C13.4696 30 12.9609 29.7893 12.5858 29.4142C12.2107 29.0391 12 28.5304 12 28V16L20 10Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 30V20H24V30" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="text-xl font-headline font-bold text-primary">Super Admin LaporKampungku</span>
+                </a>
+
+            <div class="user-info">
+                <div>
+                    <div class="user-name" id="adminName">Admin</div>
+                    <div class="user-level" id="adminLevel">Superadmin</div>
+                </div>
+                <button id="logoutBtn" class="btn btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                    </svg>
+                    Keluar
+                </button>
+            </div>
+        </header-content>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container" style="padding: 2rem 1.5rem;">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Super Admin Dashboard</h1>
+            <p class="page-subtitle">Kelola sistem, monitor statistik, dan administrasi platform</p>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card blue">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-card-title">Total User</div>
+                        <div class="stat-card-value" id="totalUsers">0</div>
+                    </div>
+                    <div class="stat-card-icon">👥</div>
+                </div>
+            </div>
+
+            <div class="stat-card green">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-card-title">User Aktif</div>
+                        <div class="stat-card-value" id="activeUsers">0</div>
+                    </div>
+                    <div class="stat-card-icon">✅</div>
+                </div>
+            </div>
+
+            <div class="stat-card purple">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-card-title">Total Laporan</div>
+                        <div class="stat-card-value" id="totalReports">0</div>
+                    </div>
+                    <div class="stat-card-icon">📋</div>
+                </div>
+            </div>
+
+            <div class="stat-card orange">
+                <div class="stat-card-header">
+                    <div>
+                        <div class="stat-card-title">Sistem Uptime</div>
+                        <div class="stat-card-value" id="systemUptime">99.8%</div>
+                    </div>
+                    <div class="stat-card-icon">⚡</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-btn active" data-tab="dashboard">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9m-9 16l-7-4m7 4l7-4m-7 4v-10"/>
+                    </svg>
+                    Dashboard
+                </button>
+                <button class="tab-btn" data-tab="users">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 8.646 4 4 0 010-8.646M12 14H8m4 0h4m-2-6a1 1 0 100-2 1 1 0 000 2zm-7 6a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    Manajemen User
+                </button>
+                <button class="tab-btn" data-tab="settings">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                    </svg>
+                    Konfigurasi
+                </button>
+                <button class="tab-btn" data-tab="analytics">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
+                    Analitik
+                </button>
+            </div>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="content-card">
+                <h2 class="content-card-title">Aktivitas Terbaru</h2>
+                <p class="content-card-desc">Monitoring aktivitas sistem secara real-time</p>
+                
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 20%">Waktu</th>
+                                <th style="width: 25%">User</th>
+                                <th style="width: 30%">Aktivitas</th>
+                                <th style="width: 15%">Status</th>
+                                <th style="width: 10%">Tipe</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activityTableBody">
+                            <tr>
+                                <td colspan="5">
+                                    <div class="empty-state">
+                                        <svg class="empty-state-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+                                        </svg>
+                                        <p class="empty-state-text">Tidak ada aktivitas terbaru</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Management Tab -->
+        <div id="users" class="tab-content">
+            <div class="content-card">
+                <h2 class="content-card-title">Manajemen User</h2>
+                <p class="content-card-desc">Kelola pengguna sistem dan hak akses</p>
+
+                <div class="filters">
+                    <select id="userLevelFilter">
+                        <option value="">Semua Level</option>
+                        <option value="warga">Warga</option>
+                        <option value="anggota">Anggota</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                    <input type="search" id="userSearch" placeholder="Cari username atau email...">
+                    <button id="addUserBtn" class="btn btn-primary">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        Tambah User
+                    </button>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 10%">ID</th>
+                                <th style="width: 20%">Username</th>
+                                <th style="width: 25%">Email</th>
+                                <th style="width: 15%">Level</th>
+                                <th style="width: 15%">Status</th>
+                                <th style="width: 15%">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTableBody">
+                            <tr>
+                                <td colspan="6">
+                                    <div class="empty-state">
+                                        <svg class="empty-state-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 8.646 4 4 0 010-8.646M3 20a6 6 0 0112 0v1H3v-1z"/>
+                                        </svg>
+                                        <p class="empty-state-text">Memuat data user...</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settings" class="tab-content">
+            <div class="content-card">
+                <h2 class="content-card-title">Konfigurasi Sistem</h2>
+                <p class="content-card-desc">Pengaturan platform dan sistem</p>
+
+                <form id="configForm">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                        <div class="form-group">
+                            <label for="appName">Nama Aplikasi</label>
+                            <input type="text" id="appName" value="LaporKampungku">
+                        </div>
+                        <div class="form-group">
+                            <label for="appEmail">Email Sistem</label>
+                            <input type="email" id="appEmail" value="info@laporkampungku.id">
+                        </div>
+                        <div class="form-group">
+                            <label for="appPhone">Nomor Telepon</label>
+                            <input type="tel" id="appPhone" value="+62 887-4373-52670">
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                        <div class="form-group">
+                            <label for="maintenanceMode">Mode Maintenance</label>
+                            <select id="maintenanceMode">
+                                <option value="off">Tidak Aktif</option>
+                                <option value="on">Aktif</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="maxUploadSize">Ukuran Upload Maksimal (MB)</label>
+                            <input type="number" id="maxUploadSize" value="50">
+                        </div>
+                        <div class="form-group">
+                            <label for="reportRetention">Retensi Data Laporan (Hari)</label>
+                            <input type="number" id="reportRetention" value="365">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apiTimeout">Timeout API (Detik)</label>
+                        <input type="number" id="apiTimeout" value="30">
+                    </div>
+
+                    <div style="display: flex; gap: 0.75rem;">
+                        <button type="submit" class="btn btn-primary">Simpan Konfigurasi</button>
+                        <button type="reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                </form>
+
+                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e2e8f0;">
+                    <h3 style="margin: 0 0 1rem 0; font-size: 1.125rem; font-weight: 600; color: #1e293b;">Status Sistem</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                        <div style="border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem;">
+                            <p style="margin: 0 0 0.75rem 0; font-weight: 600; color: #1e293b; font-size: 0.875rem;">Database Connection</p>
+                            <p style="margin: 0; display: flex; align-items: center; gap: 0.5rem; color: #64748b;"><span style="width: 8px; height: 8px; background: #16a34a; border-radius: 50%;"></span>Connected</p>
+                        </div>
+                        <div style="border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem;">
+                            <p style="margin: 0 0 0.75rem 0; font-weight: 600; color: #1e293b; font-size: 0.875rem;">Server Status</p>
+                            <p style="margin: 0; display: flex; align-items: center; gap: 0.5rem; color: #64748b;"><span style="width: 8px; height: 8px; background: #16a34a; border-radius: 50%;"></span>Running</p>
+                        </div>
+                        <div style="border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem;">
+                            <p style="margin: 0 0 0.75rem 0; font-weight: 600; color: #1e293b; font-size: 0.875rem;">API Status</p>
+                            <p style="margin: 0; display: flex; align-items: center; gap: 0.5rem; color: #64748b;"><span style="width: 8px; height: 8px; background: #16a34a; border-radius: 50%;"></span>Operational</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Tab -->
+        <div id="analytics" class="tab-content">
+            <div class="content-card">
+                <h2 class="content-card-title">Analitik & Laporan</h2>
+                <p class="content-card-desc">Statistik dan analisis platform</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                    <div style="border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem;">
+                        <p style="margin: 0 0 0.5rem 0; color: #64748b; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Laporan Bulan Ini</p>
+                        <p style="margin: 0; font-size: 2rem; font-weight: 700; color: #1e293b;" id="monthlyReports">0</p>
+                    </div>
+                    <div style="border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem;">
+                        <p style="margin: 0 0 0.5rem 0; color: #64748b; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Tingkat Penyelesaian</p>
+                        <p style="margin: 0; font-size: 2rem; font-weight: 700; color: #1e293b;" id="completionRate">0%</p>
+                    </div>
+                    <div style="border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem;">
+                        <p style="margin: 0 0 0.5rem 0; color: #64748b; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">User Baru (Bulan Ini)</p>
+                        <p style="margin: 0; font-size: 2rem; font-weight: 700; color: #1e293b;" id="newUsers">0</p>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 1.5rem;">
+                    <!-- Status Distribution Chart -->
+                    <div style="border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem; background: white;">
+                        <h3 style="margin: 0 0 1.5rem 0; font-size: 1.125rem; font-weight: 600; color: #1e293b;">Status Laporan</h3>
+                        <canvas id="statusChart" style="max-height: 300px;"></canvas>
+                    </div>
+
+                    <!-- Monthly Reports Chart -->
+                    <div style="border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem; background: white;">
+                        <h3 style="margin: 0 0 1.5rem 0; font-size: 1.125rem; font-weight: 600; color: #1e293b;">Laporan per Bulan (6 Bulan Terakhir)</h3>
+                        <canvas id="reportsChart" style="max-height: 300px;"></canvas>
+                    </div>
+                </div>
+
+                <!-- User Distribution Chart -->
+                <div style="margin-top: 1.5rem; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem; background: white;">
+                    <h3 style="margin: 0 0 1.5rem 0; font-size: 1.125rem; font-weight: 600; color: #1e293b;">Distribusi User Berdasarkan Level</h3>
+                    <canvas id="usersChart" style="max-height: 300px;"></canvas>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- User Detail Modal -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="userModalTitle">Edit User</h2>
+                <button class="modal-close-btn" onclick="closeUserModal()">×</button>
+            </div>
+            <form id="userForm" class="modal-body">
+                <input type="hidden" id="editUserId">
+                
+                <div class="form-group">
+                    <label for="editUsername">Username</label>
+                    <input type="text" id="editUsername" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label for="editEmail">Email</label>
+                    <input type="email" id="editEmail">
+                </div>
+
+                <div class="form-group">
+                    <label for="editLevel">Level Akses</label>
+                    <select id="editLevel">
+                        <option value="warga">Warga</option>
+                        <option value="anggota">Anggota</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="editStatus">Status</label>
+                    <select id="editStatus">
+                        <option value="1">Aktif</option>
+                        <option value="0">Tidak Aktif</option>
+                    </select>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeUserModal()">Batal</button>
+                <button class="btn btn-primary" onclick="saveUserChanges()">Simpan Perubahan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div id="addUserModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tambah User Baru</h2>
+                <button class="modal-close-btn" onclick="closeAddUserModal()">×</button>
+            </div>
+            <form id="newUserForm" class="modal-body">
+                <div class="form-group">
+                    <label for="newUsername">Username</label>
+                    <input type="text" id="newUsername" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="newEmail">Email</label>
+                    <input type="email" id="newEmail" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="newPassword">Password</label>
+                    <input type="password" id="newPassword" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="newLevel">Level Akses</label>
+                    <select id="newLevel" required>
+                        <option value="">-- Pilih Level --</option>
+                        <option value="warga">Warga</option>
+                        <option value="anggota">Anggota</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeAddUserModal()">Batal</button>
+                <button class="btn btn-primary" onclick="createNewUser()">Simpan User</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    
+    <script src="../js/navbar.js"></script>
+    <script>
+        let currentUser = null;
+        let reportsChart = null;
+        let statusChart = null;
+        let usersChart = null;
+        let allUsers = [];
+        let refreshInterval;
+
+        // Check authentication
+        window.addEventListener('load', async () => {
+            try {
+                const response = await fetch('../backend/auth.php?action=check');
+                const result = await response.json();
+                
+                if (result.success && result.user.level === 'superadmin') {
+                    currentUser = result.user;
+                    document.getElementById('adminName').textContent = currentUser.username;
+                    document.getElementById('adminLevel').textContent = currentUser.level.toUpperCase();
+                    loadDashboardData();
+                    setupRealtimeUpdates();
+                } else {
+                    window.location.href = 'login.html';
+                }
+            } catch (err) {
+                console.error('Auth failed:', err);
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Setup real-time updates every 5 seconds
+        function setupRealtimeUpdates() {
+            refreshInterval = setInterval(() => {
+                loadDashboardData();
+            }, 5000);
+        }
+
+        // Load dashboard data
+        async function loadDashboardData() {
+            try {
+                const response = await fetch('../backend/get_all_reports.php?limit=1000');
+                const result = await response.json();
+                
+                if (result.success) {
+                    document.getElementById('totalReports').textContent = result.data.length;
+                    
+                    const monthlyCount = result.data.filter(r => {
+                        const date = new Date(r.created_at);
+                        const now = new Date();
+                        return date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear();
+                    }).length;
+                    document.getElementById('monthlyReports').textContent = monthlyCount;
+                    
+                    // Load activities and charts
+                    loadActivities(result.data);
+                    updateAnalyticsCharts(result.data);
+                }
+                
+                await loadUserData();
+            } catch (err) {
+                console.error('Error loading data:', err);
+            }
+        }
+
+        // Update analytics charts
+        function updateAnalyticsCharts(reports) {
+            // Status Distribution Chart
+            const statusCount = {};
+            reports.forEach(r => {
+                const status = r.nama_status || 'Menunggu';
+                statusCount[status] = (statusCount[status] || 0) + 1;
+            });
+
+            updateStatusChart(statusCount);
+
+            // Monthly Reports Chart
+            const monthlyCount = getMonthlyData(reports);
+            updateReportsChart(monthlyCount);
+
+            // Calculate completion rate
+            const completed = reports.filter(r => (r.nama_status || '').toLowerCase().includes('selesai')).length;
+            const completionRate = reports.length > 0 ? Math.round((completed / reports.length) * 100) : 0;
+            document.getElementById('completionRate').textContent = completionRate + '%';
+        }
+
+        // Get data for last 6 months
+        function getMonthlyData(reports) {
+            const monthlyData = {};
+            const now = new Date();
+            
+            // Initialize last 6 months
+            for (let i = 5; i >= 0; i--) {
+                const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                const key = date.toLocaleString('id-ID', { month: 'short', year: 'numeric' });
+                monthlyData[key] = 0;
+            }
+
+            // Count reports by month
+            reports.forEach(r => {
+                const date = new Date(r.created_at);
+                const key = date.toLocaleString('id-ID', { month: 'short', year: 'numeric' });
+                if (monthlyData.hasOwnProperty(key)) {
+                    monthlyData[key]++;
+                }
+            });
+
+            return monthlyData;
+        }
+
+        // Update status chart
+        function updateStatusChart(statusCount) {
+            const ctx = document.getElementById('statusChart');
+            if (!ctx) return;
+
+            const labels = Object.keys(statusCount);
+            const data = Object.values(statusCount);
+            const colors = ['#16a34a', '#2563eb', '#ea580c', '#dc2626', '#9333ea'];
+
+            if (statusChart) {
+                statusChart.data.labels = labels;
+                statusChart.data.datasets[0].data = data;
+                statusChart.data.datasets[0].backgroundColor = colors.slice(0, labels.length);
+                statusChart.update();
+            } else {
+                statusChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: data,
+                            backgroundColor: colors.slice(0, labels.length),
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: { size: 12 },
+                                    padding: 15,
+                                    usePointStyle: true
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Update reports chart
+        function updateReportsChart(monthlyData) {
+            const ctx = document.getElementById('reportsChart');
+            if (!ctx) return;
+
+            const labels = Object.keys(monthlyData);
+            const data = Object.values(monthlyData);
+
+            if (reportsChart) {
+                reportsChart.data.labels = labels;
+                reportsChart.data.datasets[0].data = data;
+                reportsChart.update();
+            } else {
+                reportsChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Jumlah Laporan',
+                            data: data,
+                            borderColor: '#2563eb',
+                            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#2563eb',
+                            pointBorderColor: '#ffffff',
+                            pointBorderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                labels: {
+                                    font: { size: 12 },
+                                    padding: 15,
+                                    usePointStyle: true
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: { stepSize: 1 },
+                                grid: { color: '#f0f0f0' }
+                            },
+                            x: {
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Update users distribution chart
+        function updateUsersChart(users) {
+            const ctx = document.getElementById('usersChart');
+            if (!ctx) return;
+
+            const levelCount = {};
+            users.forEach(u => {
+                levelCount[u.level.toUpperCase()] = (levelCount[u.level.toUpperCase()] || 0) + 1;
+            });
+
+            const labels = Object.keys(levelCount);
+            const data = Object.values(levelCount);
+            const colors = ['#2563eb', '#16a34a', '#ea580c'];
+
+            if (usersChart) {
+                usersChart.data.labels = labels;
+                usersChart.data.datasets[0].data = data;
+                usersChart.data.datasets[0].backgroundColor = colors.slice(0, labels.length);
+                usersChart.update();
+            } else {
+                usersChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Jumlah User',
+                            data: data,
+                            backgroundColor: colors.slice(0, labels.length),
+                            borderRadius: 4,
+                            borderSkipped: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: {
+                                display: true,
+                                labels: {
+                                    font: { size: 12 },
+                                    padding: 15,
+                                    usePointStyle: true
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: { stepSize: 1 },
+                                grid: { color: '#f0f0f0' }
+                            },
+                            y: {
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Load activities for dashboard
+        // Get badge class based on status
+        function getStatusBadgeClass(status) {
+            const statusMap = {
+                'selesai': 'badge-success',
+                'diproses': 'badge-info',
+                'menunggu': 'badge-warning',
+                'ditolak': 'badge-danger',
+                'pending': 'badge-warning',
+                'approved': 'badge-success',
+                'rejected': 'badge-danger',
+                'in progress': 'badge-info'
+            };
+            
+            const normalized = (status || '').toLowerCase().trim();
+            return statusMap[normalized] || 'badge-warning';
+        }
+
+        function loadActivities(reports) {
+            const tbody = document.getElementById('activityTableBody');
+            if (!tbody) return;
+
+            if (reports.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><p class="empty-state-text">Tidak ada aktivitas terbaru</p></div></td></tr>';
+                return;
+            }
+
+            // Sort by date and get latest 10
+            const activities = reports
+                .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                .slice(0, 10)
+                .map(r => {
+                    const date = new Date(r.created_at);
+                    const timeStr = date.toLocaleString('id-ID');
+                    const status = r.nama_status || 'Menunggu';
+                    const badgeClass = getStatusBadgeClass(status);
+                    
+                    return `
+                        <tr>
+                            <td>${timeStr}</td>
+                            <td>${r.username}</td>
+                            <td>${r.judul}</td>
+                            <td><span class="badge ${badgeClass}">${status}</span></td>
+                            <td><span class="badge badge-info">Laporan</span></td>
+                        </tr>
+                    `;
+                });
+
+            tbody.innerHTML = activities.join('');
+        }
+
+        // Load user data
+        async function loadUserData(search = '', level = '') {
+            try {
+                const response = await fetch('../backend/get_users.php');
+                const result = await response.json();
+                
+                if (result.success) {
+                    allUsers = result.data;
+                    document.getElementById('totalUsers').textContent = allUsers.length;
+                    document.getElementById('activeUsers').textContent = allUsers.filter(u => u.status === 1).length;
+                    
+                    // Count new users this month
+                    const newUsersThisMonth = allUsers.filter(u => {
+                        const date = new Date(u.created_at || new Date());
+                        const now = new Date();
+                        return date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear();
+                    }).length;
+                    document.getElementById('newUsers').textContent = newUsersThisMonth;
+                    
+                    renderUserTable(search, level);
+                    updateUsersChart(allUsers);
+                }
+            } catch (err) {
+                console.error('Error loading users:', err);
+            }
+        }
+
+        // Render user table with filters
+        function renderUserTable(search = '', level = '') {
+            const tbody = document.getElementById('userTableBody');
+            
+            let filtered = allUsers;
+            
+            if (search) {
+                filtered = filtered.filter(u => 
+                    u.username.toLowerCase().includes(search.toLowerCase()) ||
+                    u.email.toLowerCase().includes(search.toLowerCase())
+                );
+            }
+            
+            if (level) {
+                filtered = filtered.filter(u => u.level === level);
+            }
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><p class="empty-state-text">Tidak ada data user</p></div></td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(u => `
+                <tr>
+                    <td>#${u.id}</td>
+                    <td>${u.username}</td>
+                    <td>${u.email}</td>
+                    <td><span class="badge badge-info">${u.level.toUpperCase()}</span></td>
+                    <td><span class="badge ${u.status === 1 ? 'badge-success' : 'badge-danger'}">${u.status === 1 ? 'Aktif' : 'Dilarang'}</span></td>
+                    <td>
+                        <button class="btn btn-primary" onclick="editUser(${u.id})" style="font-size: 0.75rem;">Edit</button>
+                        <button class="btn ${u.status === 1 ? 'btn-warning' : 'btn-success'}" onclick="toggleBanUser(${u.id})" style="font-size: 0.75rem;">${u.status === 1 ? 'Ban' : 'Unban'}</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Add user button - with null check
+        const addUserBtn = document.getElementById('addUserBtn');
+        if (addUserBtn) {
+            addUserBtn.addEventListener('click', () => {
+                document.getElementById('addUserModal').classList.add('active');
+            });
+        }
+
+        // User search and filter - with null checks
+        const userSearch = document.getElementById('userSearch');
+        const userLevelFilter = document.getElementById('userLevelFilter');
+
+        if (userSearch) {
+            userSearch.addEventListener('input', (e) => {
+                const level = userLevelFilter ? userLevelFilter.value : '';
+                renderUserTable(e.target.value, level);
+            });
+        }
+
+        if (userLevelFilter) {
+            userLevelFilter.addEventListener('change', (e) => {
+                const search = userSearch ? userSearch.value : '';
+                renderUserTable(search, e.target.value);
+            });
+        }
+
+        // Tab buttons - with null check
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        if (tabBtns.length > 0) {
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const tabName = btn.dataset.tab;
+                    
+                    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    
+                    const tabContent = document.getElementById(tabName);
+                    if (tabContent) {
+                        tabContent.classList.add('active');
+                        btn.classList.add('active');
+                        
+                        // Load specific tab data
+                        if (tabName === 'users') {
+                            await loadUserData();
+                        } else if (tabName === 'dashboard') {
+                            await loadDashboardData();
+                        }
+                    }
+                });
+            });
+        }
+
+        // User management
+        function editUser(userId) {
+            const user = allUsers.find(u => u.id === userId);
+            if (user) {
+                document.getElementById('editUserId').value = userId;
+                document.getElementById('editUsername').value = user.username;
+                document.getElementById('editEmail').value = user.email;
+                document.getElementById('editLevel').value = user.level;
+                document.getElementById('editStatus').value = user.status;
+                document.getElementById('userModal').classList.add('active');
+            }
+        }
+
+        function closeUserModal() {
+            document.getElementById('userModal').classList.remove('active');
+        }
+
+        function closeAddUserModal() {
+            document.getElementById('addUserModal').classList.remove('active');
+            document.getElementById('newUserForm').reset();
+        }
+
+        function saveUserChanges() {
+            const userId = document.getElementById('editUserId').value;
+            const email = document.getElementById('editEmail').value;
+            const level = document.getElementById('editLevel').value;
+            const status = document.getElementById('editStatus').value;
+
+            if (!email) {
+                alert('Email tidak boleh kosong');
+                return;
+            }
+
+            // Update via API
+            const fd = new FormData();
+            fd.append('action', 'update');
+            fd.append('id', userId);
+            fd.append('email', email);
+            fd.append('level', level);
+            fd.append('status', status);
+
+            fetch('../backend/auth.php', {
+                method: 'POST',
+                body: fd
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    alert('User berhasil diperbarui');
+                    closeUserModal();
+                    loadUserData();
+                } else {
+                    alert('Error: ' + (result.message || 'Gagal memperbarui user'));
+                }
+            })
+            .catch(err => {
+                console.error('Error:', err);
+                alert('Gagal memperbarui user');
+            });
+        }
+
+        function createNewUser() {
+            const username = document.getElementById('newUsername').value;
+            const email = document.getElementById('newEmail').value;
+            const password = document.getElementById('newPassword').value;
+            const level = document.getElementById('newLevel').value;
+
+            if (!username || !email || !password || !level) {
+                alert('Semua field harus diisi');
+                return;
+            }
+
+            const fd = new FormData();
+            fd.append('action', 'register');
+            fd.append('username', username);
+            fd.append('email', email);
+            fd.append('password', password);
+            fd.append('level', level);
+
+            fetch('../backend/auth.php', {
+                method: 'POST',
+                body: fd
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    alert('User baru berhasil ditambahkan');
+                    closeAddUserModal();
+                    loadUserData();
+                } else {
+                    alert('Error: ' + (result.message || 'Gagal menambahkan user'));
+                }
+            })
+            .catch(err => {
+                console.error('Error:', err);
+                alert('Gagal menambahkan user');
+            });
+        }
+
+        function toggleBanUser(userId) {
+            const user = allUsers.find(u => u.id === userId);
+            if (!user) return;
+
+            const newStatus = user.status === 1 ? 0 : 1;
+            const action = newStatus === 0 ? 'Ban' : 'Unban';
+            const message = newStatus === 0 ? 'Yakin ingin mem-ban user ini?' : 'Yakin ingin mem-unban user ini?';
+
+            if (confirm(message)) {
+                const fd = new FormData();
+                fd.append('action', 'ban');
+                fd.append('id', userId);
+                fd.append('status', newStatus);
+
+                fetch('../backend/auth.php', {
+                    method: 'POST',
+                    body: fd
+                })
+                .then(res => res.json())
+                .then(result => {
+                    if (result.success) {
+                        alert(action + ' user berhasil');
+                        loadUserData();
+                    } else {
+                        alert('Error: ' + (result.message || 'Gagal ' + action.toLowerCase() + ' user'));
+                    }
+                })
+                .catch(err => {
+                    console.error('Error:', err);
+                    alert('Gagal ' + action.toLowerCase() + ' user');
+                });
+            }
+        }
+
+        document.getElementById('addUserBtn').addEventListener('click', () => {
+            document.getElementById('addUserModal').classList.add('active');
+        });
+
+        // Config form - with null check
+        const configForm = document.getElementById('configForm');
+        if (configForm) {
+            configForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const appName = document.getElementById('appName').value;
+                const appEmail = document.getElementById('appEmail').value;
+                const appPhone = document.getElementById('appPhone').value;
+                const maintenanceMode = document.getElementById('maintenanceMode').value;
+                const maxUploadSize = document.getElementById('maxUploadSize').value;
+                const reportRetention = document.getElementById('reportRetention').value;
+                const apiTimeout = document.getElementById('apiTimeout').value;
+
+                // Store in localStorage or send to backend
+                localStorage.setItem('appConfig', JSON.stringify({
+                    appName,
+                    appEmail,
+                    appPhone,
+                    maintenanceMode,
+                    maxUploadSize,
+                    reportRetention,
+                    apiTimeout,
+                    timestamp: new Date().toISOString()
+                }));
+
+                alert('Konfigurasi sistem berhasil disimpan');
+            });
+        }
+
+        // Export buttons - with null checks
+        const exportPdfBtn = document.getElementById('exportPdfBtn');
+        const exportExcelBtn = document.getElementById('exportExcelBtn');
+
+        if (exportPdfBtn) {
+            exportPdfBtn.addEventListener('click', async () => {
+                try {
+                    const response = await fetch('../backend/get_all_reports.php?limit=1000');
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        alert('Laporan PDF sedang diproses...\nTotal laporan: ' + result.data.length);
+                        // Implementasi export PDF dapat ditambahkan di sini
+                    }
+                } catch (err) {
+                    alert('Gagal mengexport laporan');
+                }
+            });
+        }
+
+        if (exportExcelBtn) {
+            exportExcelBtn.addEventListener('click', async () => {
+                try {
+                    const response = await fetch('../backend/get_all_reports.php?limit=1000');
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        alert('Laporan Excel sedang diproses...\nTotal laporan: ' + result.data.length);
+                        // Implementasi export Excel dapat ditambahkan di sini
+                    }
+                } catch (err) {
+                    alert('Gagal mengexport laporan');
+                }
+            });
+        }
+
+        // Logout button - with null check
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                
+                if (!confirm('Yakin ingin keluar dari aplikasi?')) {
+                    return;
+                }
+
+                // Show loading state
+                const originalContent = logoutBtn.innerHTML;
+                logoutBtn.disabled = true;
+                logoutBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg> Keluar...';
+
+                try {
+                    // Clear intervals
+                    if (refreshInterval) clearInterval(refreshInterval);
+
+                    // Clear local storage immediately
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    
+                    // Delete all cookies
+                    document.cookie.split(";").forEach((c) => {
+                        document.cookie = c
+                            .replace(/^ +/, "")
+                            .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+                    });
+
+                    console.log('Logging out user...');
+
+                    // Call logout endpoint with timeout
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+                    try {
+                        const response = await fetch('../backend/auth.php?action=logout', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            signal: controller.signal
+                        });
+
+                        clearTimeout(timeoutId);
+                        console.log('Logout response:', response.status);
+
+                        // Proceed with redirect regardless of response
+                        performRedirect();
+                    } catch (fetchErr) {
+                        clearTimeout(timeoutId);
+                        console.log('Logout fetch error (continuing anyway):', fetchErr.message);
+                        // Continue with redirect even if fetch fails
+                        performRedirect();
+                    }
+                } catch (err) {
+                    console.error('Logout error:', err);
+                    // Still try to redirect
+                    performRedirect();
+                }
+
+                function performRedirect() {
+                    // Multiple redirect methods to ensure it works
+                    console.log('Performing redirect to login...');
+                    
+                    setTimeout(() => {
+                        // Method 1: window.location.href
+                        window.location.href = 'login.html';
+                    }, 300);
+
+                    // Method 2: Backup redirect
+                    setTimeout(() => {
+                        window.location = 'login.html';
+                    }, 1000);
+
+                    // Method 3: window.location.replace
+                    setTimeout(() => {
+                        window.location.replace('login.html');
+                    }, 1500);
+                }
+            });
+        }
+
+        // Add spin animation for loading state
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (refreshInterval) clearInterval(refreshInterval);
+        });
+    </script>
+</body>
+</html>
