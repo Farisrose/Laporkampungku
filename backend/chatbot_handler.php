@@ -81,39 +81,38 @@ function getBotResponse($message, $conn) {
     // Knowledge base responses
     $responses = [
         // Cara membuat laporan
-        ['keywords' => ['bagaimana', 'cara', 'membuat', 'laporan', 'laporkan', 'membuat laporan', 'gimana'],
+        ['keywords' => ['bagaimana', 'membuat', 'laporan', 'laporkan', 'membuat laporan', 'gimana'],
          'response' => 'Cara membuat laporan infrastruktur sangat mudah:
 
-1. **Klik "Laporkan Sekarang"** di halaman utama
-2. **Ambil Foto** - Dokumentasikan masalah dengan kamera smartphone
-3. **Tandai Lokasi** - GPS otomatis mendeteksi lokasi atau pilih manual di peta
-4. **Isi Detail** - Jelaskan masalah dengan deskripsi singkat
-5. **Pilih Kategori** - Pilih jenis masalah infrastruktur
-6. **Kirim** - Laporan dikirim dan Anda dapat pelacakan real-time
-
+1. Klik "Laporkan Sekarang" di halaman utama
+2. Ambil Foto - Dokumentasikan masalah dengan kamera smartphone
+3. Tandai Lokasi - GPS otomatis mendeteksi lokasi atau pilih manual di peta
+4. Isi Detail - Jelaskan masalah dengan deskripsi singkat
+5. Pilih Kategori - Pilih jenis masalah infrastruktur
+6. Kirim - Laporan dikirim dan Anda dapat pelacakan real-time
 Tips: Foto yang jelas dan lokasi akurat akan mempercepat penanganan! 📸'],
 
         // Kategori laporan
         ['keywords' => ['kategori', 'laporan', 'jenis', 'macam', 'apa saja', 'kategori laporan', 'laporan apa'],
          'response' => 'Kami menerima laporan untuk berbagai kategori infrastruktur:
 
-📌 **Jalan & Trotoar**
+📌 Jalan & Trotoar
 - Jalan berlubang/rusak
 - Trotoar rusak/tidak rata
 
-🌊 **Saluran Air**
+🌊 Saluran Air
 - Saluran tersumbat
 - Banjir berulang
 
-💡 **Penerangan Jalan**
+💡 Penerangan Jalan
 - Lampu mati
 - Tiang rusak
 
-🏘️ **Ruang Publik**
+🏘️ Ruang Publik
 - Taman terlantar
 - Lapangan tidak terawat
 
-🚰 **Air Bersih**
+🚰 Air Bersih
 - Pipa bocor
 - Tekanan air rendah
 
@@ -123,61 +122,61 @@ Bisa juga laporan lain terkait infrastruktur komunitas. Laporan Anda sangat berh
         ['keywords' => ['berapa', 'lama', 'proses', 'penyelesaian', 'timeline', 'kapan', 'selesai', 'waktu', 'jam', 'hari'],
          'response' => 'Waktu penyelesaian laporan tergantung dari kategori dan tingkat prioritas:
 
-⚡ **URGENT (1-2 hari)**
+⚡ URGENT (1-2 hari)
 - Jalan berlubang besar
 - Banjir akut
 
-🔴 **TINGGI (3-5 hari)**
+🔴 TINGGI (3-5 hari)
 - Lampu mati
 - Saluran tersumbat
 
-🟡 **SEDANG (5-10 hari)**
+🟡 SEDANG (5-10 hari)
 - Perbaikan minor
 - Pemeliharaan rutin
 
-🟢 **RENDAH (10+ hari)**
+🟢 RENDAH (10+ hari)
 - Laporan non-emergency
 - Perencanaan panjang
 
-Rata-rata waktu respons kami adalah **2.5 hari**. Anda dapat melacak progress kapan saja melalui nomor tracking laporan. Transparansi adalah prioritas kami! 📊'],
+Rata-rata waktu respons kami adalah 2.5 hari. Anda dapat melacak progress kapan saja melalui nomor tracking laporan. Transparansi adalah prioritas kami! 📊'],
 
         // Pelacakan laporan
-        ['keywords' => ['lacak', 'tracking', 'status', 'laporan', 'nomor', 'progress', 'pelacakan', 'sudah', 'mana'],
+        ['keywords' => ['lacak', 'tracking', 'status', 'laporan', 'nomor', 'progress', 'pelacakan', 'sudah', 'mana', 'melacak', 'bagaimana cara melacak'],
          'response' => 'Cara melacak laporan Anda:
 
-1️⃣ **Login Akun Anda**
+1️⃣ Login Akun Anda
    - Masuk ke portal LaporKampungku
 
-2️⃣ **Buka Dashboard**
+2️⃣ Buka Dashboard
    - Klik "Dashboard Saya" atau akses dari menu utama
 
-3️⃣ **Lihat Status Laporan**
+3️⃣ Lihat Status Laporan
    - Semua laporan Anda ditampilkan dengan status terkini
    - Warna berbeda menunjukkan tahap penyelesaian
 
-4️⃣ **Cek Detail**
+4️⃣ Cek Detail
    - Klik laporan untuk melihat:
      • Update terbaru dari pihak berwenang
      • Foto dokumentasi perbaikan
      • Estimasi waktu selesai
 
-💡 **Tips:** Subscribe notifikasi untuk update instant!'],
+💡 Tips: Subscribe notifikasi untuk update instant!'],
 
         // Tentang LaporKampungku
         ['keywords' => ['apa', 'tentang', 'laporkampungku', 'siapa', 'latar belakang', 'tujuan'],
-         'response' => 'Selamat datang di **LaporKampungku**! 🏘️
+         'response' => 'Selamat datang di LaporKampungku! 🏘️
 
 Kami adalah platform pelaporan infrastruktur berbasis komunitas yang mendukung:
-- **SDG Goal 11**: Kota dan Komunitas yang Berkelanjutan
-- **Gotong Royong Digital**: Kolaborasi masyarakat untuk perubahan nyata
+- SDG Goal 11: Kota dan Komunitas yang Berkelanjutan
+- Gotong Royong Digital: Kolaborasi masyarakat untuk perubahan nyata
 
-📊 **Statistik Kami:**
+📊 Statistik Kami:
 - Ribuan laporan diterima
 - 87% tingkat penyelesaian
 - Waktu respons rata-rata 2.5 hari
 - Dipercaya oleh berbagai pemerintah daerah
 
-💪 **Visi Kami:** 
+💪 Visi Kami: 
 Membangun komunitas yang lebih baik melalui partisipasi warga dalam pelaporan dan penyelesaian masalah infrastruktur.
 
 Mari bersama-sama wujudkan perubahan! 🚀'],
@@ -186,22 +185,22 @@ Mari bersama-sama wujudkan perubahan! 🚀'],
         ['keywords' => ['hubungi', 'kontak', 'support', 'bantuan', 'help', 'call center', 'help desk', 'customer service'],
          'response' => 'Hubungi kami untuk bantuan lebih lanjut:
 
-📞 **Customer Service**
-- Telepon: 1500-LKK (1500-5556)
+📞 Customer Service
+- Telepon: +62 887-4373-52670
 - Jam: Senin-Jumat, 09:00-17:00 WIB
 
-📧 **Email**
+📧 Email
 - support@laporkampungku.id
 - Respon dalam 24 jam
 
-💬 **Live Chat**
+💬 Live Chat
 - Tersedia di website (akan datang)
 
-🏢 **Kantor Pusat**
+🏢 Kantor Pusat
 - Gedung Digitalisasi Indonesia
 - Jakarta Pusat, DKI Jakarta
 
-📱 **Media Sosial**
+📱 Media Sosial
 - Instagram: @laporkampungku
 - Facebook: LaporKampungku
 - Twitter: @laporkampungku
@@ -212,17 +211,17 @@ Kami siap membantu Anda! 🤝'],
         ['keywords' => ['keamanan', 'data', 'pribadi', 'privasi', 'aman', 'enkripsi', 'digunakan'],
          'response' => 'Keamanan data Anda adalah prioritas utama kami! 🔒
 
-✅ **Perlindungan Data:**
+✅ Perlindungan Data:
 - Enkripsi end-to-end untuk semua komunikasi
 - Database terenkripsi dengan standar internasional
 - Tidak ada pembagian data pribadi tanpa persetujuan
 
-📋 **Kebijakan Privasi:**
+📋 Kebijakan Privasi:
 - Data Anda hanya digunakan untuk penanganan laporan
 - Tidak ada penjualan data ke pihak ketiga
 - Compliance dengan peraturan GDPR dan PLDP
 
-🛡️ **Verifikasi:**
+🛡️ Verifikasi:
 - Login aman dengan 2FA (Two-Factor Authentication)
 - Session management yang ketat
 - Regular security audit
@@ -233,7 +232,7 @@ Kami siap membantu Anda! 🤝'],
         ['keywords' => ['daftar', 'buat akun', 'login', 'registrasi', 'akun', 'password', 'email'],
          'response' => 'Cara membuat akun dan login:
 
-📝 **Registrasi (Daftar Akun):**
+📝 Registrasi (Daftar Akun):
 1. Klik tombol "Daftar" di halaman utama
 2. Isi form dengan data lengkap:
    - Nama lengkap
@@ -243,13 +242,13 @@ Kami siap membantu Anda! 🤝'],
 3. Verifikasi email Anda
 4. Akun siap digunakan!
 
-🔑 **Login:**
+🔑 Login:
 1. Klik "Masuk" di halaman utama
 2. Masukkan email dan password
 3. (Opsional) Centang "Ingat saya"
 4. Selamat datang di portal Anda!
 
-💡 **Tips Keamanan:**
+💡 Tips Keamanan:
 - Gunakan password yang kuat (minimal 8 karakter)
 - Tidak pernah bagikan password kepada siapa pun
 - Logout dari perangkat publik
@@ -261,32 +260,32 @@ Butuh bantuan? Chat dengan kami! 💬'],
         ['keywords' => ['dashboard', 'profil', 'pengaturan', 'aktivitas', 'laporan saya'],
          'response' => 'Fitur Dashboard Anda:
 
-📊 **Dashboard Utama:**
+📊 Dashboard Utama:
 - Ringkasan statistik laporan Anda
 - Grafik progress penyelesaian
 - Notifikasi terbaru
 
-📝 **Laporan Saya:**
+📝 Laporan Saya:
 - Daftar semua laporan yang telah dibuat
 - Filter berdasarkan status/kategori
 - Akses detail dan dokumentasi setiap laporan
 
-👤 **Profil Saya:**
+👤 Profil Saya:
 - Edit informasi pribadi
 - Ubah foto profil
 - Kelola password
 
-🔔 **Notifikasi:**
+🔔 Notifikasi:
 - Update status laporan real-time
 - Pengumuman penting dari tim
 - Newsletter komunitas
 
-⚙️ **Pengaturan:**
+⚙️ Pengaturan:
 - Preferensi notifikasi
 - Bahasa dan zona waktu
 - Privasi akun
 
-✨ **Pencapaian:**
+✨ Pencapaian:
 - Badge dan reward untuk kontributor aktif
 - Leaderboard komunitas
 
@@ -311,9 +310,9 @@ Jelajahi dashboard Anda sekarang! 🚀'],
 
 Saat ini pertanyaan Anda belum tersedia di knowledge base kami. Namun, kami terus belajar dan berkembang. 
 
-📌 **Saran Anda sangat berharga!**
+📌 Saran Anda sangat berharga!
 Silakan hubungi customer service kami di:
-- 📞 1500-LKK (1500-5556)
+- 📞 +62 887-4373-52670
 - 📧 support@laporkampungku.id
 
 Atau silakan tanyakan tentang:
